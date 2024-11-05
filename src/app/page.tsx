@@ -130,23 +130,23 @@ const handleUnitChange = (checked: boolean) => {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="group">
-                    <Label className="text-sm text-gray-600 group-hover:text-violet-700 transition-colors">Age</Label>
+                    <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
                     <Input
-                      type="number"
-                      placeholder="Years"
-                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all"
-                      value={formData.age}
-                      onChange={(e) => setFormData({...formData, age: e.target.value})}
-                    />
+  type="number"
+  placeholder="Years"
+  className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+  value={formData.age}
+  onChange={(e) => setFormData({...formData, age: e.target.value})}
+/>
                   </div>
                   <div className="group">
-                    <Label className="text-sm text-gray-600 group-hover:text-violet-700 transition-colors">
+                    <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">
                       Weight ({formData.units === 'imperial' ? 'lbs' : 'kg'})
                     </Label>
                     <Input
                       type="number"
                       placeholder={formData.units === 'imperial' ? 'lbs' : 'kg'}
-                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all"
+                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
                       value={formData.weight}
                       onChange={(e) => setFormData({...formData, weight: e.target.value})}
                     />
@@ -154,23 +154,23 @@ const handleUnitChange = (checked: boolean) => {
                 </div>
 
                 <div>
-                  <Label className="text-sm text-gray-600">Sex</Label>
+                  <Label className="text-sm text-gray-700">Sex</Label>
                   <RadioGroup
-                    value={formData.sex}
-                    onValueChange={(value) => setFormData({...formData, sex: value})}
-                    className="flex gap-4 mt-1"
-                  >
-                    {['male', 'female'].map((sex) => (
-                      <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-100 hover:border-violet-300 transition-all">
-                        <RadioGroupItem value={sex} id={sex} className="text-violet-600" />
-                        <Label htmlFor={sex} className="text-sm capitalize">{sex}</Label>
-                      </div>
-                    ))}
-                  </RadioGroup>
+  value={formData.sex}
+  onValueChange={(value) => setFormData({...formData, sex: value})}
+  className="flex gap-4 mt-1"
+>
+  {['male', 'female'].map((sex) => (
+    <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
+      <RadioGroupItem value={sex} id={sex} className="text-violet-600 border-violet-400" />
+      <Label htmlFor={sex} className="text-sm capitalize text-gray-800">{sex}</Label>
+    </div>
+  ))}
+</RadioGroup>
                 </div>
 
                 <div className="group">
-                  <Label className="text-sm text-gray-600 group-hover:text-violet-700 transition-colors">Height</Label>
+                  <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
                   {formData.units === 'imperial' ? (
                     <div className="grid grid-cols-2 gap-4 mt-1">
                       <Input
@@ -192,8 +192,7 @@ const handleUnitChange = (checked: boolean) => {
                     <Input
                       placeholder="cm"
                       type="number"
-                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all"
-                      value={formData.heightCm}
+                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
                       onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
                     />
                   )}
@@ -202,34 +201,36 @@ const handleUnitChange = (checked: boolean) => {
 
               <div className="space-y-4">
                 <div className="group">
-                  <Label className="text-sm text-gray-600 group-hover:text-violet-700 transition-colors">Goal</Label>
+                  <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
                   <Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
-                    <SelectTrigger className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all">
-                      <SelectValue placeholder="Select your goal" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="fat-loss">Fat Loss</SelectItem>
-                      <SelectItem value="maintenance">Maintenance</SelectItem>
-                      <SelectItem value="muscle-gain">Muscle Gain</SelectItem>
-                    </SelectContent>
-                  </Select>
+  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+    <SelectValue placeholder="Select your goal" className="text-gray-800" />
+  </SelectTrigger>
+  <SelectContent className="bg-white border-violet-200 text-gray-800">
+    <SelectItem value="fat-loss" className="text-gray-800 hover:bg-violet-50">Fat Loss</SelectItem>
+    <SelectItem value="maintenance" className="text-gray-800 hover:bg-violet-50">Maintenance</SelectItem>
+    <SelectItem value="muscle-gain" className="text-gray-800 hover:bg-violet-50">Muscle Gain</SelectItem>
+  </SelectContent>
+</Select>
+
+
                 </div>
 
                 <div className="group">
-                  <Label className="text-sm text-gray-600 group-hover:text-violet-700 transition-colors">Activity Level</Label>
+                  <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Activity Level</Label>
                   <Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
-                    <SelectTrigger className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all">
-                      <SelectValue placeholder="Select activity level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="sedentary">Sedentary (little or no exercise)</SelectItem>
-                      <SelectItem value="light">Light (1-3 times/week)</SelectItem>
-                      <SelectItem value="moderate">Moderate (3-5 times/week)</SelectItem>
-                      <SelectItem value="active">Active (daily exercise)</SelectItem>
-                      <SelectItem value="very-active">Very Active (6-7 times/week)</SelectItem>
-                      <SelectItem value="athlete">Professional Athlete</SelectItem>
-                    </SelectContent>
-                  </Select>
+  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+    <SelectValue placeholder="Select activity level" className="text-gray-800" />
+  </SelectTrigger>
+  <SelectContent className="bg-white border-violet-200 text-gray-800">
+    <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
+    <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
+    <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
+    <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
+    <SelectItem value="very-active" className="text-gray-800 hover:bg-violet-50">Very Active (6-7 times/week)</SelectItem>
+    <SelectItem value="athlete" className="text-gray-800 hover:bg-violet-50">Professional Athlete</SelectItem>
+  </SelectContent>
+</Select>
                 </div>
 
                 <Button 
