@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,12 +23,13 @@ const ProteinCalculator = () => {
     activityLevel: 'sedentary',
     units: 'imperial'
   });
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<number | null>(null);
 
   const calculateProtein = () => {
-    let weightInLbs = formData.weight;
+    // Convert weight to number first
+    let weightInLbs = Number(formData.weight);
     if (formData.units === 'metric') {
-      weightInLbs = formData.weight * 2.20462;
+      weightInLbs = weightInLbs * 2.20462;
     }
 
     let multiplier = 0;
@@ -48,32 +51,32 @@ const ProteinCalculator = () => {
 
     const proteinGrams = Math.round(weightInLbs * multiplier);
     setResult(proteinGrams);
-  };
+};
 
-  const handleUnitChange = (checked) => {
-    const newValue = checked ? 'metric' : 'imperial';
-    const newFormData = { ...formData, units: newValue };
-    
-    if (newValue === 'metric' && formData.weight) {
-      newFormData.weight = Math.round(formData.weight * 0.453592 * 100) / 100;
-      if (formData.heightFeet && formData.heightInches) {
-        const totalInches = (parseInt(formData.heightFeet) * 12) + parseInt(formData.heightInches);
-        newFormData.heightCm = Math.round(totalInches * 2.54);
-        newFormData.heightFeet = '';
-        newFormData.heightInches = '';
-      }
-    } else if (newValue === 'imperial' && formData.weight) {
-      newFormData.weight = Math.round(formData.weight * 2.20462 * 100) / 100;
-      if (formData.heightCm) {
-        const totalInches = formData.heightCm / 2.54;
-        newFormData.heightFeet = Math.floor(totalInches / 12).toString();
-        newFormData.heightInches = Math.round(totalInches % 12).toString();
-        newFormData.heightCm = '';
-      }
+const handleUnitChange = (checked: boolean) => {
+  const newValue = checked ? 'metric' : 'imperial';
+  const newFormData = { ...formData, units: newValue };
+  
+  if (newValue === 'metric' && formData.weight) {
+    newFormData.weight = (Number(formData.weight) * 0.453592).toFixed(2);
+    if (formData.heightFeet && formData.heightInches) {
+      const totalInches = (parseInt(formData.heightFeet) * 12) + parseInt(formData.heightInches);
+      newFormData.heightCm = Math.round(totalInches * 2.54).toString();
+      newFormData.heightFeet = '';
+      newFormData.heightInches = '';
     }
-    
-    setFormData(newFormData);
-  };
+  } else if (newValue === 'imperial' && formData.weight) {
+    newFormData.weight = (Number(formData.weight) * 2.20462).toFixed(2);
+    if (formData.heightCm) {
+      const totalInches = Number(formData.heightCm) / 2.54;
+      newFormData.heightFeet = Math.floor(totalInches / 12).toString();
+      newFormData.heightInches = Math.round(totalInches % 12).toString();
+      newFormData.heightCm = '';
+    }
+  }
+  
+  setFormData(newFormData);
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-indigo-50 to-purple-50 p-4 md:p-6">
@@ -262,6 +265,9 @@ const ProteinCalculator = () => {
                 </div>
               </div>
             )}
+            <div className="mt-8">
+              <AdUnit />
+            </div>
           </CardContent>
         </Card>
       </div>
