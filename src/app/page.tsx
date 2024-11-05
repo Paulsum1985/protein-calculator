@@ -172,30 +172,31 @@ const handleUnitChange = (checked: boolean) => {
                 <div className="group">
                   <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
                   {formData.units === 'imperial' ? (
-                    <div className="grid grid-cols-2 gap-4 mt-1">
-                      <Input
-                        placeholder="Feet"
-                        type="number"
-                        className="bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all"
-                        value={formData.heightFeet}
-                        onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
-                      />
-                      <Input
-                        placeholder="Inches"
-                        type="number"
-                        className="bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all"
-                        value={formData.heightInches}
-                        onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
-                      />
-                    </div>
-                  ) : (
-                    <Input
-                      placeholder="cm"
-                      type="number"
-                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-                      onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
-                    />
-                  )}
+  <div className="grid grid-cols-2 gap-4 mt-1">
+    <Input
+      placeholder="Feet"
+      type="number"
+      className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+      value={formData.heightFeet}
+      onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
+    />
+    <Input
+      placeholder="Inches"
+      type="number"
+      className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+      value={formData.heightInches}
+      onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
+    />
+  </div>
+) : (
+  <Input
+    placeholder="cm"
+    type="number"
+    className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+    value={formData.heightCm}
+    onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
+  />
+)}
                 </div>
               </div>
 
