@@ -310,19 +310,19 @@ return (
           <CardContent className="p-4 md:p-6">
             {/* New compact unit selector */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2 px-3 py-2 bg-violet-50 rounded-lg">
-                <span className="text-xs font-medium text-gray-600">Units:</span>
-                <div className="flex items-center gap-1 text-xs">
-                  <span className={`${formData.units === 'imperial' ? 'text-violet-700' : 'text-gray-500'}`}>lb/ft</span>
-                  <Switch
-                    checked={formData.units === 'metric'}
-                    onCheckedChange={handleUnitChange}
-                    className="scale-75 data-[state=checked]:bg-violet-600"
-                  />
-                  <span className={`${formData.units === 'metric' ? 'text-violet-700' : 'text-gray-500'}`}>kg/cm</span>
-                </div>
-              </div>
-            </div>
+  <div className="inline-flex items-center gap-2 px-3 py-2 bg-violet-50 rounded-lg">
+    <span className="text-xs font-medium text-gray-600">Units:</span>
+    <div className="flex items-center gap-1 text-xs">
+      <span className={`${formData.units === 'imperial' ? 'text-violet-700' : 'text-gray-500'}`}>lb/ft</span>
+      <Switch
+        checked={formData.units === 'metric'}
+        onCheckedChange={handleUnitChange}
+        className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200"
+      />
+      <span className={`${formData.units === 'metric' ? 'text-violet-700' : 'text-gray-500'}`}>kg/cm</span>
+    </div>
+  </div>
+</div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   {/* Left Column */}
