@@ -165,7 +165,7 @@ return (
           ))}
         </div>
 
-        <div className="flex items-center justify-center gap-2 mt-6 mb-4">  {/* Changed my-6 to mt-6 mb-4 */}
+        <div className="flex items-center justify-center gap-2 mt-6 mb-3">  {/* Changed my-6 to mt-6 mb-4 */}
   <span className="text-sm text-gray-600">Color Theme:</span>
   <div className="flex gap-2">
     <button
