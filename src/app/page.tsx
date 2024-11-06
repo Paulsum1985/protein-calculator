@@ -79,8 +79,23 @@ const ProteinCalculator = () => {
     units: 'imperial'
   });
   const [result, setResult] = useState<number | null>(null);
-
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
+
+  // Add this new reset function
+  const resetForm = () => {
+    setFormData({
+      age: '',
+      sex: 'male',
+      heightFeet: '',
+      heightInches: '',
+      heightCm: '',
+      weight: '',
+      goal: 'maintenance',
+      activityLevel: 'sedentary',
+      units: 'imperial'
+    });
+    setResult(null);
+  };
 
   const calculateProtein = () => {
     // Convert weight to number first
@@ -311,28 +326,38 @@ return (
 
 {/* Sex and Calculate Button Row */}
 <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-end mt-4">
-  <div className="w-full md:w-auto">
-    <RadioGroup
-      value={formData.sex}
-      onValueChange={(value) => setFormData({...formData, sex: value})}
-      className="flex gap-4"
-    >
-      {['male', 'female'].map((sex) => (
-        <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
-          <RadioGroupItem value={sex} id={sex} className="text-violet-600 border-violet-400" />
-          <Label htmlFor={sex} className="text-sm capitalize text-gray-800">{sex}</Label>
-        </div>
-      ))}
-    </RadioGroup>
-  </div>
-  
-  <Button 
-    onClick={calculateProtein}
-    className={"w-full bg-gradient-to-r " + themes[safeTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
-  >
-    Calculate Protein Needs
-  </Button>
-</div>
+      <div className="w-full md:w-auto">
+        <RadioGroup
+          value={formData.sex}
+          onValueChange={(value) => setFormData({...formData, sex: value})}
+          className="flex gap-4"
+        >
+          {['male', 'female'].map((sex) => (
+            <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
+              <RadioGroupItem value={sex} id={sex} className="text-violet-600 border-violet-400" />
+              <Label htmlFor={sex} className="text-sm capitalize text-gray-800">{sex}</Label>
+            </div>
+          ))}
+        </RadioGroup>
+      </div>
+      
+      <div className="flex w-full gap-4">
+        <Button 
+          onClick={resetForm}
+          variant="outline"
+          className="w-1/3 bg-white border-2 border-violet-300 text-violet-600 py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-violet-500"
+        >
+          Reset
+        </Button>
+        
+        <Button 
+          onClick={calculateProtein}
+          className={"w-2/3 bg-gradient-to-r " + themes[safeTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+        >
+          Calculate Protein Needs
+        </Button>
+      </div>
+    </div>
             {result && (
   <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
     <div className="flex items-center justify-between mb-4">
