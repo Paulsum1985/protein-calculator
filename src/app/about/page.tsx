@@ -52,7 +52,7 @@ const AboutContact = () => {
                   We value your feedback and questions. You can reach us through any of the following methods:
                 </p>
                 <ul className="list-disc ml-6 mt-2">
-                  <li>Email: <a href="mailto:paulsum1985@hotmail.com" className="text-violet-600 hover:text-violet-700">your-email@example.com</a></li>
+                  <li>Email: <a href="mailto:paulsum1985@hotmail.com" className="text-violet-600 hover:text-violet-700">paulsum1985@hotmail.com</a></li>
                   <li>GitHub: <a href="https://github.com/Paulsum1985" target="_blank" rel="noopener noreferrer" className="text-violet-600 hover:text-violet-700">Create an issue in our repository</a></li>
                 </ul>
               </section>
