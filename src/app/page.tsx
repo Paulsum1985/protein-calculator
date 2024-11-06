@@ -244,29 +244,64 @@ const handleUnitChange = (checked: boolean) => {
             </div>
 
             {result && (
-              <div className="mt-6 p-4 pb-6 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-xl shadow-inner border border-violet-200">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
-                    <div className="text-5xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-transparent bg-clip-text leading-tight pb-1">
-                      {result}g
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    {[
-                      { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
-                      { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
-                      { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
-                    ].map((tip, index) => (
-                      <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
-                        {tip.icon}
-                        <span>{tip.text}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+  <div className="mt-6 p-4 pb-6 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-xl shadow-inner border border-violet-200">
+    <div className="flex items-center justify-between mb-4">
+      <div className="space-y-1">
+        <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
+        <div className="text-5xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-transparent bg-clip-text leading-tight pb-1">
+          {result}g
+        </div>
+      </div>
+      <div className="space-y-2">
+        {[
+          { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
+          { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
+          { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
+        ].map((tip, index) => (
+          <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
+            {tip.icon}
+            <span>{tip.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* New Meal Plan Section */}
+    <div className="mt-6 space-y-4">
+      <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan</h4>
+      <div className="grid gap-3">
+        <div className="bg-white/50 p-3 rounded-lg">
+          <div className="font-medium text-violet-700">Breakfast (40g protein)</div>
+          <div className="text-sm text-gray-600">• 3 eggs (18g) + Greek yogurt (15g) + Oatmeal with milk (7g)</div>
+        </div>
+        
+        <div className="bg-white/50 p-3 rounded-lg">
+          <div className="font-medium text-violet-700">Lunch (50g protein)</div>
+          <div className="text-sm text-gray-600">• Chicken breast (35g) + Quinoa (8g) + Mixed beans (7g)</div>
+        </div>
+
+        <div className="bg-white/50 p-3 rounded-lg">
+          <div className="font-medium text-violet-700">Post-Workout Snack (25g protein)</div>
+          <div className="text-sm text-gray-600">• Protein shake (25g)</div>
+        </div>
+        
+        <div className="bg-white/50 p-3 rounded-lg">
+          <div className="font-medium text-violet-700">Dinner (55g protein)</div>
+          <div className="text-sm text-gray-600">• Salmon fillet (40g) + Lentils (9g) + Green peas (6g)</div>
+        </div>
+
+        <div className="bg-white/50 p-3 rounded-lg">
+          <div className="font-medium text-violet-700">Evening Snack (25g protein)</div>
+          <div className="text-sm text-gray-600">• Cottage cheese (15g) + Handful of almonds (10g)</div>
+        </div>
+      </div>
+
+      <div className="text-xs text-gray-500 mt-2">
+        * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
+      </div>
+    </div>
+  </div>
+)}
             <div className="mt-8">
   <AdUnit />
 </div>
