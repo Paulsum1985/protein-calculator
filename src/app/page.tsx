@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from "@/components/ui/switch";
 import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
+import Link from 'next/link';
 
 const ProteinCalculator = () => {
   const [formData, setFormData] = useState({
@@ -269,6 +270,11 @@ const handleUnitChange = (checked: boolean) => {
             )}
             <div className="mt-8">
               <AdUnit />
+            </div>
+            <div className="mt-4 text-center text-sm text-gray-600">
+              <Link href="/privacy" className="hover:text-violet-600 transition-colors">
+                Privacy Policy
+              </Link>
             </div>
           </CardContent>
         </Card>
