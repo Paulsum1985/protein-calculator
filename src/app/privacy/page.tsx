@@ -34,7 +34,7 @@ const PrivacyPolicy = () => {
               </section>
 
               <section>
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">Information We Don't Collect</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">Information We Do Not Collect</h2>
                 <p>Our protein calculator is designed to respect your privacy. We do not:</p>
                 <ul className="list-disc ml-6 mt-2">
                   <li>Collect personal information</li>
@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
               <section>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">Third-Party Services</h2>
                 <p>
-                  This website is hosted on Netlify. While we don't collect any data, Netlify may collect basic server logs for operational purposes. You can review Netlify's privacy policy on their website.
+                  This website is hosted on Netlify. While we do not collect any data, Netlify may collect basic server logs for operational purposes. You can review the Netlify privacy policy on their website.
                 </p>
               </section>
 
