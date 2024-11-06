@@ -138,63 +138,54 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 
 return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-6 space-y-4">
-  <button
-    onClick={() => setCurrentTheme('blue')}
-    className={`w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-  />
-  <button
-    onClick={() => setCurrentTheme('green')}
-    className={`w-8 h-8 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 ${currentTheme === 'green' ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}`}
-  />
-</div>
-          <div className="text-center space-y-2">
-            <div className="inline-block">
-            <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].title} text-transparent bg-clip-text`}>
-  Protein Intake Calculator
-</h1>
-<div className={`h-1 w-full bg-gradient-to-r ${themes[currentTheme].title} rounded-full mt-2`} />
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-6 space-y-4">
+        <div className="text-center space-y-2">
+          <div className="inline-block">
+            <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text`}>
+              Protein Intake Calculator
+            </h1>
+            <div className={`h-1 w-full bg-gradient-to-r ${themes[safeTheme].title} rounded-full mt-2`} />
+          </div>
+          <p className="text-gray-600 text-lg">
+            Optimize your protein intake for better health and performance
+          </p>
+        </div>
+        
+        <div className="flex justify-center gap-6">
+          {[
+            { icon: <DumbbellIcon className="w-5 h-5" />, text: "Build muscle", color: "bg-violet-100 text-violet-700" },
+            { icon: <BrainIcon className="w-5 h-5" />, text: "Boost recovery", color: "bg-purple-100 text-purple-700" },
+            { icon: <ActivityIcon className="w-5 h-5" />, text: "Improve health", color: "bg-indigo-100 text-indigo-700" }
+          ].map((benefit, index) => (
+            <div key={index} className={`flex items-center gap-2 text-sm px-4 py-2 rounded-full shadow-sm ${benefit.color} transition-all duration-300 hover:scale-105`}>
+              {benefit.icon}
+              <span>{benefit.text}</span>
             </div>
-            <p className="text-gray-600 text-lg">
-              Optimize your protein intake for better health and performance
-            </p>
-          </div>
-          
-          <div className="flex justify-center gap-6">
-            {[
-              { icon: <DumbbellIcon className="w-5 h-5" />, text: "Build muscle", color: "bg-violet-100 text-violet-700" },
-              { icon: <BrainIcon className="w-5 h-5" />, text: "Boost recovery", color: "bg-purple-100 text-purple-700" },
-              { icon: <ActivityIcon className="w-5 h-5" />, text: "Improve health", color: "bg-indigo-100 text-indigo-700" }
-            ].map((benefit, index) => (
-              <div key={index} className={`flex items-center gap-2 text-sm px-4 py-2 rounded-full shadow-sm ${benefit.color} transition-all duration-300 hover:scale-105`}>
-                {benefit.icon}
-                <span>{benefit.text}</span>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
 
         <div className="flex items-center justify-center gap-2 mb-6">
-  <span className="text-sm text-gray-600">Color Theme:</span>
-  <div className="flex gap-2">
-    <button
-      onClick={() => setCurrentTheme('purple')}
-      className={`w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
-      aria-label="Purple theme"
-    />
-    <button
-      onClick={() => setCurrentTheme('blue')}
-      className={`w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-      aria-label="Blue theme"
-    />
-    <button
-      onClick={() => setCurrentTheme('green')}
-      className={`w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 ${currentTheme === 'green' ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}`}
-      aria-label="Green theme"
-    />
-  </div>
-</div>
+            <span className="text-sm text-gray-600">Color Theme:</span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCurrentTheme('purple')}
+                className={`w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+                aria-label="Purple theme"
+              />
+              <button
+                onClick={() => setCurrentTheme('blue')}
+                className={`w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
+                aria-label="Blue theme"
+              />
+              <button
+                onClick={() => setCurrentTheme('green')}
+                className={`w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 ${currentTheme === 'green' ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}`}
+                aria-label="Green theme"
+              />
+            </div>
+          </div>
+        </div>
 
         <Card className="bg-white/90 backdrop-blur-sm border-none shadow-2xl transition-all duration-300 hover:shadow-3xl">
           <CardContent className="p-4 md:p-6">
