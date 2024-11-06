@@ -495,17 +495,17 @@ return (
 
     {/* New Diet Toggle Section */}
     <div className="mt-6 mb-4 flex items-center justify-between bg-white/50 p-3 rounded-lg">
-          <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
-          <div className="flex items-center gap-2">
-            <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
-            <Switch
-              checked={isVegetarian}
-              onCheckedChange={setIsVegetarian}
-              className="data-[state=checked]:bg-violet-600"
-            />
-            <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
-          </div>
-        </div>
+  <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
+  <div className="flex items-center gap-2">
+    <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
+    <Switch
+      checked={isVegetarian}
+      onCheckedChange={setIsVegetarian}
+      className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
+    />
+    <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
+  </div>
+</div>
 
         {/* Updated Meal Plan Section */}
         <div className="space-y-4">

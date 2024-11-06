@@ -7,6 +7,15 @@
   --foreground: #171717;
 }
 
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
