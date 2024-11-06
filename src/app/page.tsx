@@ -206,121 +206,129 @@ return (
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="group">
-                    <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
-                    <Input
-  type="number"
-  placeholder="Years"
-  className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-  value={formData.age}
-  onChange={(e) => setFormData({...formData, age: e.target.value})}
-/>
-                  </div>
-                  <div className="group">
-                    <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">
-                      Weight ({formData.units === 'imperial' ? 'lbs' : 'kg'})
-                    </Label>
-                    <Input
-                      type="number"
-                      placeholder={formData.units === 'imperial' ? 'lbs' : 'kg'}
-                      className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-                      value={formData.weight}
-                      onChange={(e) => setFormData({...formData, weight: e.target.value})}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-sm text-gray-700">Sex</Label>
-                  <RadioGroup
-  value={formData.sex}
-  onValueChange={(value) => setFormData({...formData, sex: value})}
-  className="flex gap-4 mt-1"
->
-  {['male', 'female'].map((sex) => (
-    <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
-      <RadioGroupItem value={sex} id={sex} className="text-violet-600 border-violet-400" />
-      <Label htmlFor={sex} className="text-sm capitalize text-gray-800">{sex}</Label>
+  {/* Left Column */}
+  <div className="space-y-4">
+    {/* Age and Weight Row */}
+    <div className="grid grid-cols-2 gap-4">
+      <div className="group">
+        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
+        <Input
+          type="number"
+          placeholder="Years"
+          className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+          value={formData.age}
+          onChange={(e) => setFormData({...formData, age: e.target.value})}
+        />
+      </div>
+      <div className="group">
+        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">
+          Weight ({formData.units === 'imperial' ? 'lbs' : 'kg'})
+        </Label>
+        <Input
+          type="number"
+          placeholder={formData.units === 'imperial' ? 'lbs' : 'kg'}
+          className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+          value={formData.weight}
+          onChange={(e) => setFormData({...formData, weight: e.target.value})}
+        />
+      </div>
     </div>
-  ))}
-</RadioGroup>
-                </div>
 
-                <div className="group">
-                  <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
-                  {formData.units === 'imperial' ? (
-  <div className="grid grid-cols-2 gap-4 mt-1">
-    <Input
-      placeholder="Feet"
-      type="number"
-      className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-      value={formData.heightFeet}
-      onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
-    />
-    <Input
-      placeholder="Inches"
-      type="number"
-      className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-      value={formData.heightInches}
-      onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
-    />
+    {/* Sex Selection */}
+    <div>
+      <Label className="text-sm text-gray-700">Sex</Label>
+      <RadioGroup
+        value={formData.sex}
+        onValueChange={(value) => setFormData({...formData, sex: value})}
+        className="flex gap-4 mt-1"
+      >
+        {['male', 'female'].map((sex) => (
+          <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
+            <RadioGroupItem value={sex} id={sex} className="text-violet-600 border-violet-400" />
+            <Label htmlFor={sex} className="text-sm capitalize text-gray-800">{sex}</Label>
+          </div>
+        ))}
+      </RadioGroup>
+    </div>
+
+    {/* Goal Selection */}
+    <div className="group">
+      <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
+      <Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
+        <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+          <SelectValue placeholder="Select your goal" className="text-gray-800" />
+        </SelectTrigger>
+        <SelectContent className="bg-white border-violet-200 text-gray-800">
+          <SelectItem value="fat-loss" className="text-gray-800 hover:bg-violet-50">Fat Loss</SelectItem>
+          <SelectItem value="maintenance" className="text-gray-800 hover:bg-violet-50">Maintenance</SelectItem>
+          <SelectItem value="muscle-gain" className="text-gray-800 hover:bg-violet-50">Muscle Gain</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
   </div>
-) : (
-  <Input
-    placeholder="cm"
-    type="number"
-    className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-    value={formData.heightCm}
-    onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
-  />
-)}
-                </div>
-              </div>
 
-              <div className="space-y-4">
-                <div className="group">
-                  <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
-                  <Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
-  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
-    <SelectValue placeholder="Select your goal" className="text-gray-800" />
-  </SelectTrigger>
-  <SelectContent className="bg-white border-violet-200 text-gray-800">
-    <SelectItem value="fat-loss" className="text-gray-800 hover:bg-violet-50">Fat Loss</SelectItem>
-    <SelectItem value="maintenance" className="text-gray-800 hover:bg-violet-50">Maintenance</SelectItem>
-    <SelectItem value="muscle-gain" className="text-gray-800 hover:bg-violet-50">Muscle Gain</SelectItem>
-  </SelectContent>
-</Select>
+  {/* Right Column */}
+  <div className="space-y-4">
+    {/* Activity Level */}
+    <div className="group">
+      <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Activity Level</Label>
+      <Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
+        <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+          <SelectValue placeholder="Select activity level" className="text-gray-800" />
+        </SelectTrigger>
+        <SelectContent className="bg-white border-violet-200 text-gray-800">
+          <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
+          <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
+          <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
+          <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
+          <SelectItem value="very-active" className="text-gray-800 hover:bg-violet-50">Very Active (6-7 times/week)</SelectItem>
+          <SelectItem value="athlete" className="text-gray-800 hover:bg-violet-50">Professional Athlete</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
 
-
-                </div>
-
-                <div className="group">
-                  <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Activity Level</Label>
-                  <Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
-  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
-    <SelectValue placeholder="Select activity level" className="text-gray-800" />
-  </SelectTrigger>
-  <SelectContent className="bg-white border-violet-200 text-gray-800">
-    <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
-    <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
-    <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
-    <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
-    <SelectItem value="very-active" className="text-gray-800 hover:bg-violet-50">Very Active (6-7 times/week)</SelectItem>
-    <SelectItem value="athlete" className="text-gray-800 hover:bg-violet-50">Professional Athlete</SelectItem>
-  </SelectContent>
-</Select>
-                </div>
-
-                <Button 
-  onClick={calculateProtein}
-  className={"w-full bg-gradient-to-r " + themes[currentTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
->
-  Calculate Protein Needs
-</Button>
-              </div>
-            </div>
+    {/* Height and Calculate Button Row */}
+    <div className="grid grid-cols-3 gap-4">
+      <div className="col-span-2">
+        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
+        {formData.units === 'imperial' ? (
+          <div className="grid grid-cols-2 gap-4 mt-1">
+            <Input
+              placeholder="Feet"
+              type="number"
+              className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              value={formData.heightFeet}
+              onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
+            />
+            <Input
+              placeholder="Inches"
+              type="number"
+              className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              value={formData.heightInches}
+              onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
+            />
+          </div>
+        ) : (
+          <Input
+            placeholder="cm"
+            type="number"
+            className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+            value={formData.heightCm}
+            onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
+          />
+        )}
+      </div>
+      <div className="flex items-end">
+        <Button 
+          onClick={calculateProtein}
+          className={"w-full bg-gradient-to-r " + themes[currentTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+        >
+          Calculate Protein Needs
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>
 
             {result && (
   <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
