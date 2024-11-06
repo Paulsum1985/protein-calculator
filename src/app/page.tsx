@@ -180,6 +180,27 @@ return (
           </div>
         </div>
 
+        <div className="flex items-center justify-center gap-2 mt-6">
+  <span className="text-sm text-gray-600">Color Theme:</span>
+  <div className="flex gap-2">
+    <button
+      onClick={() => setCurrentTheme('purple')}
+      className={`w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+      aria-label="Purple theme"
+    />
+    <button
+      onClick={() => setCurrentTheme('blue')}
+      className={`w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
+      aria-label="Blue theme"
+    />
+    <button
+      onClick={() => setCurrentTheme('green')}
+      className={`w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 ${currentTheme === 'green' ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}`}
+      aria-label="Green theme"
+    />
+  </div>
+</div>
+
         <Card className="bg-white/90 backdrop-blur-sm border-none shadow-2xl transition-all duration-300 hover:shadow-3xl">
           <CardContent className="p-4 md:p-6">
             {/* New compact unit selector */}
