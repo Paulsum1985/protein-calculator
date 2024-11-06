@@ -165,14 +165,14 @@ return (
           ))}
         </div>
 
-        <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="text-sm text-gray-600">Color Theme:</span>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setCurrentTheme('purple')}
-                className={`w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
-                aria-label="Purple theme"
-              />
+        <div className="flex items-center justify-center gap-2 my-6">  {/* Changed mb-6 to my-6 */}
+  <span className="text-sm text-gray-600">Color Theme:</span>
+  <div className="flex gap-2">
+    <button
+      onClick={() => setCurrentTheme('purple')}
+      className={`w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+      aria-label="Purple theme"
+    />
               <button
                 onClick={() => setCurrentTheme('blue')}
                 className={`w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
