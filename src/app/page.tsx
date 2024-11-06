@@ -35,19 +35,18 @@ const ProteinCalculator = () => {
 
     let multiplier = 0;
     switch(formData.goal) {
-      case 'fat-loss': multiplier = 1.2; break;
-      case 'maintenance': multiplier = 0.8; break;
-      case 'muscle-gain': multiplier = 1.6; break;
-      default: multiplier = 0.8;
+      case 'fat-loss': multiplier = 1.0; break;      // Was 1.2
+      case 'maintenance': multiplier = 0.8; break;    // Keep same
+      case 'muscle-gain': multiplier = 1.2; break;    // Was 1.6
     }
-
+    
     switch(formData.activityLevel) {
-      case 'sedentary': multiplier *= 1; break;
-      case 'light': multiplier *= 1.1; break;
-      case 'moderate': multiplier *= 1.2; break;
-      case 'active': multiplier *= 1.3; break;
-      case 'very-active': multiplier *= 1.4; break;
-      case 'athlete': multiplier *= 1.5; break;
+      case 'sedentary': multiplier *= 1; break;       // Keep same
+      case 'light': multiplier *= 1.05; break;        // Was 1.1
+      case 'moderate': multiplier *= 1.1; break;      // Was 1.2
+      case 'active': multiplier *= 1.15; break;       // Was 1.3
+      case 'very-active': multiplier *= 1.2; break;   // Was 1.4
+      case 'athlete': multiplier *= 1.25; break;      // Was 1.5
     }
 
     const proteinGrams = Math.round(weightInLbs * multiplier);
