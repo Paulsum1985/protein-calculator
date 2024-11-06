@@ -76,7 +76,9 @@ const ProteinCalculator = () => {
     weight: '',
     goal: 'maintenance',
     activityLevel: 'sedentary',
-    units: 'imperial'
+    units: 'imperial',
+    _goalSelected: false, 
+    _activitySelected: false
   });
   const [result, setResult] = useState<number | null>(null);
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
@@ -94,15 +96,16 @@ const ProteinCalculator = () => {
         ? !!(formData.heightFeet && formData.heightInches)
         : !!formData.heightCm },
       { field: 'sex', condition: !!formData.sex },
-      { field: 'goal', condition: !!formData.goal },
-      { field: 'activityLevel', condition: !!formData.activityLevel }
+      // Modified these conditions to check if they've been actively selected
+      { field: 'goal', condition: formData.goal !== 'maintenance' || formData._goalSelected },
+      { field: 'activityLevel', condition: formData.activityLevel !== 'sedentary' || formData._activitySelected }
     ];
 
     totalFields = requiredFields.length;
     completedFields = requiredFields.filter(field => field.condition).length;
 
     return Math.round((completedFields / totalFields) * 100);
-  };
+};
 
   useEffect(() => {
     const newProgress = calculateProgress();
@@ -159,18 +162,20 @@ const ProteinCalculator = () => {
   // Add this new reset function
   const resetForm = () => {
     setFormData({
-      age: '',
-      sex: 'male',
-      heightFeet: '',
-      heightInches: '',
-      heightCm: '',
-      weight: '',
-      goal: 'maintenance',
-      activityLevel: 'sedentary',
-      units: 'imperial'
+        age: '',
+        sex: 'male',
+        heightFeet: '',
+        heightInches: '',
+        heightCm: '',
+        weight: '',
+        goal: 'maintenance',
+        activityLevel: 'sedentary',
+        units: 'imperial',
+        _goalSelected: false,
+        _activitySelected: false
     });
     setResult(null);
-  };
+};
 
   const calculateProtein = () => {
     // Convert weight to number first
@@ -254,14 +259,6 @@ return (
       className={`h-full bg-gradient-to-r ${themes[safeTheme].button} transition-all duration-500 ease-out rounded-full`}
       style={{ width: `${progress}%` }}
     />
-  </div>
-  <div className="absolute top-0 left-0 w-full flex justify-between px-1 text-xs text-gray-400">
-    <span>|</span>
-    <span>|</span>
-    <span>|</span>
-    <span>|</span>
-    <span>|</span>
-    <span>|</span>
   </div>
 </div>
         
@@ -391,7 +388,14 @@ return (
   <div className="space-y-4">
     <div className="group">
       <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
-      <Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
+      <Select 
+    value={formData.goal} 
+    onValueChange={(value) => setFormData({
+        ...formData, 
+        goal: value, 
+        _goalSelected: true
+    })}
+>
         <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
           <SelectValue placeholder="Select your goal" className="text-gray-800" />
         </SelectTrigger>
@@ -405,7 +409,14 @@ return (
 
     <div className="group">
       <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Activity Level</Label>
-      <Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
+      <Select 
+    value={formData.activityLevel} 
+    onValueChange={(value) => setFormData({
+        ...formData, 
+        activityLevel: value, 
+        _activitySelected: true
+    })}
+>
         <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
           <SelectValue placeholder="Select activity level" className="text-gray-800" />
         </SelectTrigger>
