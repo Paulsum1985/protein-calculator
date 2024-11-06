@@ -285,7 +285,7 @@ return (
           </div>
         </div>
 
-        <div className="relative pt-8">
+        <div className="mt-2 mb-6">
   <div className="flex justify-between mb-1 text-sm text-gray-600">
     <span>Form Progress</span>
     <span>{progress}% Complete</span>
