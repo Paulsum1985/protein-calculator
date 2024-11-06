@@ -409,20 +409,6 @@ return (
   </SelectContent>
 </Select>
 
-{/* Activity Level Select */}
-<Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
-  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
-    <SelectValue placeholder="Select activity level" />
-  </SelectTrigger>
-  <SelectContent className="bg-white border-violet-200 text-gray-800">
-    <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
-    <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
-    <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
-    <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
-    <SelectItem value="very-active" className="text-gray-800 hover:bg-violet-50">Very Active (6-7 times/week)</SelectItem>
-    <SelectItem value="athlete" className="text-gray-800 hover:bg-violet-50">Professional Athlete</SelectItem>
-  </SelectContent>
-</Select>
     </div>
 
     <div className="group">
