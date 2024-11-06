@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -81,6 +81,33 @@ const ProteinCalculator = () => {
   const [result, setResult] = useState<number | null>(null);
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
   const [isVegetarian, setIsVegetarian] = useState(false);
+  const [progress, setProgress] = useState(0);
+  // Progress calculation functions next
+  const calculateProgress = () => {
+    let completedFields = 0;
+    let totalFields = 0;
+
+    const requiredFields = [
+      { field: 'age', condition: !!formData.age },
+      { field: 'weight', condition: !!formData.weight },
+      { field: 'height', condition: formData.units === 'imperial' 
+        ? !!(formData.heightFeet && formData.heightInches)
+        : !!formData.heightCm },
+      { field: 'sex', condition: !!formData.sex },
+      { field: 'goal', condition: !!formData.goal },
+      { field: 'activityLevel', condition: !!formData.activityLevel }
+    ];
+
+    totalFields = requiredFields.length;
+    completedFields = requiredFields.filter(field => field.condition).length;
+
+    return Math.round((completedFields / totalFields) * 100);
+  };
+
+  useEffect(() => {
+    const newProgress = calculateProgress();
+    setProgress(newProgress);
+  }, [formData]);
 
   const mealPlans = {
     regular: [
@@ -128,7 +155,7 @@ const ProteinCalculator = () => {
       }
     ]
   };
-
+  
   // Add this new reset function
   const resetForm = () => {
     setFormData({
@@ -171,6 +198,8 @@ const ProteinCalculator = () => {
     const proteinGrams = Math.round(weightInLbs * multiplier);
     setResult(proteinGrams);
 };
+
+
 
 const handleUnitChange = (checked: boolean) => {
   const newValue = checked ? 'metric' : 'imperial';
