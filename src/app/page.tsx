@@ -91,9 +91,9 @@ const ProteinCalculator = () => {
 
     let multiplier = 0;
     switch(formData.goal) {
-      case 'fat-loss': multiplier = 1.0; break;      // Was 1.2
-      case 'maintenance': multiplier = 0.8; break;    // Keep same
-      case 'muscle-gain': multiplier = 1.2; break;    // Was 1.6
+      case 'fat-loss': multiplier = 0.8; break;      // Was 1.2
+      case 'maintenance': multiplier = 0.6; break;    // Keep same
+      case 'muscle-gain': multiplier = 1.0; break;    // Was 1.6
     }
     
     switch(formData.activityLevel) {
