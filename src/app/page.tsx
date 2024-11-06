@@ -140,11 +140,6 @@ return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 space-y-4">
-        <div className="flex justify-center gap-2 mb-6">
-  <button
-    onClick={() => setCurrentTheme('purple')}
-    className={`w-8 h-8 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
-  />
   <button
     onClick={() => setCurrentTheme('blue')}
     className={`w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
@@ -180,7 +175,7 @@ return (
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2 mt-6">
+        <div className="flex items-center justify-center gap-2 mb-6">
   <span className="text-sm text-gray-600">Color Theme:</span>
   <div className="flex gap-2">
     <button
