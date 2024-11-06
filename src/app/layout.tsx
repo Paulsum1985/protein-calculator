@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Protein Calculator',
   description: 'Calculate your daily protein needs based on your goals and activity level',
+  metadataBase: new URL('https://proteincalculator.netlify.app'),
 }
 
 export default function RootLayout({
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+      <meta name="google-adsense-account" content="ca-pub-1522061448979634" />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1522061448979634"
