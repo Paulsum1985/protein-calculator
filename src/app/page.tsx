@@ -213,24 +213,24 @@ return (
       <div className="group">
         <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
         <Input
-          type="number"
-          placeholder="Years"
-          className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-          value={formData.age}
-          onChange={(e) => setFormData({...formData, age: e.target.value})}
-        />
+  type="number"
+  placeholder="Years"
+  className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+  value={formData.age}
+  onChange={(e) => setFormData({...formData, age: e.target.value})}
+/>
       </div>
       <div className="group">
         <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">
           Weight ({formData.units === 'imperial' ? 'lbs' : 'kg'})
         </Label>
         <Input
-          type="number"
-          placeholder={formData.units === 'imperial' ? 'lbs' : 'kg'}
-          className="mt-1 bg-white/70 border-violet-100 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
-          value={formData.weight}
-          onChange={(e) => setFormData({...formData, weight: e.target.value})}
-        />
+  type="number"
+  placeholder={formData.units === 'imperial' ? 'lbs' : 'kg'}
+  className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+  value={formData.weight}
+  onChange={(e) => setFormData({...formData, weight: e.target.value})}
+/>
       </div>
     </div>
 
