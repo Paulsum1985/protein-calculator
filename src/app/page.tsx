@@ -249,18 +249,6 @@ return (
           </p>
         </div>
 
-        <div className="relative pt-8">
-  <div className="flex justify-between mb-1 text-sm text-gray-600">
-    <span>Form Progress</span>
-    <span>{progress}% Complete</span>
-  </div>
-  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-    <div 
-      className={`h-full bg-gradient-to-r ${themes[safeTheme].button} transition-all duration-500 ease-out rounded-full`}
-      style={{ width: `${progress}%` }}
-    />
-  </div>
-</div>
         
         <div className="flex justify-center gap-6">
           {[
@@ -296,6 +284,19 @@ return (
             </div>
           </div>
         </div>
+
+        <div className="relative pt-8">
+  <div className="flex justify-between mb-1 text-sm text-gray-600">
+    <span>Form Progress</span>
+    <span>{progress}% Complete</span>
+  </div>
+  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+    <div 
+      className={`h-full bg-gradient-to-r ${themes[safeTheme].button} transition-all duration-500 ease-out rounded-full`}
+      style={{ width: `${progress}%` }}
+    />
+  </div>
+</div>
 
         <Card className="bg-white/90 backdrop-blur-sm border-none shadow-2xl transition-all duration-300 hover:shadow-3xl">
           <CardContent className="p-4 md:p-6">
