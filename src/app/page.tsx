@@ -310,8 +310,8 @@ return (
 </div>
 
 {/* Sex and Calculate Button Row */}
-<div className="flex gap-6 items-end mt-4">
-  <div>
+<div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-end mt-4">
+  <div className="w-full md:w-auto">
     <RadioGroup
       value={formData.sex}
       onValueChange={(value) => setFormData({...formData, sex: value})}
@@ -328,7 +328,7 @@ return (
   
   <Button 
     onClick={calculateProtein}
-    className={"flex-1 bg-gradient-to-r " + themes[safeTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+    className={"w-full bg-gradient-to-r " + themes[safeTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
   >
     Calculate Protein Needs
   </Button>
