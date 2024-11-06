@@ -12,6 +12,18 @@ import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
 
+interface FormData {
+  age: string;
+  sex: string;
+  heightFeet: string;
+  heightInches: string;
+  heightCm: string;
+  weight: string;
+  goal: string;
+  activityLevel: string;
+  units: string;
+}
+
 type ThemeKey = 'purple' | 'blue' | 'green';
 
 type Theme = {
@@ -67,23 +79,22 @@ const themes: Themes = {
 };
 
 const ProteinCalculator = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     age: '',
     sex: 'male',
     heightFeet: '',
     heightInches: '',
     heightCm: '',
     weight: '',
-    goal: 'maintenance',
-    activityLevel: 'sedentary',
-    units: 'imperial',
-    _goalSelected: false, 
-    _activitySelected: false
+    goal: '',
+    activityLevel: '',
+    units: 'imperial'
   });
   const [result, setResult] = useState<number | null>(null);
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
   const [isVegetarian, setIsVegetarian] = useState(false);
   const [progress, setProgress] = useState(0);
+ 
   // Progress calculation functions next
   const calculateProgress = () => {
     let completedFields = 0;
@@ -96,9 +107,8 @@ const ProteinCalculator = () => {
         ? !!(formData.heightFeet && formData.heightInches)
         : !!formData.heightCm },
       { field: 'sex', condition: !!formData.sex },
-      // Modified these conditions to check if they've been actively selected
-      { field: 'goal', condition: formData.goal !== 'maintenance' || formData._goalSelected },
-      { field: 'activityLevel', condition: formData.activityLevel !== 'sedentary' || formData._activitySelected }
+      { field: 'goal', condition: !!formData.goal },
+      { field: 'activityLevel', condition: !!formData.activityLevel }
     ];
 
     totalFields = requiredFields.length;
@@ -168,11 +178,9 @@ const ProteinCalculator = () => {
         heightInches: '',
         heightCm: '',
         weight: '',
-        goal: 'maintenance',
-        activityLevel: 'sedentary',
-        units: 'imperial',
-        _goalSelected: false,
-        _activitySelected: false
+        goal: '',           // Changed to empty
+        activityLevel: '',  // Changed to empty
+        units: 'imperial'
     });
     setResult(null);
 };
@@ -285,7 +293,7 @@ return (
           </div>
         </div>
 
-        <div className="mt-2 mb-6">
+        <div className="mt-1 mb-6">
   <div className="flex justify-between mb-1 text-sm text-gray-600">
     <span>Form Progress</span>
     <span>{progress}% Complete</span>
@@ -389,23 +397,32 @@ return (
   <div className="space-y-4">
     <div className="group">
       <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
-      <Select 
-    value={formData.goal} 
-    onValueChange={(value) => setFormData({
-        ...formData, 
-        goal: value, 
-        _goalSelected: true
-    })}
->
-        <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
-          <SelectValue placeholder="Select your goal" className="text-gray-800" />
-        </SelectTrigger>
-        <SelectContent className="bg-white border-violet-200 text-gray-800">
-          <SelectItem value="fat-loss" className="text-gray-800 hover:bg-violet-50">Fat Loss</SelectItem>
-          <SelectItem value="maintenance" className="text-gray-800 hover:bg-violet-50">Maintenance</SelectItem>
-          <SelectItem value="muscle-gain" className="text-gray-800 hover:bg-violet-50">Muscle Gain</SelectItem>
-        </SelectContent>
-      </Select>
+      {/* Goal Select */}
+<Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
+  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+    <SelectValue placeholder="Select your goal" />
+  </SelectTrigger>
+  <SelectContent className="bg-white border-violet-200 text-gray-800">
+    <SelectItem value="fat-loss" className="text-gray-800 hover:bg-violet-50">Fat Loss</SelectItem>
+    <SelectItem value="maintenance" className="text-gray-800 hover:bg-violet-50">Maintenance</SelectItem>
+    <SelectItem value="muscle-gain" className="text-gray-800 hover:bg-violet-50">Muscle Gain</SelectItem>
+  </SelectContent>
+</Select>
+
+{/* Activity Level Select */}
+<Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
+  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+    <SelectValue placeholder="Select activity level" />
+  </SelectTrigger>
+  <SelectContent className="bg-white border-violet-200 text-gray-800">
+    <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
+    <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
+    <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
+    <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
+    <SelectItem value="very-active" className="text-gray-800 hover:bg-violet-50">Very Active (6-7 times/week)</SelectItem>
+    <SelectItem value="athlete" className="text-gray-800 hover:bg-violet-50">Professional Athlete</SelectItem>
+  </SelectContent>
+</Select>
     </div>
 
     <div className="group">
@@ -414,8 +431,7 @@ return (
     value={formData.activityLevel} 
     onValueChange={(value) => setFormData({
         ...formData, 
-        activityLevel: value, 
-        _activitySelected: true
+        activityLevel: value,
     })}
 >
         <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
