@@ -243,6 +243,27 @@ return (
             Optimize your protein intake for better health and performance
           </p>
         </div>
+
+        <div className="relative pt-8">
+  <div className="flex justify-between mb-1 text-sm text-gray-600">
+    <span>Form Progress</span>
+    <span>{progress}% Complete</span>
+  </div>
+  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+    <div 
+      className={`h-full bg-gradient-to-r ${themes[safeTheme].button} transition-all duration-500 ease-out rounded-full`}
+      style={{ width: `${progress}%` }}
+    />
+  </div>
+  <div className="absolute top-0 left-0 w-full flex justify-between px-1 text-xs text-gray-400">
+    <span>|</span>
+    <span>|</span>
+    <span>|</span>
+    <span>|</span>
+    <span>|</span>
+    <span>|</span>
+  </div>
+</div>
         
         <div className="flex justify-center gap-6">
           {[
