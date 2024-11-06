@@ -317,7 +317,7 @@ return (
       <Switch
         checked={formData.units === 'metric'}
         onCheckedChange={handleUnitChange}
-        className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200"
+        className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
       />
       <span className={`${formData.units === 'metric' ? 'text-violet-700' : 'text-gray-500'}`}>kg/cm</span>
     </div>
