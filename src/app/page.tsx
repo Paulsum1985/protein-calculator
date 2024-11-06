@@ -206,9 +206,8 @@ return (
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-  {/* Left Column */}
   <div className="space-y-4">
-    {/* Age and Weight Row */}
+    {/* Left Column */}
     <div className="grid grid-cols-2 gap-4">
       <div className="group">
         <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
@@ -234,7 +233,6 @@ return (
       </div>
     </div>
 
-    {/* Sex Selection */}
     <div>
       <Label className="text-sm text-gray-700">Sex</Label>
       <RadioGroup
@@ -251,7 +249,48 @@ return (
       </RadioGroup>
     </div>
 
-    {/* Goal Selection */}
+    {/* Height with Calculate Button */}
+    <div className="flex items-end gap-4">
+      <div className="flex-1">
+        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
+        {formData.units === 'imperial' ? (
+          <div className="grid grid-cols-2 gap-4 mt-1">
+            <Input
+              placeholder="Feet"
+              type="number"
+              className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              value={formData.heightFeet}
+              onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
+            />
+            <Input
+              placeholder="Inches"
+              type="number"
+              className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              value={formData.heightInches}
+              onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
+            />
+          </div>
+        ) : (
+          <Input
+            placeholder="cm"
+            type="number"
+            className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+            value={formData.heightCm}
+            onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
+          />
+        )}
+      </div>
+      <Button 
+        onClick={calculateProtein}
+        className={"w-48 bg-gradient-to-r " + themes[currentTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+      >
+        Calculate Protein Needs
+      </Button>
+    </div>
+  </div>
+
+  {/* Right Column */}
+  <div className="space-y-4">
     <div className="group">
       <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
       <Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
@@ -265,11 +304,7 @@ return (
         </SelectContent>
       </Select>
     </div>
-  </div>
 
-  {/* Right Column */}
-  <div className="space-y-4">
-    {/* Activity Level */}
     <div className="group">
       <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Activity Level</Label>
       <Select value={formData.activityLevel} onValueChange={(value) => setFormData({...formData, activityLevel: value})}>
