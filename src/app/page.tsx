@@ -80,6 +80,54 @@ const ProteinCalculator = () => {
   });
   const [result, setResult] = useState<number | null>(null);
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
+  const [isVegetarian, setIsVegetarian] = useState(false);
+
+  const mealPlans = {
+    regular: [
+      {
+        title: "Breakfast (40g protein)",
+        items: "• 3 eggs (18g) + Greek yogurt (15g) + Oatmeal with milk (7g)"
+      },
+      {
+        title: "Lunch (50g protein)",
+        items: "• Chicken breast (35g) + Quinoa (8g) + Mixed beans (7g)"
+      },
+      {
+        title: "Post-Workout Snack (25g protein)",
+        items: "• Whey protein shake (25g)"
+      },
+      {
+        title: "Dinner (55g protein)",
+        items: "• Salmon fillet (40g) + Lentils (9g) + Green peas (6g)"
+      },
+      {
+        title: "Evening Snack (25g protein)",
+        items: "• Cottage cheese (15g) + Handful of almonds (10g)"
+      }
+    ],
+    vegetarian: [
+      {
+        title: "Breakfast (40g protein)",
+        items: "• Tofu scramble (20g) + Greek yogurt (15g) + Protein oatmeal (5g)"
+      },
+      {
+        title: "Lunch (50g protein)",
+        items: "• Tempeh (30g) + Quinoa (8g) + Edamame (12g)"
+      },
+      {
+        title: "Post-Workout Snack (25g protein)",
+        items: "• Plant-based protein shake (25g)"
+      },
+      {
+        title: "Dinner (55g protein)",
+        items: "• Seitan (40g) + Lentils (9g) + Green peas (6g)"
+      },
+      {
+        title: "Evening Snack (25g protein)",
+        items: "• Soy yogurt (8g) + Mixed nuts (12g) + Hemp seeds (5g)"
+      }
+    ]
+  };
 
   // Add this new reset function
   const resetForm = () => {
@@ -358,65 +406,61 @@ return (
         </Button>
       </div>
     </div>
-            {result && (
-  <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
-    <div className="flex items-center justify-between mb-4">
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
-        <div className={`text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].resultText} text-transparent bg-clip-text leading-tight pb-1`}>
-  {result}g
-</div>
-      </div>
-      <div className="space-y-2">
-        {[
-          { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
-          { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
-          { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
-        ].map((tip, index) => (
-          <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
-            {tip.icon}
-            <span>{tip.text}</span>
+    {result && (
+      <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
+        <div className="flex items-center justify-between mb-4">
+          <div className="space-y-1">
+            <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
+            <div className={`text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].resultText} text-transparent bg-clip-text leading-tight pb-1`}>
+              {result}g
+            </div>
           </div>
-        ))}
+          <div className="space-y-2">
+            {[
+              { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
+              { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
+              { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
+            ].map((tip, index) => (
+              <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
+                {tip.icon}
+                <span>{tip.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+    {/* New Diet Toggle Section */}
+    <div className="mt-6 mb-4 flex items-center justify-between bg-white/50 p-3 rounded-lg">
+          <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
+          <div className="flex items-center gap-2">
+            <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
+            <Switch
+              checked={isVegetarian}
+              onCheckedChange={setIsVegetarian}
+              className="data-[state=checked]:bg-violet-600"
+            />
+            <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
+          </div>
+        </div>
+
+        {/* Updated Meal Plan Section */}
+        <div className="space-y-4">
+          <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}</h4>
+          <div className="grid gap-3">
+            {(isVegetarian ? mealPlans.vegetarian : mealPlans.regular).map((meal, index) => (
+              <div key={index} className="bg-white/50 p-3 rounded-lg">
+                <div className="font-medium text-violet-700">{meal.title}</div>
+                <div className="text-sm text-gray-600">{meal.items}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-xs text-gray-500 mt-2">
+            * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
+          </div>
+        </div>
       </div>
-    </div>
-
-    {/* New Meal Plan Section */}
-    <div className="mt-6 space-y-4">
-      <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan</h4>
-      <div className="grid gap-3">
-        <div className="bg-white/50 p-3 rounded-lg">
-          <div className="font-medium text-violet-700">Breakfast (40g protein)</div>
-          <div className="text-sm text-gray-600">• 3 eggs (18g) + Greek yogurt (15g) + Oatmeal with milk (7g)</div>
-        </div>
-        
-        <div className="bg-white/50 p-3 rounded-lg">
-          <div className="font-medium text-violet-700">Lunch (50g protein)</div>
-          <div className="text-sm text-gray-600">• Chicken breast (35g) + Quinoa (8g) + Mixed beans (7g)</div>
-        </div>
-
-        <div className="bg-white/50 p-3 rounded-lg">
-          <div className="font-medium text-violet-700">Post-Workout Snack (25g protein)</div>
-          <div className="text-sm text-gray-600">• Protein shake (25g)</div>
-        </div>
-        
-        <div className="bg-white/50 p-3 rounded-lg">
-          <div className="font-medium text-violet-700">Dinner (55g protein)</div>
-          <div className="text-sm text-gray-600">• Salmon fillet (40g) + Lentils (9g) + Green peas (6g)</div>
-        </div>
-
-        <div className="bg-white/50 p-3 rounded-lg">
-          <div className="font-medium text-violet-700">Evening Snack (25g protein)</div>
-          <div className="text-sm text-gray-600">• Cottage cheese (15g) + Handful of almonds (10g)</div>
-        </div>
-      </div>
-
-      <div className="text-xs text-gray-500 mt-2">
-        * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
-      </div>
-    </div>
-  </div>
-)}
+    )}
             <div className="mt-8">
   <AdUnit />
 </div>
