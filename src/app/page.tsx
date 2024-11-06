@@ -269,13 +269,13 @@ const handleUnitChange = (checked: boolean) => {
               </div>
             )}
             <div className="mt-8">
-              <AdUnit />
-            </div>
-            <div className="mt-4 text-center text-sm text-gray-600">
-              <Link href="/privacy" className="hover:text-violet-600 transition-colors">
-                Privacy Policy
-              </Link>
-            </div>
+  <AdUnit />
+</div>
+<div className="mt-4 text-left text-xs text-gray-400"> {/* Changed classes here */}
+  <Link href="/privacy" className="hover:text-violet-600 transition-colors">
+    Privacy Policy
+  </Link>
+</div>
           </CardContent>
         </Card>
       </div>
