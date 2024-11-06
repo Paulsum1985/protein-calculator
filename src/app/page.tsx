@@ -208,6 +208,7 @@ return (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   {/* Left Column */}
   <div className="space-y-4">
+    {/* Age and Weight Row */}
     <div className="grid grid-cols-2 gap-4">
       <div className="group">
         <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
@@ -233,27 +234,34 @@ return (
       </div>
     </div>
 
+    {/* Height Row - Using same grid as Age/Weight */}
     <div className="grid grid-cols-2 gap-4">
-      <div className="group">
-        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
-        {formData.units === 'imperial' ? (
-          <div className="grid grid-cols-2 gap-4 mt-1">
+      {formData.units === 'imperial' ? (
+        <>
+          <div className="group">
+            <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height (ft)</Label>
             <Input
               placeholder="Feet"
               type="number"
-              className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
               value={formData.heightFeet}
               onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
             />
+          </div>
+          <div className="group">
+            <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height (in)</Label>
             <Input
               placeholder="Inches"
               type="number"
-              className="bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
               value={formData.heightInches}
               onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
             />
           </div>
-        ) : (
+        </>
+      ) : (
+        <div className="group col-span-2">
+          <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
           <Input
             placeholder="cm"
             type="number"
@@ -261,8 +269,8 @@ return (
             value={formData.heightCm}
             onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   </div>
 
@@ -301,14 +309,13 @@ return (
   </div>
 </div>
 
-{/* Sex and Calculate Button Row - Below the Grid */}
+{/* Sex and Calculate Button Row */}
 <div className="flex gap-6 items-end mt-4">
   <div>
-    <Label className="text-sm text-gray-700">Sex</Label>
     <RadioGroup
       value={formData.sex}
       onValueChange={(value) => setFormData({...formData, sex: value})}
-      className="flex gap-4 mt-1"
+      className="flex gap-4"
     >
       {['male', 'female'].map((sex) => (
         <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
