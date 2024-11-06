@@ -12,6 +12,60 @@ import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
 
+type ThemeKey = 'purple' | 'blue' | 'green';
+
+type Theme = {
+  gradient: string;
+  title: string;
+  button: string;
+  result: string;
+  resultText: string;
+  accent: string;
+  accentHover: string;
+  border: string;
+};
+
+type Themes = {
+  [key in ThemeKey]: Theme;
+};
+
+function isThemeKey(key: string): key is ThemeKey {
+  return ['purple', 'blue', 'green'].includes(key);
+}
+
+const themes: Themes = {
+  purple: {
+    gradient: "from-violet-50 via-indigo-50 to-purple-50",
+    title: "from-violet-500 via-purple-500 to-indigo-500",
+    button: "from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600",
+    result: "from-violet-100 via-purple-100 to-indigo-100",
+    resultText: "from-violet-600 via-purple-600 to-indigo-600",
+    accent: "text-violet-600",
+    accentHover: "hover:text-violet-700",
+    border: "border-violet-200",
+  },
+  blue: {
+    gradient: "from-blue-50 via-sky-50 to-cyan-50",
+    title: "from-blue-500 via-sky-500 to-cyan-500",
+    button: "from-blue-500 via-sky-500 to-cyan-500 hover:from-blue-600 hover:via-sky-600 hover:to-cyan-600",
+    result: "from-blue-100 via-sky-100 to-cyan-100",
+    resultText: "from-blue-600 via-sky-600 to-cyan-600",
+    accent: "text-blue-600",
+    accentHover: "hover:text-blue-700",
+    border: "border-blue-200",
+  },
+  green: {
+    gradient: "from-emerald-50 via-green-50 to-teal-50",
+    title: "from-emerald-500 via-green-500 to-teal-500",
+    button: "from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600",
+    result: "from-emerald-100 via-green-100 to-teal-100",
+    resultText: "from-emerald-600 via-green-600 to-teal-600",
+    accent: "text-emerald-600",
+    accentHover: "hover:text-emerald-700",
+    border: "border-emerald-200",
+  }
+};
+
 const ProteinCalculator = () => {
   const [formData, setFormData] = useState({
     age: '',
@@ -25,6 +79,8 @@ const ProteinCalculator = () => {
     units: 'imperial'
   });
   const [result, setResult] = useState<number | null>(null);
+
+  const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
 
   const calculateProtein = () => {
     // Convert weight to number first
@@ -78,16 +134,32 @@ const handleUnitChange = (checked: boolean) => {
   setFormData(newFormData);
 };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-indigo-50 to-purple-50 p-4 md:p-6">
+const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
+
+return (
+  <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 space-y-4">
+        <div className="flex justify-center gap-2 mb-6">
+  <button
+    onClick={() => setCurrentTheme('purple')}
+    className={`w-8 h-8 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+  />
+  <button
+    onClick={() => setCurrentTheme('blue')}
+    className={`w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
+  />
+  <button
+    onClick={() => setCurrentTheme('green')}
+    className={`w-8 h-8 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 ${currentTheme === 'green' ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}`}
+  />
+</div>
           <div className="text-center space-y-2">
             <div className="inline-block">
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
-                Protein Intake Calculator
-              </h1>
-              <div className="h-1 w-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 rounded-full mt-2" />
+            <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].title} text-transparent bg-clip-text`}>
+  Protein Intake Calculator
+</h1>
+<div className={`h-1 w-full bg-gradient-to-r ${themes[currentTheme].title} rounded-full mt-2`} />
             </div>
             <p className="text-gray-600 text-lg">
               Optimize your protein intake for better health and performance
@@ -235,22 +307,22 @@ const handleUnitChange = (checked: boolean) => {
                 </div>
 
                 <Button 
-                  onClick={calculateProtein}
-                  className="w-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600 text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-                >
-                  Calculate Protein Needs
-                </Button>
+  onClick={calculateProtein}
+  className={"w-full bg-gradient-to-r " + themes[currentTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+>
+  Calculate Protein Needs
+</Button>
               </div>
             </div>
 
             {result && (
-  <div className="mt-6 p-4 pb-6 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-xl shadow-inner border border-violet-200">
+  <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
     <div className="flex items-center justify-between mb-4">
       <div className="space-y-1">
         <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
-        <div className="text-5xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-transparent bg-clip-text leading-tight pb-1">
-          {result}g
-        </div>
+        <div className={`text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].resultText} text-transparent bg-clip-text leading-tight pb-1`}>
+  {result}g
+</div>
       </div>
       <div className="space-y-2">
         {[
