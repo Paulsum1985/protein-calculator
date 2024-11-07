@@ -320,12 +320,30 @@ return (
     </div>
   </div>
 
-  <Head>
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-  />
-</Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Protein Intake Calculator",
+            "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
+            "url": "https://proteincalculator.netlify.app",
+            "applicationCategory": "HealthApplication",
+            "features": [
+              "Calculate daily protein needs",
+              "Personalized meal plans",
+              "Activity level adjustment",
+              "Weight management guidance"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          })
+        }}
+      />
 
   {/* Subtitle */}
   <p className="mt-2 text-gray-600 text-lg font-small tracking-wide">
