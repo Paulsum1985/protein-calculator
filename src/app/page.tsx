@@ -117,10 +117,10 @@ const ProteinCalculator = () => {
     return Math.round((completedFields / totalFields) * 100);
 };
 
-  useEffect(() => {
-    const newProgress = calculateProgress();
-    setProgress(newProgress);
-  }, [formData]);
+useEffect(() => {
+  const newProgress = calculateProgress();
+  setProgress(newProgress);
+}, [formData, calculateProgress]);
 
   const mealPlans = {
     regular: [
