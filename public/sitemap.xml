@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://proteincalculator.netlify.app</loc>
+    <loc>https://protein-calculator.co.uk</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://proteincalculator.netlify.app/privacy</loc>
+    <loc>https://protein-calculator.co.uk/privacy</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://proteincalculator.netlify.app/about</loc>
+    <loc>https://protein-calculator.co.uk/about</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
