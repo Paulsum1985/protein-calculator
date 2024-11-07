@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Script from 'next/script'
+import CookieConsent from '@/components/CookieConsent';
+
+// Add inside your layout/page component:
+<CookieConsent />
 
 const inter = Inter({ subsets: ['latin'] })
 
