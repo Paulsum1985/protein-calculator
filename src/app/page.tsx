@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
+import PrintButton from '@/components/PrintButton';
 
 
 interface FormData {
@@ -585,6 +586,11 @@ return (
             * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
           </div>
         </div>
+        <PrintButton 
+  result={result} 
+  mealPlan={isVegetarian ? mealPlans.vegetarian : mealPlans.regular}
+  isVegetarian={isVegetarian} 
+/>
       </div>
     )}
     <div className="mt-8 space-y-6">
