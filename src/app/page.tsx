@@ -574,7 +574,7 @@ return (
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-violet-600 font-bold">•</span>
-                <span><strong>Goals:</strong> Requirements vary based on whether you're building muscle, losing fat, or maintaining weight.</span>
+                <span><strong>Goals:</strong> Requirements vary based on whether you are building muscle, losing fat, or maintaining weight.</span>
               </li>
             </ul>
           </CardContent>
