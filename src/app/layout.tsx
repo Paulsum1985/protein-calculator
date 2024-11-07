@@ -2,10 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Script from 'next/script'
-import CookieConsent from '@/components/CookieConsent';
-
-// Add inside your layout/page component:
-<CookieConsent />
+import CookieConsent from '@/components/CookieConsent'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -82,9 +79,12 @@ export default function RootLayout({
             });
           `}
         </Script>
-        <link rel="icon" href="/favicon.ico" /> {/* Add a favicon if you have one */}
+        <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   )
 }
