@@ -258,7 +258,6 @@ return (
       </h1>
       {/* Animated Underline */}
       <div className="relative mt-2">
-        <div className={`h-1 w-full bg-gradient-to-r ${themes[safeTheme].title} rounded-full`} />
         <div className={`absolute top-0 h-1 w-1/4 bg-white/50 rounded-full animate-shimmer`} />
       </div>
     </div>
