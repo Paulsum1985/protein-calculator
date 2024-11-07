@@ -245,31 +245,48 @@ return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
-        <div className="text-center space-y-2">
-          <div className="inline-block">
-            <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text`}>
-              Protein Intake Calculator
-            </h1>
-            <div className={`h-1 w-full bg-gradient-to-r ${themes[safeTheme].title} rounded-full mt-2`} />
-          </div>
-          <p className="text-gray-600 text-lg">
-            Optimize your protein intake for better health and performance
-          </p>
-        </div>
+      <div className="text-center space-y-4">
+  {/* Title Container */}
+  <div className="relative inline-block">
+    {/* Glowing Background */}
+    <div className="absolute -inset-1 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-lg blur-xl opacity-70" />
+    
+    {/* Title Content */}
+    <div className="relative">
+      <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight`}>
+        Protein Intake Calculator
+      </h1>
+      {/* Animated Underline */}
+      <div className="relative mt-2">
+        <div className={`h-1 w-full bg-gradient-to-r ${themes[safeTheme].title} rounded-full`} />
+        <div className={`absolute top-0 h-1 w-1/4 bg-white/50 rounded-full animate-shimmer`} />
+      </div>
+    </div>
+  </div>
+
+  {/* Subtitle */}
+  <p className="mt-4 text-gray-600 text-lg font-medium tracking-wide">
+    Optimize your protein intake for better health and performance
+  </p>
+</div>
 
         
-        <div className="flex justify-center gap-6">
-          {[
-            { icon: <DumbbellIcon className="w-5 h-5" />, text: "Build muscle", color: "bg-violet-100 text-violet-700" },
-            { icon: <BrainIcon className="w-5 h-5" />, text: "Boost recovery", color: "bg-purple-100 text-purple-700" },
-            { icon: <ActivityIcon className="w-5 h-5" />, text: "Improve health", color: "bg-indigo-100 text-indigo-700" }
-          ].map((benefit, index) => (
-            <div key={index} className={`flex items-center gap-2 text-sm px-4 py-2 rounded-full shadow-sm ${benefit.color} transition-all duration-300 hover:scale-105`}>
-              {benefit.icon}
-              <span>{benefit.text}</span>
-            </div>
-          ))}
-        </div>
+<div className="flex justify-center gap-6 pt-2">
+  {[
+    { icon: <DumbbellIcon className="w-5 h-5" />, text: "Build muscle", color: "bg-violet-100/80 text-violet-700" },
+    { icon: <BrainIcon className="w-5 h-5" />, text: "Boost recovery", color: "bg-purple-100/80 text-purple-700" },
+    { icon: <ActivityIcon className="w-5 h-5" />, text: "Improve health", color: "bg-indigo-100/80 text-indigo-700" }
+  ].map((benefit, index) => (
+    <div 
+      key={index} 
+      className={`flex items-center gap-2 text-sm px-4 py-2 rounded-full shadow-sm backdrop-blur-sm ${benefit.color} 
+                 transition-all duration-300 hover:scale-105 hover:shadow-md`}
+    >
+      {benefit.icon}
+      <span className="font-medium">{benefit.text}</span>
+    </div>
+  ))}
+</div>
 
         <div className="flex items-center justify-center gap-2 mt-4 mb-2">  {/* Changed my-6 to mt-6 mb-4 */}
   <span className="text-sm text-gray-600">Color Theme:</span>
@@ -525,9 +542,113 @@ return (
         </div>
       </div>
     )}
-            <div className="mt-8">
-  <AdUnit />
-</div>
+    <div className="mt-8 space-y-6">
+      <section className="bg-white/90 rounded-xl p-6 shadow-lg">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>
+        <div className="prose text-gray-600 space-y-4">
+          <p>
+            Protein is an essential macronutrient that plays crucial roles in your body, including:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>Building and repairing muscle tissue</li>
+            <li>Supporting immune system function</li>
+            <li>Producing enzymes and hormones</li>
+            <li>Maintaining healthy skin, hair, and nails</li>
+            <li>Promoting satiety and weight management</li>
+          </ul>
+        </div>
+      </section>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="bg-white/90">
+          <CardContent className="p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">Factors Affecting Protein Needs</h3>
+            <ul className="space-y-3 text-gray-600">
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 font-bold">•</span>
+                <span><strong>Activity Level:</strong> More active individuals require higher protein intake to support muscle recovery and growth.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 font-bold">•</span>
+                <span><strong>Age:</strong> Protein needs may increase with age to help maintain muscle mass.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 font-bold">•</span>
+                <span><strong>Goals:</strong> Requirements vary based on whether you're building muscle, losing fat, or maintaining weight.</span>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white/90">
+          <CardContent className="p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">Quality Protein Sources</h3>
+            <div className="grid grid-cols-2 gap-4 text-gray-600">
+              <div>
+                <h4 className="font-medium text-violet-600 mb-2">Animal Sources</h4>
+                <ul className="space-y-1">
+                  <li>• Chicken Breast (31g/100g)</li>
+                  <li>• Salmon (25g/100g)</li>
+                  <li>• Eggs (13g/100g)</li>
+                  <li>• Greek Yogurt (10g/100g)</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-violet-600 mb-2">Plant Sources</h4>
+                <ul className="space-y-1">
+                  <li>• Lentils (9g/100g)</li>
+                  <li>• Quinoa (4.4g/100g)</li>
+                  <li>• Chickpeas (8.9g/100g)</li>
+                  <li>• Tofu (8g/100g)</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <section className="bg-white/90 rounded-xl p-6 shadow-lg">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Tips for Meeting Your Protein Goals</h2>
+        <div className="grid md:grid-cols-3 gap-6 text-gray-600">
+          <div>
+            <h4 className="font-medium text-violet-600 mb-2">Timing Matters</h4>
+            <p>Distribute protein intake evenly throughout the day, aiming for 20-30g per meal to optimize muscle protein synthesis.</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-violet-600 mb-2">Quality Over Quantity</h4>
+            <p>Focus on complete protein sources containing all essential amino acids. Combine different plant proteins if following a vegetarian diet.</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-violet-600 mb-2">Post-Workout Nutrition</h4>
+            <p>Consume protein within 2 hours after exercise to support muscle recovery and adaptation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white/90 rounded-xl p-6 shadow-lg">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Common Protein Myths</h2>
+        <div className="space-y-4 text-gray-600">
+          <div className="flex items-start gap-3">
+            <span className="text-violet-600 font-bold text-xl">✕</span>
+            <div>
+              <h4 className="font-medium">Myth: More protein is always better</h4>
+              <p>Truth: Excessive protein intake offers no additional benefits and may stress kidneys in certain individuals.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-violet-600 font-bold text-xl">✕</span>
+            <div>
+              <h4 className="font-medium">Myth: Plant proteins are incomplete</h4>
+              <p>Truth: Many plant proteins are complete, and combining different sources ensures adequate amino acid intake.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div className="mt-8">
+      <AdUnit />
+    </div>
 <div className="mt-4 text-left text-xs text-gray-400 flex gap-4"> {/* Added flex and gap-4 */}
   <Link href="/privacy" className="hover:text-violet-600 transition-colors">
     Privacy Policy
