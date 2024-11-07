@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -96,7 +96,7 @@ const ProteinCalculator = () => {
   const [progress, setProgress] = useState(0);
  
   // Progress calculation functions next
-  const calculateProgress = () => {
+  const calculateProgress = useCallback(() => {
     let completedFields = 0;
     let totalFields = 0;
 
@@ -115,7 +115,7 @@ const ProteinCalculator = () => {
     completedFields = requiredFields.filter(field => field.condition).length;
 
     return Math.round((completedFields / totalFields) * 100);
-};
+}, [formData]);
 
 useEffect(() => {
   const newProgress = calculateProgress();
@@ -441,7 +441,7 @@ return (
           <SelectValue placeholder="Select activity level" className="text-gray-800" />
         </SelectTrigger>
         <SelectContent className="bg-white border-violet-200 text-gray-800">
-          <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
+        <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
           <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
           <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
           <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
