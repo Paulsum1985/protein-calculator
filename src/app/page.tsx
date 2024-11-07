@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
+import ResultsSection from '@/components/ResultsSection';
 
 
 interface FormData {
@@ -533,6 +534,13 @@ return (
       </div>
     </div>
     {result && (
+  <ResultsSection 
+    result={result}
+    formData={formData}
+    currentTheme={currentTheme}
+    themes={themes}
+  />
+)}
       <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
         <div className="flex items-center justify-between mb-4">
           <div className="space-y-1">
@@ -586,7 +594,6 @@ return (
           </div>
         </div>
       </div>
-    )}
     <div className="mt-8 space-y-6">
       <section className="bg-white/90 rounded-xl p-6 shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>
