@@ -33,7 +33,7 @@ const CookieConsent = () => {
         <div className="flex items-center gap-3">
           <CookieIcon className="w-6 h-6 text-violet-600" />
           <p className="text-sm text-gray-600">
-            We use cookies to enhance your experience and analyze site performance. By clicking "Accept", you agree to our use of cookies.
+            We use cookies to enhance your experience and analyze site performance. By clicking &quot;Accept&quot;, you agree to our use of cookies.
           </p>
         </div>
         <div className="flex gap-3">
