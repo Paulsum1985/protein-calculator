@@ -11,6 +11,43 @@ import { Switch } from "@/components/ui/switch";
 import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
+import Head from 'next/head';
+
+export const metadata = {
+  title: 'Protein Calculator - Daily Protein Intake Calculator',
+  description: 'Calculate your personalized daily protein needs based on your weight, activity level, and fitness goals. Get a customized meal plan and learn about protein sources.',
+  keywords: 'protein calculator, protein intake calculator, daily protein needs, protein requirements, muscle building, weight loss, nutrition calculator',
+  openGraph: {
+    title: 'Protein Calculator - Daily Protein Intake Calculator',
+    description: 'Calculate your personalized daily protein needs based on your weight, activity level, and fitness goals.',
+    url: 'https://proteincalculator.netlify.app',
+    siteName: 'Protein Calculator',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Protein Calculator - Daily Protein Intake Calculator',
+    description: 'Calculate your personalized daily protein needs based on your weight, activity level, and fitness goals.',
+  },
+  alternates: {
+    canonical: 'https://proteincalculator.netlify.app'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code', // Add this when you have Google Search Console set up
+  }
+};
 
 interface FormData {
   age: string;
@@ -75,6 +112,26 @@ const themes: Themes = {
     accent: "text-emerald-600",
     accentHover: "hover:text-emerald-700",
     border: "border-emerald-200",
+  }
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Protein Intake Calculator",
+  "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
+  "url": "https://proteincalculator.netlify.app",
+  "applicationCategory": "HealthApplication",
+  "features": [
+    "Calculate daily protein needs",
+    "Personalized meal plans",
+    "Activity level adjustment",
+    "Weight management guidance"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
   }
 };
 
@@ -262,6 +319,13 @@ return (
       </div>
     </div>
   </div>
+
+  <Head>
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+  />
+</Head>
 
   {/* Subtitle */}
   <p className="mt-2 text-gray-600 text-lg font-small tracking-wide">
