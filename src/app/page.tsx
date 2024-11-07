@@ -270,12 +270,16 @@ return (
       <div className="text-center space-y-1">
   {/* Title Container */}
   <div className="relative inline-block">
-    {/* Glowing Background */}
+    {/* Add Google Fonts import */}
+    <style jsx global>{`
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:ital@1&display=swap');
+    `}</style>
+    
     <div className="absolute -inset-1 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-lg blur-xl opacity-70" />
     
     {/* Title Content */}
     <div className="relative">
-      <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight`}>
+      <h1 style={{ fontFamily: "'Montserrat', sans-serif" }} className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight`}>
         Protein Intake Calculator
       </h1>
       {/* Animated Underline */}
@@ -284,6 +288,12 @@ return (
       </div>
     </div>
   </div>
+
+  {/* Subtitle */}
+  <p style={{ fontFamily: "'Playfair Display', serif" }} className="mt-2 text-gray-600 text-lg italic tracking-wide">
+    Optimize your protein intake for better health and performance
+  </p>
+</div>
 
       <script
         type="application/ld+json"
@@ -309,12 +319,6 @@ return (
           })
         }}
       />
-
-  {/* Subtitle */}
-  <p className="mt-2 text-gray-600 text-lg font-small tracking-wide">
-    Optimize your protein intake for better health and performance
-  </p>
-</div>
 
         
 <div className="flex justify-center gap-6 mt-2">
