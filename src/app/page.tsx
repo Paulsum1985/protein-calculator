@@ -289,15 +289,6 @@ return (
     .delay-200 {
       animation-delay: 0.2s;
     }
-
-    /* Preload fonts */
-    @font-face {
-      font-family: 'Rowdies';
-      font-style: normal;
-      font-weight: 700;
-      font-display: swap;
-      src: local('Rowdies Bold'), local('Rowdies-Bold');
-    }
   `}</style>
   
   {/* Title Container */}
@@ -306,8 +297,8 @@ return (
     
     <div className="relative">
       <h1 
-        style={{ fontFamily: "'Rowdies', 'Arial Rounded MT Bold', 'Avenir Next', 'Nunito', sans-serif" }} 
-        className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight opacity-0 animate-[fadeIn_0.5s_ease-out_0.1s_forwards]`}
+        style={{ fontFamily: "'Rowdies', 'Arial Rounded MT Bold', 'Helvetica Rounded', 'Arial', sans-serif" }} 
+        className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight`}
       >
         Protein Calculator
       </h1>
