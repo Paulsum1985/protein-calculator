@@ -264,7 +264,7 @@ return (
   </div>
 
   {/* Subtitle */}
-  <p className="mt-4 text-gray-600 text-lg font-medium tracking-wide">
+  <p className="mt-2 text-gray-600 text-lg font-small tracking-wide">
     Optimize your protein intake for better health and performance
   </p>
 </div>
