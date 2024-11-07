@@ -342,16 +342,16 @@ return (
       />
 
         
-<div className="flex justify-center gap-6 mt-2">
+<div className="flex justify-center flex-wrap gap-2 sm:gap-6 mt-2">
   {[
-    { icon: <DumbbellIcon className="w-5 h-5" />, text: "Build muscle", color: "bg-violet-100/80 text-violet-700" },
-    { icon: <BrainIcon className="w-5 h-5" />, text: "Boost recovery", color: "bg-purple-100/80 text-purple-700" },
-    { icon: <ActivityIcon className="w-5 h-5" />, text: "Improve health", color: "bg-indigo-100/80 text-indigo-700" }
+    { icon: <DumbbellIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Build muscle", color: "bg-violet-100/80 text-violet-700" },
+    { icon: <BrainIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Boost recovery", color: "bg-purple-100/80 text-purple-700" },
+    { icon: <ActivityIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Improve health", color: "bg-indigo-100/80 text-indigo-700" }
   ].map((benefit, index) => (
     <div 
       key={index} 
-      className={`flex items-center gap-2 text-sm px-4 py-2 rounded-full shadow-sm backdrop-blur-sm ${benefit.color} 
-                 transition-all duration-300 hover:scale-105 hover:shadow-md`}
+      className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-sm backdrop-blur-sm ${benefit.color} 
+                 transition-all duration-300 hover:scale-105 hover:shadow-md whitespace-nowrap`}
     >
       {benefit.icon}
       <span className="font-medium">{benefit.text}</span>
