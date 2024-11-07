@@ -272,7 +272,7 @@ return (
   <div className="relative inline-block w-full max-w-3xl px-4">
     {/* Add Google Fonts import */}
     <style jsx global>{`
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
     `}</style>
     
     <div className="absolute -inset-1 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-lg blur-xl opacity-70" />
@@ -280,7 +280,7 @@ return (
     {/* Title Content */}
     <div className="relative">
       <h1 
-        style={{ fontFamily: "'Montserrat', sans-serif" }} 
+        style={{ fontFamily: "'Rowdies', cursive" }} 
         className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight`}
       >
         Protein Intake Calculator
@@ -295,7 +295,7 @@ return (
   {/* Subtitle */}
   <p 
     style={{ fontFamily: "'Inter', sans-serif" }} 
-    className="mt-2 text-gray-600 text-sm sm:text-base md:text-lg font-medium tracking-wide px-4"
+    className="mt-2 text-gray-600 text-xs sm:text-sm md:text-base font-medium tracking-wide px-4"
   >
     Optimize your protein intake for better health and performance
   </p>
