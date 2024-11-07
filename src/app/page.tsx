@@ -268,34 +268,49 @@ return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
       <div className="text-center space-y-1">
-  {/* Title Container */}
-  <div className="relative inline-block w-full max-w-3xl px-4">
-    {/* Add Google Fonts import */}
-    <style jsx global>{`
-      @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
-    `}</style>
+  <style jsx global>{`
+    @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
     
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+  `}</style>
+  
+  {/* Title Container */}
+  <div className="relative inline-block w-full max-w-3xl px-4 animate-fade-in-up">
     <div className="absolute -inset-1 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-lg blur-xl opacity-70" />
     
-    {/* Title Content */}
     <div className="relative">
       <h1 
         style={{ fontFamily: "'Rowdies', cursive" }} 
         className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight`}
       >
-        Protein Intake Calculator
+        Protein Calculator
       </h1>
-      {/* Animated Underline */}
       <div className="relative mt-2">
         <div className={`h-1 w-full bg-gradient-to-r ${themes[safeTheme].title} rounded-full`} />
       </div>
     </div>
   </div>
 
-  {/* Subtitle */}
   <p 
-    style={{ fontFamily: "'Inter', sans-serif" }} 
-    className="mt-2 text-gray-600 text-xs sm:text-sm md:text-base font-medium tracking-wide px-4"
+    style={{ fontFamily: "'Inter', sans-serif" }}
+    className="mt-2 text-gray-600 text-xs sm:text-sm md:text-base font-medium tracking-wide px-4 animate-fade-in-up delay-200"
   >
     Optimize your protein intake for better health and performance
   </p>
@@ -379,7 +394,7 @@ return (
   </div>
 </div>
 
-        <Card className="bg-white/90 backdrop-blur-sm border-none shadow-2xl transition-all duration-300 hover:shadow-3xl">
+<Card className="bg-white/90 backdrop-blur-sm border-none shadow-2xl transition-all duration-300 hover:shadow-3xl ring-1 ring-black/5">
           <CardContent className="p-4 md:p-6">
             {/* New compact unit selector */}
             <div className="mb-6">
