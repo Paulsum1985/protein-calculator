@@ -245,7 +245,7 @@ return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-1">
   {/* Title Container */}
   <div className="relative inline-block">
     {/* Glowing Background */}
@@ -270,7 +270,7 @@ return (
 </div>
 
         
-<div className="flex justify-center gap-6 pt-2">
+<div className="flex justify-center gap-6 mt-2">
   {[
     { icon: <DumbbellIcon className="w-5 h-5" />, text: "Build muscle", color: "bg-violet-100/80 text-violet-700" },
     { icon: <BrainIcon className="w-5 h-5" />, text: "Boost recovery", color: "bg-purple-100/80 text-purple-700" },
@@ -287,7 +287,7 @@ return (
   ))}
 </div>
 
-        <div className="flex items-center justify-center gap-2 mt-4 mb-2">  {/* Changed my-6 to mt-6 mb-4 */}
+        <div className="flex items-center justify-center gap-2 mt-4 mb-1">  {/* Changed my-6 to mt-6 mb-4 */}
   <span className="text-sm text-gray-600">Color Theme:</span>
   <div className="flex gap-2">
     <button
