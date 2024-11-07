@@ -269,17 +269,20 @@ return (
       <div className="mb-4 space-y-4">
       <div className="text-center space-y-1">
   {/* Title Container */}
-  <div className="relative inline-block">
+  <div className="relative inline-block w-full max-w-3xl px-4">
     {/* Add Google Fonts import */}
     <style jsx global>{`
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:ital@1&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500&display=swap');
     `}</style>
     
     <div className="absolute -inset-1 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-lg blur-xl opacity-70" />
     
     {/* Title Content */}
     <div className="relative">
-      <h1 style={{ fontFamily: "'Montserrat', sans-serif" }} className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight`}>
+      <h1 
+        style={{ fontFamily: "'Montserrat', sans-serif" }} 
+        className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight`}
+      >
         Protein Intake Calculator
       </h1>
       {/* Animated Underline */}
@@ -290,7 +293,10 @@ return (
   </div>
 
   {/* Subtitle */}
-  <p style={{ fontFamily: "'Playfair Display', serif" }} className="mt-2 text-gray-600 text-lg italic tracking-wide">
+  <p 
+    style={{ fontFamily: "'Inter', sans-serif" }} 
+    className="mt-2 text-gray-600 text-sm sm:text-base md:text-lg font-medium tracking-wide px-4"
+  >
     Optimize your protein intake for better health and performance
   </p>
 </div>
