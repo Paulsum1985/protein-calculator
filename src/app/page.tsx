@@ -85,7 +85,7 @@ const jsonLd = {
   "@type": "WebApplication",
   "name": "Protein Intake Calculator",
   "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
-  "url": "https://proteincalculator.netlify.app",
+  "url": "https://protein-calculator.co.uk",
   "applicationCategory": "HealthApplication",
   "features": [
     "Calculate daily protein needs",
@@ -293,7 +293,7 @@ return (
             "@type": "WebApplication",
             "name": "Protein Intake Calculator",
             "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
-            "url": "https://proteincalculator.netlify.app",
+            "url": "https://protein-calculator.co.uk",
             "applicationCategory": "HealthApplication",
             "features": [
               "Calculate daily protein needs",
@@ -539,9 +539,11 @@ return (
     formData={formData}
     currentTheme={currentTheme}
     themes={themes}
+    isVegetarian={isVegetarian}
+    setIsVegetarian={setIsVegetarian}
+    mealPlans={mealPlans}
   />
 )}
-      <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
         <div className="flex items-center justify-between mb-4">
           <div className="space-y-1">
             <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
@@ -593,7 +595,6 @@ return (
             * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
           </div>
         </div>
-      </div>
     <div className="mt-8 space-y-6">
       <section className="bg-white/90 rounded-xl p-6 shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>

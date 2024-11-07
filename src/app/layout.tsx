@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   title: 'Protein Calculator - Daily Protein Intake Calculator',
   description: 'Calculate your personalized daily protein needs based on your weight, activity level, and fitness goals. Get a customized meal plan and learn about protein sources.',
   keywords: 'protein calculator, protein intake calculator, daily protein needs, protein requirements, muscle building, weight loss, nutrition calculator',
-  metadataBase: new URL('https://proteincalculator.netlify.app'),
+  metadataBase: new URL('https://protein-calculator.co.uk'),
   openGraph: {
     title: 'Protein Calculator - Daily Protein Intake Calculator',
     description: 'Calculate your personalized daily protein needs based on your weight, activity level, and fitness goals.',
-    url: 'https://proteincalculator.netlify.app',
+    url: 'https://protein-calculator.co.uk',
     siteName: 'Protein Calculator',
     type: 'website',
     locale: 'en_US',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     creator: '@yourtwitterhandle', // Optional: add if you have a Twitter account
   },
   alternates: {
-    canonical: 'https://proteincalculator.netlify.app'
+    canonical: 'https://protein-calculator.co.uk'
   },
   robots: {
     index: true,

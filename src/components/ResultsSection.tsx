@@ -1,8 +1,37 @@
 import React, { useState } from 'react';
 import { Share2, Copy, Check, Activity, Dumbbell, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Switch } from "@/components/ui/switch";
+import { FormData, ThemeKey, Themes } from '@/types';
 
-const ResultsSection = ({ result, formData, currentTheme, themes }) => {
+interface ResultsSectionProps {
+  result: number;
+  formData: FormData;
+  currentTheme: ThemeKey;
+  themes: Themes;
+  isVegetarian: boolean;
+  setIsVegetarian: React.Dispatch<React.SetStateAction<boolean>>;
+  mealPlans: {
+    regular: Array<{
+      title: string;
+      items: string;
+    }>;
+    vegetarian: Array<{
+      title: string;
+      items: string;
+    }>;
+  };
+}
+
+const ResultsSection: React.FC<ResultsSectionProps> = ({ 
+  result, 
+  formData, 
+  currentTheme, 
+  themes, 
+  isVegetarian, 
+  setIsVegetarian, 
+  mealPlans 
+}) => {
   const [copied, setCopied] = useState(false);
   
   const createShareText = () => {
@@ -11,7 +40,7 @@ Target: ${result}g of protein per day
 Goal: ${formData.goal?.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())}
 Activity Level: ${formData.activityLevel?.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())}
 
-Calculate yours at: proteincalculator.netlify.app`;
+Calculate yours at: protein-calculator.co.uk`;
   };
 
   const handleCopy = async () => {
@@ -30,7 +59,7 @@ Calculate yours at: proteincalculator.netlify.app`;
         await navigator.share({
           title: 'My Protein Calculator Results',
           text: createShareText(),
-          url: 'https://proteincalculator.netlify.app'
+          url: 'https://protein-calculator.co.uk'
         });
       } else {
         handleCopy();
@@ -97,6 +126,37 @@ Calculate yours at: proteincalculator.netlify.app`;
             <Share2 className="w-4 h-4" />
             <span>Share Results</span>
           </Button>
+        </div>
+
+        {/* Diet Toggle Section */}
+        <div className="mt-6 mb-4 flex items-center justify-between bg-white/50 p-3 rounded-lg">
+          <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
+          <div className="flex items-center gap-2">
+            <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
+            <Switch
+              checked={isVegetarian}
+              onCheckedChange={setIsVegetarian}
+              className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
+            />
+            <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
+          </div>
+        </div>
+
+        {/* Meal Plan Section */}
+        <div className="space-y-4">
+          <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}</h4>
+          <div className="grid gap-3">
+            {(isVegetarian ? mealPlans.vegetarian : mealPlans.regular).map((meal, index) => (
+              <div key={index} className="bg-white/50 p-3 rounded-lg">
+                <div className="font-medium text-violet-700">{meal.title}</div>
+                <div className="text-sm text-gray-600">{meal.items}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-xs text-gray-500 mt-2">
+            * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
+          </div>
         </div>
       </div>
     </div>
