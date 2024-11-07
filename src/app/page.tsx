@@ -289,6 +289,15 @@ return (
     .delay-200 {
       animation-delay: 0.2s;
     }
+
+    /* Preload fonts */
+    @font-face {
+      font-family: 'Rowdies';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local('Rowdies Bold'), local('Rowdies-Bold');
+    }
   `}</style>
   
   {/* Title Container */}
@@ -297,8 +306,8 @@ return (
     
     <div className="relative">
       <h1 
-        style={{ fontFamily: "'Rowdies', cursive" }} 
-        className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight`}
+        style={{ fontFamily: "'Rowdies', 'Arial Rounded MT Bold', 'Avenir Next', 'Nunito', sans-serif" }} 
+        className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight opacity-0 animate-[fadeIn_0.5s_ease-out_0.1s_forwards]`}
       >
         Protein Calculator
       </h1>
@@ -309,7 +318,7 @@ return (
   </div>
 
   <p 
-    style={{ fontFamily: "'Inter', sans-serif" }}
+    style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" }}
     className="mt-2 text-gray-600 text-xs sm:text-sm md:text-base font-medium tracking-wide px-4 animate-fade-in-up delay-200"
   >
     Optimize your protein intake for better health and performance
