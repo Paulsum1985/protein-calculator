@@ -85,7 +85,7 @@ const jsonLd = {
   "@type": "WebApplication",
   "name": "Protein Intake Calculator",
   "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
-  "url": "https://proteincalculator.netlify.app",
+  "url": "https://protein-calculator.co.uk",
   "applicationCategory": "HealthApplication",
   "features": [
     "Calculate daily protein needs",
@@ -293,7 +293,7 @@ return (
             "@type": "WebApplication",
             "name": "Protein Intake Calculator",
             "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
-            "url": "https://proteincalculator.netlify.app",
+            "url": "https://protein-calculator.co.uk",
             "applicationCategory": "HealthApplication",
             "features": [
               "Calculate daily protein needs",

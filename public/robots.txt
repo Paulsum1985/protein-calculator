@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://proteincalculator.netlify.app/sitemap.xml
+Sitemap: https://protein-calculator.co.uk/sitemap.xml

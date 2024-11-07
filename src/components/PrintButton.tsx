@@ -1,7 +1,18 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
-const PrintButton = ({ result, mealPlan, isVegetarian }) => {
+interface MealPlan {
+  title: string;
+  items: string;
+}
+
+interface PrintButtonProps {
+  result: number;
+  mealPlan: MealPlan[];
+  isVegetarian: boolean;
+}
+
+const PrintButton = ({ result, mealPlan, isVegetarian }: PrintButtonProps) => {
   const handlePrint = () => {
     // Create a new window for the printable content
     const printWindow = window.open('', '_blank');
