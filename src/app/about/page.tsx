@@ -4,6 +4,13 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 
+// Add this metadata export
+export const metadata = {
+  title: 'About Our Protein Calculator | Expert Nutrition Tools',
+  description: 'Learn about our free protein calculator tool and how it helps you optimize your nutrition and fitness goals',
+  keywords: 'protein calculator about, protein intake tool, nutrition calculator, fitness tools',
+};
+
 const AboutContact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-indigo-50 to-purple-50 p-4 md:p-6">
