@@ -267,8 +267,10 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
     <Head>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+  <title>Protein Calculator | Daily Protein Intake Calculator</title>
+  <meta name="description" content="Calculate your daily protein requirements based on weight, activity level, and fitness goals. Free online protein calculator with personalized meal plans." />
+  <link rel="icon" href="/favicon.ico" />
+</Head>
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
         <div className="text-center space-y-1">
