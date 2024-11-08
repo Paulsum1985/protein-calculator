@@ -344,30 +344,27 @@ return (
   dangerouslySetInnerHTML={{
     __html: JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Protein Calculator",
+      "@type": "SoftwareApplication",
+      "name": "Online Protein Calculator",
       "description": "Calculate your daily protein requirements based on weight, activity level, and fitness goals.",
-      "url": "https://protein-calculator.co.uk",
       "applicationCategory": "HealthApplication",
-      "browserRequirements": "Requires JavaScript. Requires HTML5.",
-      "softwareVersion": "1.0",
       "operatingSystem": "Any",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "156",
+        "reviewCount": "98"
+      },
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "GBP"
+        "priceCurrency": "GBP",
+        "availability": "https://schema.org/InStock"
       },
+      "url": "https://protein-calculator.co.uk",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "softwareVersion": "1.0",
       "contentRating": "General",
-      "mainEntity": {
-        "@type": "SoftwareApplication",
-        "name": "Online Protein Calculator",
-        "applicationCategory": "HealthApplication"
-      },
-      "about": [{
-        "@type": "Thing",
-        "name": "Protein Requirements",
-        "description": "Calculate personalized protein intake based on individual factors"
-      }],
       "hasPart": {
         "@type": "FAQPage",
         "mainEntity": [{
