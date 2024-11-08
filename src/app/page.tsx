@@ -267,9 +267,9 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
     <Head>
-  <title>Protein Calculator | Daily Protein Intake Calculator (Free & Accurate)</title>
+    <title>Protein Calculator | How Much Protein Do I Need Per Day? (Free Tool)</title>
   <meta name="title" content="Protein Calculator | Daily Protein Intake Calculator (Free & Accurate)" />
-  <meta name="description" content="Calculate your exact daily protein needs based on your weight, activity level, and fitness goals. Free personalized protein calculator with meal plans. Science-backed recommendations for muscle gain, weight loss, and health." />
+  <meta name="description" content="Calculate how much protein you need per day for your goals. Free protein intake calculator with personalized recommendations for muscle gain, weight loss & fitness. Get your daily protein requirements in seconds." />
   <meta name="keywords" content="protein calculator, protein intake calculator, daily protein requirements, protein calculator uk, how much protein do i need, protein requirements calculator" />
 
   {/* Open Graph / Facebook */}
