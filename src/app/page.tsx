@@ -267,8 +267,25 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
     <Head>
-  <title>Protein Calculator | Daily Protein Intake Calculator</title>
-  <meta name="description" content="Calculate your daily protein requirements based on weight, activity level, and fitness goals. Free online protein calculator with personalized meal plans." />
+  <title>Protein Calculator | Daily Protein Intake Calculator (Free & Accurate)</title>
+  <meta name="title" content="Protein Calculator | Daily Protein Intake Calculator (Free & Accurate)" />
+  <meta name="description" content="Calculate your exact daily protein needs based on your weight, activity level, and fitness goals. Free personalized protein calculator with meal plans. Science-backed recommendations for muscle gain, weight loss, and health." />
+  <meta name="keywords" content="protein calculator, protein intake calculator, daily protein requirements, protein calculator uk, how much protein do i need, protein requirements calculator" />
+
+  {/* Open Graph / Facebook */}
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://protein-calculator.co.uk/" />
+  <meta property="og:title" content="Protein Calculator | Calculate Your Daily Protein Requirements" />
+  <meta property="og:description" content="Free calculator to determine your exact daily protein needs. Get personalized recommendations and meal plans based on your goals and activity level." />
+  <meta property="og:image" content="https://protein-calculator.co.uk/protein-calculator-og.jpg" />
+
+  {/* Twitter */}
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://protein-calculator.co.uk/" />
+  <meta property="twitter:title" content="Protein Calculator | Calculate Your Daily Protein Requirements" />
+  <meta property="twitter:description" content="Free calculator to determine your exact daily protein needs. Get personalized recommendations and meal plans based on your goals and activity level." />
+  <meta property="twitter:image" content="https://protein-calculator.co.uk/protein-calculator-og.jpg" />
+
   <link rel="icon" href="/favicon.ico" />
 </Head>
     <div className="max-w-4xl mx-auto">
