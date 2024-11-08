@@ -12,6 +12,7 @@ import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
 import PrintButton from '@/components/PrintButton';
+import Head from 'next/head';
 
 
 interface FormData {
@@ -265,9 +266,12 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 
 return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
+    <Head>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
-      <div className="text-center space-y-1">
+        <div className="text-center space-y-1">
   <style jsx global>{`
     @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
     
