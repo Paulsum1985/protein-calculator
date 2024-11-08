@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+
+# Sitemap location
 Sitemap: https://protein-calculator.co.uk/sitemap.xml
