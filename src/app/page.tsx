@@ -339,31 +339,65 @@ return (
   </p>
 </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Protein Intake Calculator",
-            "description": "Calculate your daily protein requirements based on your weight, activity level, and fitness goals.",
-            "url": "https://protein-calculator.co.uk",
-            "applicationCategory": "HealthApplication",
-            "features": [
-              "Calculate daily protein needs",
-              "Personalized meal plans",
-              "Activity level adjustment",
-              "Weight management guidance"
-            ],
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            }
-          })
-        }}
-      />
-
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Protein Calculator",
+      "description": "Calculate your daily protein requirements based on weight, activity level, and fitness goals.",
+      "url": "https://protein-calculator.co.uk",
+      "applicationCategory": "HealthApplication",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "softwareVersion": "1.0",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "contentRating": "General",
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Online Protein Calculator",
+        "applicationCategory": "HealthApplication"
+      },
+      "about": [{
+        "@type": "Thing",
+        "name": "Protein Requirements",
+        "description": "Calculate personalized protein intake based on individual factors"
+      }],
+      "hasPart": {
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "How much protein should I eat per day?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Daily protein needs vary based on weight, activity level, and goals. Generally, active adults need 0.8-1.2g per pound of body weight, athletes may need 1.2-1.6g per pound."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What factors affect protein requirements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Key factors include body weight, activity level, fitness goals (muscle gain, fat loss, or maintenance), age, and overall health status."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate is this protein calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This calculator uses scientifically-validated formulas based on your weight, activity level, and goals to provide accurate protein recommendations."
+          }
+        }]
+      }
+    })
+  }}
+/>
         
 <div className="flex justify-center flex-wrap gap-2 sm:gap-6 mt-2">
   {[
