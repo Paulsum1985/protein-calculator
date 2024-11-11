@@ -8,16 +8,3 @@
 [build.environment]
   NEXT_USE_NETLIFY_EDGE = "true"
   NODE_VERSION = "18"
-
-# Add these new redirect rules:
-[[redirects]]
-  from = "https://protein-calculator.netlify.app/*"
-  to = "https://protein-calculator.co.uk/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://protein-calculator.netlify.app/*"
-  to = "https://protein-calculator.co.uk/:splat"
-  status = 301
-  force = true
