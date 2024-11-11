@@ -1,5 +1,93 @@
+# Protein Calculator UK - robots.txt
+# Updated: 2024-02-21
+# Website: https://protein-calculator.co.uk
+
+# Global Settings
 User-agent: *
 Allow: /
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Allow: /calculator
+Allow: /about
+Allow: /privacy
+Allow: /terms
+Allow: /blog
+Allow: /sitemap.xml
+Allow: /robots.txt
 
-# Sitemap location
+# Optimize Crawl for Main Search Engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.png
+Allow: /*.webp
+Allow: /*.svg
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+User-agent: bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Block Development and Admin Areas
+Disallow: /admin/
+Disallow: /dev/
+Disallow: /test/
+Disallow: /beta/
+Disallow: /staging/
+Disallow: /wp-admin/
+Disallow: /temp/
+Disallow: /*.sql
+Disallow: /*.zip
+Disallow: /*.gz
+Disallow: /*.log
+Disallow: /cgi-bin/
+Disallow: /backup/
+
+# Block Query Parameters
+Disallow: /*?s=*
+Disallow: /*?p=*
+Disallow: /*&p=*
+Disallow: /*?preview=*
+
+# Block Duplicate Content
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+Disallow: /*?gclid=*
+Disallow: /print/
+Disallow: /print$
+Disallow: /amp/
+
+# Rate Limiting for Other Crawlers
+User-agent: *
+Crawl-delay: 10
+
+# Clean Parameters
+Allow: /*?lang=
+Allow: /*?page=
+Allow: /*?id=
+
+# Sitemaps Declaration
 Sitemap: https://protein-calculator.co.uk/sitemap.xml
+Sitemap: https://protein-calculator.co.uk/sitemap-posts.xml
+Sitemap: https://protein-calculator.co.uk/sitemap-pages.xml
+Sitemap: https://protein-calculator.co.uk/sitemap-categories.xml
+Sitemap: https://protein-calculator.co.uk/image-sitemap.xml
+
+# Host Preference (Important for SEO)
+Host: protein-calculator.co.uk
