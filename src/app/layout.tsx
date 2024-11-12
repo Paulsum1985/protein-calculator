@@ -9,18 +9,13 @@ const inter = Inter({ subsets: ['latin'] })
 
 function Navigation() {
   return (
-    <nav className="bg-white/90 backdrop-blur-sm shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
-          Protein Calculator
-        </Link>
-        <Link 
-          href="/blog" 
-          className="text-gray-600 hover:text-violet-600 transition-colors text-sm font-medium"
-        >
-          Blog
-        </Link>
-      </div>
+    <nav className="absolute top-0 right-0 p-4 z-10">
+      <Link 
+        href="/blog" 
+        className="px-4 py-2 rounded-full bg-white/80 hover:bg-white/90 text-violet-600 text-sm font-medium transition-all duration-200 hover:shadow-sm backdrop-blur-sm"
+      >
+        Blog
+      </Link>
     </nav>
   );
 }
