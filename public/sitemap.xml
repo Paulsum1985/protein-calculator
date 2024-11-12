@@ -2,7 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
@@ -33,10 +32,6 @@
     <lastmod>2024-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <news:news>
-      <news:publication_date>2024-02-15</news:publication_date>
-      <news:title>How Much Protein Do You Really Need? A Science-Based Guide</news:title>
-    </news:news>
   </url>
 
   <url>
@@ -44,10 +39,6 @@
     <lastmod>2024-02-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <news:news>
-      <news:publication_date>2024-02-10</news:publication_date>
-      <news:title>Complete Guide to Protein Sources for Vegetarians</news:title>
-    </news:news>
   </url>
 
   <url>
@@ -55,10 +46,6 @@
     <lastmod>2024-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <news:news>
-      <news:publication_date>2024-02-05</news:publication_date>
-      <news:title>Protein Timing: When Is the Best Time to Consume Protein?</news:title>
-    </news:news>
   </url>
 
   <!-- About Page -->
