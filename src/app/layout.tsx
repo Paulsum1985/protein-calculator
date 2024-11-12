@@ -3,8 +3,27 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Script from 'next/script'
 import CookieConsent from '@/components/CookieConsent'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
+
+function Navigation() {
+  return (
+    <nav className="bg-white/90 backdrop-blur-sm shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <Link href="/" className="text-xl font-bold bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
+          Protein Calculator
+        </Link>
+        <Link 
+          href="/blog" 
+          className="text-gray-600 hover:text-violet-600 transition-colors text-sm font-medium"
+        >
+          Blog
+        </Link>
+      </div>
+    </nav>
+  );
+}
 
 export const metadata: Metadata = {
   title: 'Protein Calculator - Daily Protein Intake Calculator',
@@ -82,7 +101,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        {children}
+        <Navigation />
+        <main>
+          {children}
+        </main>
         <CookieConsent />
       </body>
     </html>
