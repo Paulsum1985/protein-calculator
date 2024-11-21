@@ -708,87 +708,91 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
       </div>
     )}
     <div className="mt-8 space-y-6">
-      <section className="bg-white/90 rounded-xl p-6 shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>
-        <div className="prose text-gray-600 space-y-4">
-          <p>
-            Protein is an essential macronutrient that plays crucial roles in your body, including:
-          </p>
-          <ul className="list-disc pl-5 space-y-2">
-            <li>Building and repairing muscle tissue</li>
-            <li>Supporting immune system function</li>
-            <li>Producing enzymes and hormones</li>
-            <li>Maintaining healthy skin, hair, and nails</li>
-            <li>Promoting satiety and weight management</li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card className="bg-white/90">
-          <CardContent className="p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Factors Affecting Protein Needs</h3>
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex items-start gap-2">
-                <span className="text-violet-600 font-bold">•</span>
-                <span><strong>Activity Level:</strong> More active individuals require higher protein intake to support muscle recovery and growth.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-violet-600 font-bold">•</span>
-                <span><strong>Age:</strong> Protein needs may increase with age to help maintain muscle mass.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-violet-600 font-bold">•</span>
-                <span><strong>Goals:</strong> Requirements vary based on whether you are building muscle, losing fat, or maintaining weight.</span>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white/90">
-          <CardContent className="p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Quality Protein Sources</h3>
-            <div className="grid grid-cols-2 gap-4 text-gray-600">
-              <div>
-                <h4 className="font-medium text-violet-600 mb-2">Animal Sources</h4>
-                <ul className="space-y-1">
-                  <li>• Chicken Breast (31g/100g)</li>
-                  <li>• Salmon (25g/100g)</li>
-                  <li>• Eggs (13g/100g)</li>
-                  <li>• Greek Yogurt (10g/100g)</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-medium text-violet-600 mb-2">Plant Sources</h4>
-                <ul className="space-y-1">
-                  <li>• Lentils (9g/100g)</li>
-                  <li>• Quinoa (4.4g/100g)</li>
-                  <li>• Chickpeas (8.9g/100g)</li>
-                  <li>• Tofu (8g/100g)</li>
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+  <Card className="bg-white/90">
+    <CardContent className="p-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>
+      <div className="prose text-gray-600 space-y-4">
+        <p>
+          Protein is an essential macronutrient that plays crucial roles in your body, including:
+        </p>
+        <ul className="list-disc pl-5 space-y-2">
+          <li>Building and repairing muscle tissue</li>
+          <li>Supporting immune system function</li>
+          <li>Producing enzymes and hormones</li>
+          <li>Maintaining healthy skin, hair, and nails</li>
+          <li>Promoting satiety and weight management</li>
+        </ul>
       </div>
+    </CardContent>
+  </Card>
 
-      <section className="bg-white/90 rounded-xl p-6 shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Tips for Meeting Your Protein Goals</h2>
-        <div className="grid md:grid-cols-3 gap-6 text-gray-600">
+  <div className="grid md:grid-cols-2 gap-6">
+    <Card className="bg-white/90">
+      <CardContent className="p-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">Factors Affecting Protein Needs</h3>
+        <ul className="space-y-3 text-gray-600">
+          <li className="flex items-start gap-2">
+            <span className="text-violet-600 font-bold">•</span>
+            <span><strong>Activity Level:</strong> More active individuals require higher protein intake to support muscle recovery and growth.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-violet-600 font-bold">•</span>
+            <span><strong>Age:</strong> Protein needs may increase with age to help maintain muscle mass.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-violet-600 font-bold">•</span>
+            <span><strong>Goals:</strong> Requirements vary based on whether you are building muscle, losing fat, or maintaining weight.</span>
+          </li>
+        </ul>
+      </CardContent>
+    </Card>
+
+    <Card className="bg-white/90">
+      <CardContent className="p-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">Quality Protein Sources</h3>
+        <div className="grid grid-cols-2 gap-4 text-gray-600">
           <div>
-            <h4 className="font-medium text-violet-600 mb-2">Timing Matters</h4>
-            <p>Distribute protein intake evenly throughout the day, aiming for 20-30g per meal to optimize muscle protein synthesis.</p>
+            <h4 className="font-medium text-violet-600 mb-2">Animal Sources</h4>
+            <ul className="space-y-1">
+              <li>• Chicken Breast (31g/100g)</li>
+              <li>• Salmon (25g/100g)</li>
+              <li>• Eggs (13g/100g)</li>
+              <li>• Greek Yogurt (10g/100g)</li>
+            </ul>
           </div>
           <div>
-            <h4 className="font-medium text-violet-600 mb-2">Quality Over Quantity</h4>
-            <p>Focus on complete protein sources containing all essential amino acids. Combine different plant proteins if following a vegetarian diet.</p>
-          </div>
-          <div>
-            <h4 className="font-medium text-violet-600 mb-2">Post-Workout Nutrition</h4>
-            <p>Consume protein within 2 hours after exercise to support muscle recovery and adaptation.</p>
+            <h4 className="font-medium text-violet-600 mb-2">Plant Sources</h4>
+            <ul className="space-y-1">
+              <li>• Lentils (9g/100g)</li>
+              <li>• Quinoa (4.4g/100g)</li>
+              <li>• Chickpeas (8.9g/100g)</li>
+              <li>• Tofu (8g/100g)</li>
+            </ul>
           </div>
         </div>
-      </section>
+      </CardContent>
+    </Card>
+  </div>
+
+  <Card className="bg-white/90">
+    <CardContent className="p-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Tips for Meeting Your Protein Goals</h2>
+      <div className="grid md:grid-cols-3 gap-6 text-gray-600">
+        <div>
+          <h4 className="font-medium text-violet-600 mb-2">Timing Matters</h4>
+          <p>Distribute protein intake evenly throughout the day, aiming for 20-30g per meal to optimize muscle protein synthesis.</p>
+        </div>
+        <div>
+          <h4 className="font-medium text-violet-600 mb-2">Quality Over Quantity</h4>
+          <p>Focus on complete protein sources containing all essential amino acids. Combine different plant proteins if following a vegetarian diet.</p>
+        </div>
+        <div>
+          <h4 className="font-medium text-violet-600 mb-2">Post-Workout Nutrition</h4>
+          <p>Consume protein within 2 hours after exercise to support muscle recovery and adaptation.</p>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
 
       <section className="bg-white/90 rounded-xl p-6 shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Common Protein Myths</h2>
