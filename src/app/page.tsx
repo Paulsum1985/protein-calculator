@@ -298,32 +298,29 @@ const handleUnitChange = (checked: boolean) => {
 const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 
   return (
-  <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-4 space-y-4">
-        <div className="text-center space-y-1">
-          <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
-    
-            @keyframes fadeInUp {
-              from {
-                opacity: 0;
-                transform: translateY(10px);
+    <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-4 space-y-4">
+          <div className="text-center space-y-1">
+            <style jsx global>{`
+              @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
               }
-              to {
-                opacity: 1;
-                transform: translateY(0);
+              .animate-fade-in-up {
+                animation: fadeInUp 0.6s ease-out;
               }
-            }
-    
-    .animate-fade-in-up {
-      animation: fadeInUp 0.6s ease-out;
-    }
-    
-    .delay-200 {
-      animation-delay: 0.2s;
-    }
-  `}</style>
+              .delay-200 {
+                animation-delay: 0.2s;
+              }
+            `}</style>
   
   {/* Title Container */}
   <div className="relative inline-block w-full max-w-3xl px-4 animate-fade-in-up">
@@ -685,25 +682,28 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 </div>
 
         {/* Updated Meal Plan Section */}
-        <div className="space-y-4">
-          <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}</h4>
-          <div className="grid gap-3">
-          {(isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular).map((meal, index) => 
-              <div key={index} className="bg-white/50 p-3 rounded-lg">
-                <div className="font-medium text-violet-700">{meal.title}</div>
-                <div className="text-sm text-gray-600">{meal.items}</div>
-              </div>
-            ))}
-          </div>
+<div className="space-y-4">
+  <h4 className="font-semibold text-gray-800">
+    Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}
+  </h4>
+  <div className="grid gap-3">
+    {(isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular).map((meal, index) => (
+      <div key={index} className="bg-white/50 p-3 rounded-lg">
+        <div className="font-medium text-violet-700">{meal.title}</div>
+        <div className="text-sm text-gray-600">{meal.items}</div>
+      </div>
+    ))}
+  </div>
+  
+  <div className="text-xs text-gray-500 mt-2">
+    * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
+  </div>
+</div>
 
-          <div className="text-xs text-gray-500 mt-2">
-            * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
-          </div>
-        </div>
-        <PrintButton 
-  result={result} 
+<PrintButton 
+  result={result}
   mealPlan={isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular}
-  isVegetarian={isVegetarian} 
+  isVegetarian={isVegetarian}
 />
       </div>
     )}
