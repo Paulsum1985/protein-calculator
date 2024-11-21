@@ -48,28 +48,6 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Existing Blog Posts -->
-  <url>
-    <loc>https://protein-calculator.co.uk/blog/how-much-protein-do-you-need</loc>
-    <lastmod>2024-02-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://protein-calculator.co.uk/blog/vegetarian-protein-sources</loc>
-    <lastmod>2024-02-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://protein-calculator.co.uk/blog/protein-timing-guide</loc>
-    <lastmod>2024-02-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- About Page -->
   <url>
     <loc>https://protein-calculator.co.uk/about</loc>
