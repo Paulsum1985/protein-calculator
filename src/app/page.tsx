@@ -1068,12 +1068,15 @@ return (
     <div className="mt-8">
       <AdUnit />
     </div>
-<div className="mt-4 text-left text-xs text-gray-400 flex gap-4"> {/* Added flex and gap-4 */}
+    <div className="mt-4 text-left text-xs text-gray-400 flex gap-4">
   <Link href="/privacy" className="hover:text-violet-600 transition-colors">
     Privacy Policy
   </Link>
   <Link href="/about" className="hover:text-violet-600 transition-colors">
     About & Contact
+  </Link>
+  <Link href="/terms" className="hover:text-violet-600 transition-colors">
+    Terms of Service
   </Link>
 </div>
           </CardContent>
