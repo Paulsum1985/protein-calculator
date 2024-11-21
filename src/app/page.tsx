@@ -14,6 +14,10 @@ import Link from 'next/link';
 import PrintButton from '@/components/PrintButton';
 import Head from 'next/head';
 
+type Meal = {
+  title: string;
+  items: string;
+};
 
 interface FormData {
   age: string;
@@ -145,7 +149,81 @@ useEffect(() => {
   setProgress(newProgress);
 }, [formData, calculateProgress]);
 
-const getMealPlans = (targetProtein) => ({
+  
+  // Add this new reset function
+  const resetForm = () => {
+    setFormData({
+        age: '',
+        sex: 'male',
+        heightFeet: '',
+        heightInches: '',
+        heightCm: '',
+        weight: '',
+        goal: '',           // Changed to empty
+        activityLevel: '',  // Changed to empty
+        units: 'imperial'
+    });
+    setResult(null);
+};
+
+  const calculateProtein = () => {
+    // Convert weight to number first
+    let weightInLbs = Number(formData.weight);
+    if (formData.units === 'metric') {
+      weightInLbs = weightInLbs * 2.20462;
+    }
+
+    let multiplier = 0;
+    switch(formData.goal) {
+      case 'fat-loss': multiplier = 0.8; break;      // Was 1.2
+      case 'maintenance': multiplier = 0.6; break;    // Keep same
+      case 'muscle-gain': multiplier = 1.0; break;    // Was 1.6
+    }
+    
+    switch(formData.activityLevel) {
+      case 'sedentary': multiplier *= 1; break;       // Keep same
+      case 'light': multiplier *= 1.05; break;        // Was 1.1
+      case 'moderate': multiplier *= 1.1; break;      // Was 1.2
+      case 'active': multiplier *= 1.15; break;       // Was 1.3
+      case 'very-active': multiplier *= 1.2; break;   // Was 1.4
+      case 'athlete': multiplier *= 1.25; break;      // Was 1.5
+    }
+
+    const proteinGrams = Math.round(weightInLbs * multiplier);
+    setResult(proteinGrams);
+};
+
+// Then add the type declarations to the functions
+const scaleMealPlan = (baseMeal: Meal, targetProtein: number): Meal => {
+  // Calculate total protein in current meal
+  const mealProtein = Number(baseMeal.title.match(/\((\d+)g protein\)/)?.[1] || 0);
+  
+  // Calculate what fraction this meal should be of the target
+  const fraction = mealProtein / 195;  // 195g is the base plan total
+  
+  // Calculate new protein amount for this meal
+  const newProtein = Math.round(targetProtein * fraction);
+  
+  // Get the individual food items
+  const items = baseMeal.items.split(' + ');
+  
+  // Scale each item's protein
+  const newItems = items.map(item => {
+      const match = item.match(/\((\d+)g\)/);
+      if (!match) return item;
+      const itemProtein = Number(match[1]);
+      const itemFraction = itemProtein / mealProtein;
+      const newItemProtein = Math.round(newProtein * itemFraction);
+      return item.replace(/\(\d+g\)/, `(${newItemProtein}g)`);
+  }).join(' + ');
+  
+  return {
+      title: baseMeal.title.replace(/\(\d+g protein\)/, `(${newProtein}g protein)`),
+      items: newItems
+  };
+};
+
+const getMealPlans = (targetProtein: number) => ({
   regular: [
       {
           title: "Breakfast (40g protein)",
@@ -192,78 +270,6 @@ const getMealPlans = (targetProtein) => ({
       }
   ].map(meal => scaleMealPlan(meal, targetProtein))
 });
-  
-  // Add this new reset function
-  const resetForm = () => {
-    setFormData({
-        age: '',
-        sex: 'male',
-        heightFeet: '',
-        heightInches: '',
-        heightCm: '',
-        weight: '',
-        goal: '',           // Changed to empty
-        activityLevel: '',  // Changed to empty
-        units: 'imperial'
-    });
-    setResult(null);
-};
-
-  const calculateProtein = () => {
-    // Convert weight to number first
-    let weightInLbs = Number(formData.weight);
-    if (formData.units === 'metric') {
-      weightInLbs = weightInLbs * 2.20462;
-    }
-
-    let multiplier = 0;
-    switch(formData.goal) {
-      case 'fat-loss': multiplier = 0.8; break;      // Was 1.2
-      case 'maintenance': multiplier = 0.6; break;    // Keep same
-      case 'muscle-gain': multiplier = 1.0; break;    // Was 1.6
-    }
-    
-    switch(formData.activityLevel) {
-      case 'sedentary': multiplier *= 1; break;       // Keep same
-      case 'light': multiplier *= 1.05; break;        // Was 1.1
-      case 'moderate': multiplier *= 1.1; break;      // Was 1.2
-      case 'active': multiplier *= 1.15; break;       // Was 1.3
-      case 'very-active': multiplier *= 1.2; break;   // Was 1.4
-      case 'athlete': multiplier *= 1.25; break;      // Was 1.5
-    }
-
-    const proteinGrams = Math.round(weightInLbs * multiplier);
-    setResult(proteinGrams);
-};
-
-const scaleMealPlan = (baseMeal, targetProtein) => {
-  // Calculate total protein in current meal
-  const mealProtein = Number(baseMeal.title.match(/\((\d+)g protein\)/)[1]);
-  
-  // Calculate what fraction this meal should be of the target
-  const fraction = mealProtein / 195;  // 195g is the base plan total
-  
-  // Calculate new protein amount for this meal
-  const newProtein = Math.round(targetProtein * fraction);
-  
-  // Get the individual food items
-  const items = baseMeal.items.split(' + ');
-  
-  // Scale each item's protein
-  const newItems = items.map(item => {
-      const match = item.match(/\((\d+)g\)/);
-      if (!match) return item;
-      const itemProtein = Number(match[1]);
-      const itemFraction = itemProtein / mealProtein;
-      const newItemProtein = Math.round(newProtein * itemFraction);
-      return item.replace(/\(\d+g\)/, `(${newItemProtein}g)`);
-  }).join(' + ');
-  
-  return {
-      title: baseMeal.title.replace(/\(\d+g protein\)/, `(${newProtein}g protein)`),
-      items: newItems
-  };
-};
 
 const handleUnitChange = (checked: boolean) => {
   const newValue = checked ? 'metric' : 'imperial';
@@ -941,7 +947,7 @@ return (
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}</h4>
           <div className="grid gap-3">
-          {(isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular).map((meal, index) => (
+          {(isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular).map((meal, index) => 
               <div key={index} className="bg-white/50 p-3 rounded-lg">
                 <div className="font-medium text-violet-700">{meal.title}</div>
                 <div className="text-sm text-gray-600">{meal.items}</div>
@@ -955,7 +961,7 @@ return (
         </div>
         <PrintButton 
   result={result} 
-  mealPlan={isVegetarian ? mealPlans.vegetarian : mealPlans.regular}
+  mealPlan={isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular}
   isVegetarian={isVegetarian} 
 />
       </div>
