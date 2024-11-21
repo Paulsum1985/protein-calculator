@@ -8,7 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export default function Blog() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-indigo-50 to-purple-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet-100 via-indigo-100 to-purple-100 py-8 px-4">
       {/* Calculator Link */}
       <div className="max-w-4xl mx-auto mb-4">
         <Link 
@@ -33,7 +33,7 @@ export default function Blog() {
       {/* Blog Posts */}
       <div className="max-w-4xl mx-auto grid gap-8">
         {Object.entries(blogPosts).map(([slug, post]) => (
-          <Card key={slug} className="hover:shadow-lg transition-shadow">
+          <Card key={slug} className="bg-white/90 backdrop-blur-sm border-none shadow-md hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold text-gray-800 mb-2">
                 {post.title}
