@@ -297,13 +297,13 @@ const handleUnitChange = (checked: boolean) => {
 
 const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 
-  return (
-    <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-4 space-y-4">
-          <div className="text-center space-y-1">
-            <style jsx global>{`
-              @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
+return (
+  <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-4 space-y-4">
+        <div className="text-center space-y-1">
+          <style jsx global>{`
+            @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
               @keyframes fadeInUp {
                 from {
                   opacity: 0;
@@ -346,87 +346,6 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
     Optimize your protein intake for better health and performance
   </p>
 </div>
-
-<script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Online Protein Calculator",
-      "description": "Calculate your daily protein requirements based on weight, activity level, and fitness goals.",
-      "applicationCategory": "HealthApplication",
-      "operatingSystem": "Any",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "156",
-        "reviewCount": "98"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "GBP",
-        "availability": "https://schema.org/InStock"
-      },
-      "url": "https://protein-calculator.co.uk",
-      "browserRequirements": "Requires JavaScript. Requires HTML5.",
-      "softwareVersion": "1.0",
-      "contentRating": "General",
-      "hasPart": {
-        "@type": "FAQPage",
-        "mainEntity": [{
-          "@type": "Question",
-          "name": "How much protein should I eat per day?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Daily protein needs vary based on weight, activity level, and goals. Generally, active adults need 0.8-1.2g per pound of body weight, athletes may need 1.2-1.6g per pound."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What factors affect protein requirements?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Key factors include body weight, activity level, fitness goals (muscle gain, fat loss, or maintenance), age, and overall health status."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How accurate is this protein calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "This calculator uses scientifically-validated formulas based on your weight, activity level, and goals to provide accurate protein recommendations."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Should protein intake be different for men and women?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "While the basic protein requirements are similar, men typically need more total protein due to higher average body weight and muscle mass. However, the recommended amount per pound of body weight remains consistent regardless of gender."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How does illness or injury affect protein needs?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "During illness or injury, protein requirements often increase to support healing and prevent muscle loss. Consider increasing intake by 20-30% during recovery periods, and consult with a healthcare provider for personalized advice."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I track protein intake accurately?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Use food scales for precise measurements, read nutrition labels carefully, and consider using food tracking apps. For whole foods without labels, refer to reliable nutrition databases. Be consistent with your tracking method for best results."
-          }
-        }]
-      }
-    })
-  }}
-/>
         
 <div className="flex justify-center flex-wrap gap-2 sm:gap-6 mt-2">
   {[
