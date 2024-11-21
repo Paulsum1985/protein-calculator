@@ -145,52 +145,53 @@ useEffect(() => {
   setProgress(newProgress);
 }, [formData, calculateProgress]);
 
-  const mealPlans = {
-    regular: [
+const getMealPlans = (targetProtein) => ({
+  regular: [
       {
-        title: "Breakfast (40g protein)",
-        items: "• 3 eggs (18g) + Greek yogurt (15g) + Oatmeal with milk (7g)"
+          title: "Breakfast (40g protein)",
+          items: "• 3 eggs (18g) + Greek yogurt (15g) + Oatmeal with milk (7g)"
       },
       {
-        title: "Lunch (50g protein)",
-        items: "• Chicken breast (35g) + Quinoa (8g) + Mixed beans (7g)"
+          title: "Lunch (50g protein)",
+          items: "• Chicken breast (35g) + Quinoa (8g) + Mixed beans (7g)"
       },
       {
-        title: "Post-Workout Snack (25g protein)",
-        items: "• Whey protein shake (25g)"
+          title: "Post-Workout Snack (25g protein)",
+          items: "• Whey protein shake (25g)"
       },
       {
-        title: "Dinner (55g protein)",
-        items: "• Salmon fillet (40g) + Lentils (9g) + Green peas (6g)"
+          title: "Dinner (55g protein)",
+          items: "• Salmon fillet (40g) + Lentils (9g) + Green peas (6g)"
       },
       {
-        title: "Evening Snack (25g protein)",
-        items: "• Cottage cheese (15g) + Handful of almonds (10g)"
+          title: "Evening Snack (25g protein)",
+          items: "• Cottage cheese (15g) + Handful of almonds (10g)"
       }
-    ],
-    vegetarian: [
+  ].map(meal => scaleMealPlan(meal, targetProtein)),
+  
+  vegetarian: [
       {
-        title: "Breakfast (40g protein)",
-        items: "• Tofu scramble (20g) + Greek yogurt (15g) + Protein oatmeal (5g)"
+          title: "Breakfast (40g protein)",
+          items: "• Tofu scramble (20g) + Greek yogurt (15g) + Protein oatmeal (5g)"
       },
       {
-        title: "Lunch (50g protein)",
-        items: "• Tempeh (30g) + Quinoa (8g) + Edamame (12g)"
+          title: "Lunch (50g protein)",
+          items: "• Tempeh (30g) + Quinoa (8g) + Edamame (12g)"
       },
       {
-        title: "Post-Workout Snack (25g protein)",
-        items: "• Plant-based protein shake (25g)"
+          title: "Post-Workout Snack (25g protein)",
+          items: "• Plant-based protein shake (25g)"
       },
       {
-        title: "Dinner (55g protein)",
-        items: "• Seitan (40g) + Lentils (9g) + Green peas (6g)"
+          title: "Dinner (55g protein)",
+          items: "• Seitan (40g) + Lentils (9g) + Green peas (6g)"
       },
       {
-        title: "Evening Snack (25g protein)",
-        items: "• Soy yogurt (8g) + Mixed nuts (12g) + Hemp seeds (5g)"
+          title: "Evening Snack (25g protein)",
+          items: "• Soy yogurt (8g) + Mixed nuts (12g) + Hemp seeds (5g)"
       }
-    ]
-  };
+  ].map(meal => scaleMealPlan(meal, targetProtein))
+});
   
   // Add this new reset function
   const resetForm = () => {
@@ -235,7 +236,34 @@ useEffect(() => {
     setResult(proteinGrams);
 };
 
-
+const scaleMealPlan = (baseMeal, targetProtein) => {
+  // Calculate total protein in current meal
+  const mealProtein = Number(baseMeal.title.match(/\((\d+)g protein\)/)[1]);
+  
+  // Calculate what fraction this meal should be of the target
+  const fraction = mealProtein / 195;  // 195g is the base plan total
+  
+  // Calculate new protein amount for this meal
+  const newProtein = Math.round(targetProtein * fraction);
+  
+  // Get the individual food items
+  const items = baseMeal.items.split(' + ');
+  
+  // Scale each item's protein
+  const newItems = items.map(item => {
+      const match = item.match(/\((\d+)g\)/);
+      if (!match) return item;
+      const itemProtein = Number(match[1]);
+      const itemFraction = itemProtein / mealProtein;
+      const newItemProtein = Math.round(newProtein * itemFraction);
+      return item.replace(/\(\d+g\)/, `(${newItemProtein}g)`);
+  }).join(' + ');
+  
+  return {
+      title: baseMeal.title.replace(/\(\d+g protein\)/, `(${newProtein}g protein)`),
+      items: newItems
+  };
+};
 
 const handleUnitChange = (checked: boolean) => {
   const newValue = checked ? 'metric' : 'imperial';
@@ -913,7 +941,7 @@ return (
         <div className="space-y-4">
           <h4 className="font-semibold text-gray-800">Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}</h4>
           <div className="grid gap-3">
-            {(isVegetarian ? mealPlans.vegetarian : mealPlans.regular).map((meal, index) => (
+          {(isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular).map((meal, index) => (
               <div key={index} className="bg-white/50 p-3 rounded-lg">
                 <div className="font-medium text-violet-700">{meal.title}</div>
                 <div className="text-sm text-gray-600">{meal.items}</div>
