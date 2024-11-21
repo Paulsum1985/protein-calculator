@@ -50,7 +50,7 @@ const Terms = () => {
               <section>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">Limitation of Liability</h2>
                 <p>
-                  We provide the calculator "as is" without any express or implied warranties. We will not be liable for any damages arising from the use of this calculator.
+                  We provide the calculator &apos;as is&apos; without any express or implied warranties. We will not be liable for any damages arising from the use of this calculator.
                 </p>
               </section>
 
