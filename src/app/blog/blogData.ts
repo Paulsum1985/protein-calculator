@@ -5,121 +5,97 @@ type BlogPost = {
 };
 
 export const blogPosts: Record<string, BlogPost> = {
-  "how-much-protein-do-you-need": {
-    title: "How Much Protein Do You Really Need? A Science-Based Guide",
-    date: "2024-02-15",
+  "protein-basics": {
+    title: "Understanding Protein: The Basics",
+    date: "2024-03-20",
     content: `
       <div class="text-gray-700">
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Understanding Your Protein Needs</h2>
-        <p class="mb-4">Protein is essential for building and maintaining muscle mass, supporting immune function, and numerous other biological processes. But how much do you really need?</p>
-        
-        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">The Science Behind Protein Requirements</h3>
-        <p class="mb-4">Research shows that protein needs vary significantly based on several factors:</p>
+        <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+          <p class="text-sm">Disclaimer: This article is for informational purposes only. While we strive to provide accurate information, we are not nutritionists or healthcare professionals. Always consult a qualified healthcare provider for personalized advice.</p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">What is Protein and Why Do We Need It?</h2>
+        <p class="mb-4">Protein is one of the essential nutrients our body needs. It's often called the 'building block' of the body, and for good reason. From our muscles to our skin, protein plays a vital role in building and repairing tissues.</p>
+
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Common Sources of Protein</h3>
         <ul class="list-disc pl-6 mb-6 space-y-2">
-          <li class="text-gray-700">Activity level and type of exercise</li>
-          <li class="text-gray-700">Body composition goals</li>
-          <li class="text-gray-700">Age and current health status</li>
-          <li class="text-gray-700">Overall caloric intake</li>
+          <li class="text-gray-700">Meat and poultry</li>
+          <li class="text-gray-700">Fish and seafood</li>
+          <li class="text-gray-700">Eggs and dairy products</li>
+          <li class="text-gray-700">Legumes and beans</li>
+          <li class="text-gray-700">Nuts and seeds</li>
         </ul>
 
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Daily Protein Requirements By Goal</h2>
-        <div class="space-y-4">
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">For Muscle Gain:</h4>
-            <p class="text-gray-700">1.6-2.2g of protein per kg of body weight</p>
-          </div>
-          
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">For Weight Loss:</h4>
-            <p class="text-gray-700">1.8-2.4g of protein per kg of body weight</p>
-          </div>
-          
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">For Maintenance:</h4>
-            <p class="text-gray-700">1.4-1.6g of protein per kg of body weight</p>
-          </div>
-        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">When Do We Need Protein?</h3>
+        <p class="mb-4">We need protein throughout the day, but some key times include:</p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li class="text-gray-700">After waking up</li>
+          <li class="text-gray-700">After exercise</li>
+          <li class="text-gray-700">As part of main meals</li>
+        </ul>
+
+        <p class="mb-4">Use our protein calculator to get a general idea of your protein needs based on your weight and activity level.</p>
       </div>
     `
   },
-  "vegetarian-protein-sources": {
-    title: "Complete Guide to Protein Sources for Vegetarians",
-    date: "2024-02-10",
+  "protein-rich-foods": {
+    title: "10 Easy-to-Find Protein-Rich Foods",
+    date: "2024-03-15",
     content: `
       <div class="text-gray-700">
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Best Protein Sources for Vegetarians</h2>
-        <p class="mb-4">Getting enough protein on a vegetarian diet is completely achievable with the right food choices.</p>
-        
-        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Top Vegetarian Protein Sources</h3>
-        <div class="grid gap-4 mb-6">
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">Legumes</h4>
-            <ul class="list-disc pl-6 space-y-1">
-              <li class="text-gray-700">Lentils (18g per cup)</li>
-              <li class="text-gray-700">Chickpeas (15g per cup)</li>
-              <li class="text-gray-700">Black beans (15g per cup)</li>
-            </ul>
-          </div>
-          
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">Whole Grains</h4>
-            <ul class="list-disc pl-6 space-y-1">
-              <li class="text-gray-700">Quinoa (8g per cup)</li>
-              <li class="text-gray-700">Oats (6g per cup)</li>
-              <li class="text-gray-700">Wild rice (7g per cup)</li>
-            </ul>
-          </div>
-          
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">Soy Products</h4>
-            <ul class="list-disc pl-6 space-y-1">
-              <li class="text-gray-700">Tofu (20g per cup)</li>
-              <li class="text-gray-700">Tempeh (31g per cup)</li>
-              <li class="text-gray-700">Edamame (17g per cup)</li>
-            </ul>
-          </div>
+        <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+          <p class="text-sm">Disclaimer: This article is for informational purposes only. While we strive to provide accurate information, we are not nutritionists or healthcare professionals. Always consult a qualified healthcare provider for personalized advice.</p>
         </div>
-      </div>
-    `
-  },
-  "protein-timing-guide": {
-    title: "Protein Timing: When Is the Best Time to Consume Protein?",
-    date: "2024-02-05",
-    content: `
-      <div class="text-gray-700">
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Optimal Protein Timing</h2>
-        <p class="mb-6">When you consume protein can be just as important as how much you consume. Strategic timing can help maximize muscle growth, recovery, and overall results.</p>
-        
-        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Key Timing Windows</h3>
+
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Everyday Foods High in Protein</h2>
+        <p class="mb-4">Finding protein-rich foods doesn't have to be complicated. Here are some common foods that are excellent sources of protein.</p>
+
         <div class="space-y-4">
           <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">Post-workout Window</h4>
-            <p class="text-gray-700">Consume 20-30g protein within 2 hours after exercise to optimize recovery</p>
+            <h4 class="font-semibold text-gray-800 mb-2">1. Eggs</h4>
+            <p class="text-gray-700">A versatile breakfast staple that packs about 6g of protein per egg.</p>
           </div>
-          
+
           <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">Before Bed</h4>
-            <p class="text-gray-700">Slow-digesting protein helps prevent muscle breakdown during sleep</p>
+            <h4 class="font-semibold text-gray-800 mb-2">2. Greek Yogurt</h4>
+            <p class="text-gray-700">A creamy snack with roughly 15g of protein per serving.</p>
           </div>
-          
+
           <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">First Thing in Morning</h4>
-            <p class="text-gray-700">Replenish protein stores depleted during overnight fasting</p>
-          </div>
-          
-          <div class="bg-white/50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">Between Meals</h4>
-            <p class="text-gray-700">Maintain steady protein availability throughout the day</p>
+            <h4 class="font-semibold text-gray-800 mb-2">3. Chicken Breast</h4>
+            <p class="text-gray-700">A lean meat option with about 25g of protein per serving.</p>
           </div>
         </div>
 
-        <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4">Protein Distribution Tips</h3>
-        <ul class="list-disc pl-6 mb-6 space-y-2">
-          <li class="text-gray-700">Aim for 20-30g protein per meal</li>
-          <li class="text-gray-700">Space meals 3-4 hours apart</li>
-          <li class="text-gray-700">Include protein in pre and post workout meals</li>
-          <li class="text-gray-700">Consider a slow-digesting protein before bed</li>
-        </ul>
+        <p class="mt-6">Remember to use our calculator to help determine your daily protein needs!</p>
+      </div>
+    `
+  },
+  "protein-myths": {
+    title: "Common Myths About Protein",
+    date: "2024-03-10",
+    content: `
+      <div class="text-gray-700">
+        <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+          <p class="text-sm">Disclaimer: This article is for informational purposes only. While we strive to provide accurate information, we are not nutritionists or healthcare professionals. Always consult a qualified healthcare provider for personalized advice.</p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Separating Fact from Fiction</h2>
+        <p class="mb-4">There are many myths about protein. Let's look at some common ones.</p>
+
+        <div class="space-y-4">
+          <div class="bg-white/50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-800 mb-2">Myth 1: More Protein is Always Better</h4>
+            <p class="text-gray-700">While protein is important, eating more than you need won't give extra benefits.</p>
+          </div>
+
+          <div class="bg-white/50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-800 mb-2">Myth 2: You Can Only Get Protein From Meat</h4>
+            <p class="text-gray-700">Many plant-based foods are excellent protein sources too.</p>
+          </div>
+        </div>
+
+        <p class="mt-6">Use our calculator to find a reasonable protein target for your needs.</p>
       </div>
     `
   }
