@@ -682,32 +682,33 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 </div>
 
         {/* Updated Meal Plan Section */}
-<div className="space-y-4">
-  <h4 className="font-semibold text-gray-800">
-    Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}
-  </h4>
-  <div className="grid gap-3">
-    {(isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular).map((meal, index) => (
-      <div key={index} className="bg-white/50 p-3 rounded-lg">
-        <div className="font-medium text-violet-700">{meal.title}</div>
-        <div className="text-sm text-gray-600">{meal.items}</div>
-      </div>
-    ))}
-  </div>
-  
-  <div className="text-xs text-gray-500 mt-2">
-    * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
-  </div>
-</div>
+        <div className="space-y-4">
+          <h4 className="font-semibold text-gray-800">
+            Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}
+          </h4>
+          <div className="grid gap-3">
+            {(isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular).map((meal, index) => (
+              <div key={index} className="bg-white/50 p-3 rounded-lg">
+                <div className="font-medium text-violet-700">{meal.title}</div>
+                <div className="text-sm text-gray-600">{meal.items}</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-xs text-gray-500 mt-2">
+            * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
+          </div>
 
-<PrintButton 
-  result={result}
-  mealPlan={isVegetarian ? getMealPlans(result || 0).vegetarian : getMealPlans(result || 0).regular}
-  isVegetarian={isVegetarian}
-/>
+          <PrintButton 
+            result={result}
+            mealPlan={isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular}
+            isVegetarian={isVegetarian}
+          />
+        </div>
       </div>
     )}
-    <div className="mt-8 space-y-6">
+
+<div className="mt-8 space-y-6">
   <Card className="bg-white/90">
     <CardContent className="p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>
@@ -794,56 +795,59 @@ const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
     </CardContent>
   </Card>
 
-      <section className="bg-white/90 rounded-xl p-6 shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Common Protein Myths</h2>
-        <div className="space-y-4 text-gray-600">
-          <div className="flex items-start gap-3">
-            <span className="text-violet-600 font-bold text-xl">✕</span>
-            <div>
-              <h4 className="font-medium">Myth: More protein is always better</h4>
-              <p>Truth: Excessive protein intake offers no additional benefits and may stress kidneys in certain individuals.</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <span className="text-violet-600 font-bold text-xl">✕</span>
-            <div>
-              <h4 className="font-medium">Myth: Plant proteins are incomplete</h4>
-              <p>Truth: Many plant proteins are complete, and combining different sources ensures adequate amino acid intake.</p>
-            </div>
-          </div>
+  <Card className="bg-white/90">
+  <CardContent className="p-6">
+    <h2 className="text-2xl font-bold text-gray-800 mb-4">Common Protein Myths</h2>
+    <div className="space-y-4 text-gray-600">
+      <div className="flex items-start gap-3">
+        <span className="text-violet-600 font-bold text-xl">✕</span>
+        <div>
+          <h4 className="font-medium">Myth: More protein is always better</h4>
+          <p>Truth: Excessive protein intake offers no additional benefits and may stress kidneys in certain individuals.</p>
         </div>
-      </section>
+      </div>
+      <div className="flex items-start gap-3">
+        <span className="text-violet-600 font-bold text-xl">✕</span>
+        <div>
+          <h4 className="font-medium">Myth: Plant proteins are incomplete</h4>
+          <p>Truth: Many plant proteins are complete, and combining different sources ensures adequate amino acid intake.</p>
+        </div>
+      </div>
     </div>
-    <section className="mt-8 bg-white/90 rounded-xl p-6 shadow-lg">
-  <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
-  
-  <div className="space-y-6">
-    <div className="border-b border-gray-200 pb-4">
-      <h3 className="text-lg font-medium text-violet-600 mb-2">Should protein intake be different for men and women?</h3>
-      <p className="text-gray-600">While the basic protein requirements are similar, men typically need more total protein due to higher average body weight and muscle mass. However, the recommended amount per pound of body weight remains consistent regardless of gender.</p>
-    </div>
+  </CardContent>
+</Card>
 
-    <div className="border-b border-gray-200 pb-4">
-      <h3 className="text-lg font-medium text-violet-600 mb-2">How does illness or injury affect protein needs?</h3>
-      <p className="text-gray-600">During illness or injury, protein requirements often increase to support healing and prevent muscle loss. Consider increasing intake by 20-30% during recovery periods, and consult with a healthcare provider for personalized advice.</p>
-    </div>
+<Card className="bg-white/90">
+  <CardContent className="p-6">
+    <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
+    <div className="space-y-6">
+      <div className="border-b border-gray-200 pb-4">
+        <h3 className="text-lg font-medium text-violet-600 mb-2">Should protein intake be different for men and women?</h3>
+        <p className="text-gray-600">While the basic protein requirements are similar, men typically need more total protein due to higher average body weight and muscle mass. However, the recommended amount per pound of body weight remains consistent regardless of gender.</p>
+      </div>
 
-    <div className="border-b border-gray-200 pb-4">
-      <h3 className="text-lg font-medium text-violet-600 mb-2">Do protein requirements change as we age?</h3>
-      <p className="text-gray-600">Yes, older adults often need more protein to prevent age-related muscle loss (sarcopenia). Research suggests adults over 65 may benefit from 1.0-1.2g of protein per kg body weight, compared to 0.8g for younger adults.</p>
-    </div>
+      <div className="border-b border-gray-200 pb-4">
+        <h3 className="text-lg font-medium text-violet-600 mb-2">How does illness or injury affect protein needs?</h3>
+        <p className="text-gray-600">During illness or injury, protein requirements often increase to support healing and prevent muscle loss. Consider increasing intake by 20-30% during recovery periods, and consult with a healthcare provider for personalized advice.</p>
+      </div>
 
-    <div className="border-b border-gray-200 pb-4">
-      <h3 className="text-lg font-medium text-violet-600 mb-2">Should I adjust protein intake when cutting calories?</h3>
-      <p className="text-gray-600">Yes, maintaining or slightly increasing protein intake while cutting calories helps preserve muscle mass during weight loss. Aim for the higher end of your recommended protein range when in a caloric deficit.</p>
-    </div>
+      <div className="border-b border-gray-200 pb-4">
+        <h3 className="text-lg font-medium text-violet-600 mb-2">Do protein requirements change as we age?</h3>
+        <p className="text-gray-600">Yes, older adults often need more protein to prevent age-related muscle loss (sarcopenia). Research suggests adults over 65 may benefit from 1.0-1.2g of protein per kg body weight, compared to 0.8g for younger adults.</p>
+      </div>
 
-    <div>
-      <h3 className="text-lg font-medium text-violet-600 mb-2">How do I track protein intake accurately?</h3>
-      <p className="text-gray-600">Use food scales for precise measurements, read nutrition labels carefully, and consider using food tracking apps. For whole foods without labels, refer to reliable nutrition databases. Be consistent with your tracking method for best results.</p>
+      <div className="border-b border-gray-200 pb-4">
+        <h3 className="text-lg font-medium text-violet-600 mb-2">Should I adjust protein intake when cutting calories?</h3>
+        <p className="text-gray-600">Yes, maintaining or slightly increasing protein intake while cutting calories helps preserve muscle mass during weight loss. Aim for the higher end of your recommended protein range when in a caloric deficit.</p>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-medium text-violet-600 mb-2">How do I track protein intake accurately?</h3>
+        <p className="text-gray-600">Use food scales for precise measurements, read nutrition labels carefully, and consider using food tracking apps. For whole foods without labels, refer to reliable nutrition databases. Be consistent with your tracking method for best results.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </CardContent>
+</Card>
     <div className="mt-8">
       <AdUnit />
     </div>
