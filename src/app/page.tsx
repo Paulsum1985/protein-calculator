@@ -564,68 +564,66 @@ return (
       </div>
     </div>
     {result && (
-      <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
-        <div className="flex items-center justify-between mb-4">
-          <div className="space-y-1">
-            <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
-            <div className={`text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].resultText} text-transparent bg-clip-text leading-tight pb-1`}>
-              {result}g
-            </div>
-          </div>
-          <div className="space-y-2">
-            {[
-              { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
-              { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
-              { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
-            ].map((tip, index) => (
-              <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
-                {tip.icon}
-                <span>{tip.text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-    {/* New Diet Toggle Section */}
-    <div className="mt-6 mb-4 flex items-center justify-between bg-white/50 p-3 rounded-lg">
-  <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
-  <div className="flex items-center gap-2">
-    <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
-    <Switch
-      checked={isVegetarian}
-      onCheckedChange={setIsVegetarian}
-      className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
-    />
-    <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
-  </div>
-</div>
-
-        {/* Updated Meal Plan Section */}
-        <div className="space-y-4">
-          <h4 className="font-semibold text-gray-800">
-            Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}
-          </h4>
-          <div className="grid gap-3">
-            {(isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular).map((meal, index) => (
-              <div key={index} className="bg-white/50 p-3 rounded-lg">
-                <div className="font-medium text-violet-700">{meal.title}</div>
-                <div className="text-sm text-gray-600">{meal.items}</div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="text-xs text-gray-500 mt-2">
-            * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
-          </div>
-
-          <PrintButton 
-            result={result}
-            mealPlan={isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular}
-            isVegetarian={isVegetarian}
-          />
+  <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
+    <div className="flex items-center justify-between mb-4">
+      <div className="space-y-1">
+        <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
+        <div className={`text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].resultText} text-transparent bg-clip-text leading-tight pb-1`}>
+          {result}g
         </div>
       </div>
-    )}
+      <div className="space-y-2">
+        {[
+          { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
+          { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
+          { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
+        ].map((tip, index) => (
+          <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
+            {tip.icon}
+            <span>{tip.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div className="mt-6 mb-4 flex items-center justify-between bg-white/50 p-3 rounded-lg">
+      <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
+      <div className="flex items-center gap-2">
+        <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
+        <Switch
+          checked={isVegetarian}
+          onCheckedChange={setIsVegetarian}
+          className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
+        />
+        <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
+      </div>
+    </div>
+
+    <div className="space-y-4">
+      <h4 className="font-semibold text-gray-800">
+        Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}
+      </h4>
+      <div className="grid gap-3">
+        {(isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular).map((meal, index) => (
+          <div key={index} className="bg-white/50 p-3 rounded-lg">
+            <div className="font-medium text-violet-700">{meal.title}</div>
+            <div className="text-sm text-gray-600">{meal.items}</div>
+          </div>
+        ))}
+      </div>
+          
+      <div className="text-xs text-gray-500 mt-2">
+        * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
+      </div>
+
+      <PrintButton 
+        result={result}
+        mealPlan={isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular}
+        isVegetarian={isVegetarian}
+      />
+    </div>
+  </div>
+)}
 
 <div className="mt-8 space-y-6">
   <Card className="bg-white/90">
