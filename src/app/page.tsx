@@ -12,7 +12,6 @@ import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
 import PrintButton from '@/components/PrintButton';
-import Head from 'next/head';
 
 type Meal = {
   title: string;
@@ -298,282 +297,24 @@ const handleUnitChange = (checked: boolean) => {
 
 const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
 
-return (
+  return (
   <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
-    <Head>
-  {/* Primary Meta Tags - Enhanced with CTR-optimized titles and competitor-beating descriptions */}
-  <title>Protein Calculator 2024 | ⭐ Best Free Protein Intake Calculator (Instant Results)</title>
-  <meta name="title" content="Protein Calculator UK 2024 | #1 Free Protein Calculator (100% Accurate)" />
-  <meta name="description" content="✓ Most accurate protein calculator in the UK (Updated 2024). Get your exact daily protein needs in seconds. Trusted by 100,000+ people, endorsed by nutritionists. Perfect for muscle gain, weight loss & bodybuilding. Free personalized meal plans included. Calculate now!" />
-  
-  {/* Ultra-Comprehensive Keywords - Expanded with LSI and semantic variations */}
-  <meta name="keywords" content="protein calculator, protein calculator uk, how much protein do i need, protein intake calculator, protein calculator for muscle gain, protein calculator bodybuilding, protein requirement calculator uk, best protein calculator, accurate protein calculator, daily protein intake uk, protein calculator with meal plan, protein macro calculator uk, gym protein calculator, athletes protein calculator, protein calculator for weight loss, protein needs calculator, protein requirement calculator bodybuilding, protein ratio calculator, protein percentage calculator, whey protein calculator" />
-  
-  {/* Enhanced Technical Meta Tags with Performance Indicators */}
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, notranslate" />
-  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <meta name="language" content="en-GB" />
-  <meta name="revisit-after" content="1 day" />
-  <meta name="author" content="Protein Calculator UK - Leading Nutrition Tools" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no" />
-  <meta name="contact" content="support@protein-calculator.co.uk" />
-  <meta name="rating" content="General" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  
-  {/* Content Type Specifications */}
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="content-language" content="en-GB" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  
-  {/* Performance & Cache Control */}
-  <meta http-equiv="Cache-Control" content="max-age=3600" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="theme-color" content="#4F46E5" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#312E81" media="(prefers-color-scheme: dark)" />
-
-  {/* Region and Language Matrix */}
-  <link rel="alternate" href="https://protein-calculator.co.uk" hrefLang="en-gb" />
-  <link rel="alternate" href="https://protein-calculator.co.uk" hrefLang="x-default" />
-  <meta property="og:locale" content="en_GB" />
-  <meta property="og:locale:alternate" content="en_US" />
-
-  {/* Enhanced Open Graph Tags with Engagement Metrics */}
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Protein Calculator UK - #1 Nutrition Tool" />
-  <meta property="og:url" content="https://protein-calculator.co.uk/" />
-  <meta property="og:title" content="⭐ Best Protein Calculator 2024 | Free Daily Protein Calculator (Expert-Verified)" />
-  <meta property="og:description" content="💪 Calculate your EXACT protein needs instantly! Used by 100,000+ people monthly. Science-based calculator for muscle gain, weight loss & fitness. Includes free meal plans. Most accurate protein calculator in the UK - Trusted by athletes & nutritionists." />
-  <meta property="og:image" content="https://protein-calculator.co.uk/protein-calculator-og.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:alt" content="Protein Calculator UK Interface - Calculate Your Daily Protein Needs" />
-  <meta property="og:updated_time" content="2024-02-21T08:00:00+00:00" />
-
-  {/* Article-Specific Tags for Enhanced SERP Features */}
-  <meta property="article:publisher" content="https://facebook.com/proteincalculatoruk" />
-  <meta property="article:modified_time" content="2024-02-21T08:00:00+00:00" />
-  <meta property="article:author" content="Protein Calculator UK Team" />
-
-  {/* Enhanced Twitter Tags with Engagement Hooks */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@proteincalcuk" />
-  <meta name="twitter:creator" content="@proteincalcuk" />
-  <meta name="twitter:url" content="https://protein-calculator.co.uk/" />
-  <meta name="twitter:title" content="⭐ #1 Protein Calculator UK | Free Daily Protein Calculator 2024" />
-  <meta name="twitter:description" content="💪 Get your EXACT protein needs instantly! Used by 100,000+ people. Includes free personalized meal plans. Most accurate calculator in the UK - Calculate now!" />
-  <meta name="twitter:image" content="https://protein-calculator.co.uk/protein-calculator-og.jpg" />
-  <meta name="twitter:image:alt" content="UK's Best Protein Calculator Interface" />
-  <meta name="twitter:app:country" content="GB" />
-
-  {/* Resource Hints for Performance */}
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-  <link rel="preconnect" href="https://www.google-analytics.com" />
-  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-  
-  {/* Preload Critical Resources */}
-  <link rel="preload" href="/fonts/custom-font.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-  <link rel="preload" href="/protein-calculator-og.jpg" as="image" />
-
-  {/* Enhanced Canonical URL with Parameters */}
-  <link rel="canonical" href="https://protein-calculator.co.uk/" />
-
-  {/* Rich Snippets - Now with SoftwareApplication, FAQPage, and HowTo Schemas */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "name": "Protein Calculator UK",
-          "applicationCategory": "HealthApplication",
-          "operatingSystem": "Any",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "GBP"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "2547",
-            "reviewCount": "1892",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "review": [
-            {
-              "@type": "Review",
-              "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": "5"
-              },
-              "author": {
-                "@type": "Person",
-                "name": "Dr. James Wilson",
-                "jobTitle": "Sports Nutritionist"
-              },
-              "datePublished": "2024-02-15",
-              "reviewBody": "The most accurate protein calculator available. I recommend it to all my athlete clients."
-            },
-            {
-              "@type": "Review",
-              "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": "5"
-              },
-              "author": {
-                "@type": "Person",
-                "name": "Sarah Thompson",
-                "jobTitle": "Professional Athlete"
-              },
-              "datePublished": "2024-02-10",
-              "reviewBody": "This calculator helped me optimize my protein intake for competition. Highly recommended!"
-            }
-          ]
-        },
-        {
-          "@type": "HowTo",
-          "name": "How to Calculate Your Daily Protein Requirements",
-          "description": "Step by step guide to calculate your exact protein needs using our calculator",
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Enter Personal Details",
-              "text": "Input your age, weight, height, and gender"
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Select Your Goals",
-              "text": "Choose between muscle gain, weight loss, or maintenance"
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Specify Activity Level",
-              "text": "Select your weekly exercise frequency and intensity"
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Get Results",
-              "text": "Receive your personalized protein requirements and meal plan"
-            }
-          ],
-          "totalTime": "PT2M"
-        }
-      ]
-    })}
-  </script>
-
-  {/* Advanced FAQ Schema with Enhanced Questions */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How much protein do I need to build muscle?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "For optimal muscle growth, research shows you need 1.6-2.2g of protein per kg of body weight daily. Athletes may benefit from the higher end of this range. Our calculator provides personalized recommendations based on your specific goals, weight, and activity level."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What's the best protein calculator for bodybuilding?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our protein calculator is rated #1 for bodybuilding as it factors in training intensity, current weight, and muscle-building goals. Used by 100,000+ bodybuilders and endorsed by nutrition experts."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How accurate is this protein calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our calculator is 99% accurate, using the latest scientific research and formulas validated by sports nutritionists. It's regularly updated with the newest studies and recommended by fitness professionals."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How much protein do I need for weight loss?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "During weight loss, you need 1.8-2.4g of protein per kg of body weight to preserve muscle mass. Our calculator factors in your deficit and activity level for optimal results."
-          }
-        }
-      ]
-    })}
-  </script>
-
-  {/* Enhanced Organization Schema */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Protein Calculator UK",
-      "url": "https://protein-calculator.co.uk",
-      "logo": "https://protein-calculator.co.uk/logo.png",
-      "sameAs": [
-        "https://www.facebook.com/proteincalculatoruk",
-        "https://twitter.com/proteincalcuk",
-        "https://www.instagram.com/proteincalculatoruk",
-        "https://www.linkedin.com/company/protein-calculator-uk",
-        "https://www.youtube.com/c/proteincalculatoruk"
-      ],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+44-XXX-XXXX-XXX",
-          "contactType": "customer support",
-          "areaServed": "GB",
-          "availableLanguage": "English"
-        }
-      ]
-    })}
-  </script>
-
-  {/* Breadcrumb Schema for Enhanced Navigation */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://protein-calculator.co.uk"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Protein Calculator",
-          "item": "https://protein-calculator.co.uk/calculator"
-        }
-      ]
-    })}
-  </script>
-</Head>
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
         <div className="text-center space-y-1">
-  <style jsx global>{`
-    @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
+          <style jsx global>{`
+            @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
     
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+            @keyframes fadeInUp {
+              from {
+                opacity: 0;
+                transform: translateY(10px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
     
     .animate-fade-in-up {
       animation: fadeInUp 0.6s ease-out;
