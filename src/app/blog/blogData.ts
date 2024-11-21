@@ -69,7 +69,7 @@ export const blogPosts: Record<string, BlogPost> = {
 
         <div class="bg-blue-50 p-4 rounded-lg mb-6">
           <h4 class="font-semibold text-gray-800 mb-2">Calculate Your Protein Needs</h4>
-          <p class="mb-2">Use our protein calculator below to determine your recommended daily protein intake based on your specific factors and goals.</p>
+          <p class="mb-2">Use our protein calculator to determine your recommended daily protein intake based on your specific factors and goals.</p>
           <p class="text-sm italic">Remember: These calculations provide general guidelines. Consult with a healthcare provider for personalized recommendations.</p>
         </div>
 

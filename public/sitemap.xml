@@ -8,7 +8,7 @@
   <!-- Homepage with Calculator -->
   <url>
     <loc>https://protein-calculator.co.uk</loc>
-    <lastmod>2024-02-21</lastmod>
+    <lastmod>2024-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -21,12 +21,34 @@
   <!-- Blog Index -->
   <url>
     <loc>https://protein-calculator.co.uk/blog</loc>
-    <lastmod>2024-02-21</lastmod>
+    <lastmod>2024-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Blog Posts -->
+  <!-- New Blog Posts -->
+  <url>
+    <loc>https://protein-calculator.co.uk/blog/protein-basics</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://protein-calculator.co.uk/blog/protein-rich-foods</loc>
+    <lastmod>2024-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://protein-calculator.co.uk/blog/protein-myths</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Existing Blog Posts -->
   <url>
     <loc>https://protein-calculator.co.uk/blog/how-much-protein-do-you-need</loc>
     <lastmod>2024-02-15</lastmod>
@@ -51,7 +73,7 @@
   <!-- About Page -->
   <url>
     <loc>https://protein-calculator.co.uk/about</loc>
-    <lastmod>2024-02-21</lastmod>
+    <lastmod>2024-03-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -59,7 +81,7 @@
   <!-- Privacy Page -->
   <url>
     <loc>https://protein-calculator.co.uk/privacy</loc>
-    <lastmod>2024-02-21</lastmod>
+    <lastmod>2024-03-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
