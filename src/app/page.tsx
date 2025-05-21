@@ -35,13 +35,7 @@ function isThemeKey(key: string): key is AppThemeKey {
   return Object.keys(themeColors).includes(key);
 }
 
-// Theme definitions for background gradients (will be removed or updated later)
-const themes_gradients = {
-  purple: 'bg-gradient-to-br from-purple-400 to-pink-500',
-  blue: 'bg-gradient-to-br from-blue-400 to-cyan-500',
-  green: 'bg-gradient-to-br from-green-400 to-teal-500',
-};
-
+// Removed themes_gradients object
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -103,10 +97,7 @@ const ProteinCalculator = () => {
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     applyThemeColors(darkModeMediaQuery.matches); // Apply on initial load
 
-    // Preserve existing gradient background for now - this part is separate from theme color CSS vars
-    const gradientClass = themes_gradients[currentTheme] || themes_gradients.purple;
-    document.body.className = gradientClass;
-
+    // Removed document.body.className manipulation
 
     const handleChange = (e: MediaQueryListEvent) => {
       applyThemeColors(e.matches);
@@ -293,7 +284,7 @@ const handleUnitChange = (checked: boolean) => {
 };
 
 return (
-  <div className={`min-h-screen p-4 md:p-6`}> {/* Gradient will be applied by useEffect to body */}
+  <div className={`min-h-screen p-4 md:p-6 bg-[hsl(var(--theme-page-bg))] transition-colors duration-300`}>
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
         <div className="text-center space-y-1">
@@ -532,8 +523,7 @@ return (
         
         <Button 
           onClick={calculateProtein}
-          // The className for gradient is kept as per instructions for main call-to-action button
-          className={"w-2/3 bg-gradient-to-r " + themes_gradients[currentTheme] + " text-text-on-primary py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+          className={"w-2/3 bg-primary hover:bg-primary-hover text-text-on-primary py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
         >
           Calculate Protein Needs
         </Button>

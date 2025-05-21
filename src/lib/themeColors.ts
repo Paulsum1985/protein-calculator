@@ -1,17 +1,19 @@
 export const themeColors = {
   purple: {
     primary: '260 70% 60%',
-    'primary-dark': '260 70% 70%', // Slightly lighter for dark mode
+    'primary-dark': '260 70% 70%', 
     'primary-hover': '260 70% 50%',
-    'primary-hover-dark': '260 70% 60%', // Lighter hover for dark
+    'primary-hover-dark': '260 70% 60%', 
     accent: '280 70% 65%',
-    'accent-dark': '280 70% 75%', // Lighter
+    'accent-dark': '280 70% 75%', 
     'card-bg': '260 30% 97%',
-    'card-bg-dark': '260 20% 12%', // Darker card background
+    'card-bg-dark': '260 20% 12%', 
     'card-border': '260 40% 85%',
-    'card-border-dark': '260 20% 20%', // Darker border
+    'card-border-dark': '260 20% 20%', 
     'text-on-primary': '0 0% 100%',
-    'text-on-primary-dark': '0 0% 100%', // Assuming primary colors remain dark enough for light text
+    'text-on-primary-dark': '0 0% 100%', 
+    'page-bg': '260 50% 95%',         // Very light purple for page background
+    'page-bg-dark': '260 30% 10%',    // Very dark purple for page background
   },
   blue: {
     primary: '210 70% 55%',
@@ -26,6 +28,8 @@ export const themeColors = {
     'card-border-dark': '210 20% 20%',
     'text-on-primary': '0 0% 100%',
     'text-on-primary-dark': '0 0% 100%',
+    'page-bg': '210 50% 95%',
+    'page-bg-dark': '210 30% 10%',
   },
   green: {
     primary: '140 60% 45%',
@@ -38,8 +42,10 @@ export const themeColors = {
     'card-bg-dark': '140 20% 12%',
     'card-border': '140 40% 85%',
     'card-border-dark': '140 20% 20%',
-    'text-on-primary': '0 0% 100%', // Green is a bit lighter, white text should still be fine.
+    'text-on-primary': '0 0% 100%',
     'text-on-primary-dark': '0 0% 100%',
+    'page-bg': '140 50% 95%',
+    'page-bg-dark': '140 30% 10%',
   }
 };
 export type ThemeKey = keyof typeof themeColors;
