@@ -1,11 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Rowdies } from 'next/font/google';
 import './globals.css'
 import Script from 'next/script'
 import CookieConsent from '@/components/CookieConsent'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter', // CSS variable for Inter
+  display: 'swap',
+});
+
+const rowdies = Rowdies({
+  subsets: ['latin'],
+  weight: ['700'], // Assuming only 700 weight is needed for titles
+  variable: '--font-rowdies', // CSS variable for Rowdies
+  display: 'swap',
+});
 
 function Navigation() {
   return (
@@ -76,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${rowdies.variable}`}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-1522061448979634" />
         <Script

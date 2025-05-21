@@ -12,6 +12,7 @@ import { DumbbellIcon, ActivityIcon, BrainIcon } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 import Link from 'next/link';
 import PrintButton from '@/components/PrintButton';
+import { themeColors, ThemeKey as AppThemeKey, ThemeColorProperties } from '@/lib/themeColors';
 
 type Meal = {
   title: string;
@@ -30,59 +31,17 @@ interface FormData {
   units: string;
 }
 
-type ThemeKey = 'purple' | 'blue' | 'green';
-
-type Theme = {
-  gradient: string;
-  title: string;
-  button: string;
-  result: string;
-  resultText: string;
-  accent: string;
-  accentHover: string;
-  border: string;
-};
-
-type Themes = {
-  [key in ThemeKey]: Theme;
-};
-
-function isThemeKey(key: string): key is ThemeKey {
-  return ['purple', 'blue', 'green'].includes(key);
+function isThemeKey(key: string): key is AppThemeKey {
+  return Object.keys(themeColors).includes(key);
 }
 
-const themes: Themes = {
-  purple: {
-    gradient: "from-violet-50 via-indigo-50 to-purple-50",
-    title: "from-violet-500 via-purple-500 to-indigo-500",
-    button: "from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600",
-    result: "from-violet-100 via-purple-100 to-indigo-100",
-    resultText: "from-violet-600 via-purple-600 to-indigo-600",
-    accent: "text-violet-600",
-    accentHover: "hover:text-violet-700",
-    border: "border-violet-200",
-  },
-  blue: {
-    gradient: "from-blue-50 via-sky-50 to-cyan-50",
-    title: "from-blue-500 via-sky-500 to-cyan-500",
-    button: "from-blue-500 via-sky-500 to-cyan-500 hover:from-blue-600 hover:via-sky-600 hover:to-cyan-600",
-    result: "from-blue-100 via-sky-100 to-cyan-100",
-    resultText: "from-blue-600 via-sky-600 to-cyan-600",
-    accent: "text-blue-600",
-    accentHover: "hover:text-blue-700",
-    border: "border-blue-200",
-  },
-  green: {
-    gradient: "from-emerald-50 via-green-50 to-teal-50",
-    title: "from-emerald-500 via-green-500 to-teal-500",
-    button: "from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600",
-    result: "from-emerald-100 via-green-100 to-teal-100",
-    resultText: "from-emerald-600 via-green-600 to-teal-600",
-    accent: "text-emerald-600",
-    accentHover: "hover:text-emerald-700",
-    border: "border-emerald-200",
-  }
+// Theme definitions for background gradients (will be removed or updated later)
+const themes_gradients = {
+  purple: 'bg-gradient-to-br from-purple-400 to-pink-500',
+  blue: 'bg-gradient-to-br from-blue-400 to-cyan-500',
+  green: 'bg-gradient-to-br from-green-400 to-teal-500',
 };
+
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -117,9 +76,47 @@ const ProteinCalculator = () => {
     units: 'imperial'
   });
   const [result, setResult] = useState<number | null>(null);
-  const [currentTheme, setCurrentTheme] = useState<ThemeKey>('purple');
+  const [currentTheme, setCurrentTheme] = useState<AppThemeKey>('purple');
   const [isVegetarian, setIsVegetarian] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const applyThemeColors = (isDarkMode: boolean) => {
+      const activeThemePalette = themeColors[currentTheme];
+      for (const [key, lightValue] of Object.entries(activeThemePalette)) {
+        if (key.endsWith('-dark')) continue; // Skip -dark variants in the main loop
+
+        let colorValue = lightValue;
+        if (isDarkMode) {
+          const darkKey = `${key}-dark` as ThemeColorProperties;
+          if (activeThemePalette[darkKey]) {
+            colorValue = activeThemePalette[darkKey];
+          }
+          // If a specific -dark variant doesn't exist for a color,
+          // it will fall back to the light variant.
+        }
+        // Ensure key is a valid CSS property name
+        document.documentElement.style.setProperty(`--theme-${key.replace('-hover', '_hover')}`, colorValue as string);
+      }
+    };
+
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    applyThemeColors(darkModeMediaQuery.matches); // Apply on initial load
+
+    // Preserve existing gradient background for now - this part is separate from theme color CSS vars
+    const gradientClass = themes_gradients[currentTheme] || themes_gradients.purple;
+    document.body.className = gradientClass;
+
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      applyThemeColors(e.matches);
+    };
+
+    darkModeMediaQuery.addEventListener('change', handleChange);
+    return () => {
+      darkModeMediaQuery.removeEventListener('change', handleChange);
+    };
+  }, [currentTheme]); // Re-run when currentTheme changes or dark mode changes
  
   // Progress calculation functions next
   const calculateProgress = useCallback(() => {
@@ -295,53 +292,31 @@ const handleUnitChange = (checked: boolean) => {
   setFormData(newFormData);
 };
 
-const safeTheme = isThemeKey(currentTheme) ? currentTheme : 'purple';
-
 return (
-  <div className={`min-h-screen bg-gradient-to-br ${themes[safeTheme].gradient} p-4 md:p-6`}>
+  <div className={`min-h-screen p-4 md:p-6`}> {/* Gradient will be applied by useEffect to body */}
     <div className="max-w-4xl mx-auto">
       <div className="mb-4 space-y-4">
         <div className="text-center space-y-1">
-          <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Inter:wght@400;500&display=swap');
-              @keyframes fadeInUp {
-                from {
-                  opacity: 0;
-                  transform: translateY(10px);
-                }
-                to {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
-              }
-              .animate-fade-in-up {
-                animation: fadeInUp 0.6s ease-out;
-              }
-              .delay-200 {
-                animation-delay: 0.2s;
-              }
-            `}</style>
+          {/* Removed style jsx global block for fonts */}
   
   {/* Title Container */}
   <div className="relative inline-block w-full max-w-3xl px-4 animate-fade-in-up">
-    <div className="absolute -inset-1 bg-gradient-to-r from-violet-100 via-purple-100 to-indigo-100 rounded-lg blur-xl opacity-70" />
+    <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-primary rounded-lg blur-xl opacity-70" />
     
     <div className="relative">
       <h1 
-        style={{ fontFamily: "'Rowdies', 'Arial Rounded MT Bold', 'Helvetica Rounded', 'Arial', sans-serif" }} 
-        className={`text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r ${themes[safeTheme].title} text-transparent bg-clip-text tracking-tight leading-tight`}
+        className={`font-rowdies text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary text-transparent bg-clip-text tracking-tight leading-tight`}
       >
         Protein Calculator
       </h1>
       <div className="relative mt-2">
-        <div className={`h-1 w-full bg-gradient-to-r ${themes[safeTheme].title} rounded-full`} />
+        <div className={`h-1 w-full bg-gradient-to-r from-primary via-accent to-primary rounded-full`} />
       </div>
     </div>
   </div>
 
   <p 
-    style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" }}
-    className="mt-2 text-gray-600 text-xs sm:text-sm md:text-base font-medium tracking-wide px-4 animate-fade-in-up delay-200"
+    className="mt-2 text-foreground/80 text-xs sm:text-sm md:text-base font-medium tracking-wide px-4 animate-fade-in-up delay-200" // font-sans will be inherited
   >
     Optimize your protein intake for better health and performance
   </p>
@@ -349,9 +324,9 @@ return (
         
 <div className="flex justify-center flex-wrap gap-2 sm:gap-6 mt-2">
   {[
-    { icon: <DumbbellIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Build muscle", color: "bg-violet-100/80 text-violet-700" },
-    { icon: <BrainIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Boost recovery", color: "bg-purple-100/80 text-purple-700" },
-    { icon: <ActivityIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Improve health", color: "bg-indigo-100/80 text-indigo-700" }
+    { icon: <DumbbellIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Build muscle", color: "bg-accent/20 text-accent" },
+    { icon: <BrainIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Boost recovery", color: "bg-accent/20 text-accent" },
+    { icon: <ActivityIcon className="w-4 h-4 sm:w-5 sm:h-5" />, text: "Improve health", color: "bg-accent/20 text-accent" }
   ].map((benefit, index) => (
     <div 
       key={index} 
@@ -364,21 +339,21 @@ return (
   ))}
 </div>
 
-        <div className="flex items-center justify-center gap-2 mt-4 mb-1">  {/* Changed my-6 to mt-6 mb-4 */}
-  <span className="text-sm text-gray-600">Color Theme:</span>
+        <div className="flex items-center justify-center gap-2 mb-1">  {/* Removed mt-4, relying on parent space-y-4 */}
+  <span className="text-sm text-foreground/80">Color Theme:</span>
   <div className="flex gap-2">
     <button
-      onClick={() => setCurrentTheme('purple')}
-      className={`w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+      onClick={() => { if (isThemeKey('purple')) setCurrentTheme('purple'); }}
+      className={`w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 via-purple-500 to-indigo-500 ${currentTheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
       aria-label="Purple theme"
     />
               <button
-                onClick={() => setCurrentTheme('blue')}
+                onClick={() => { if (isThemeKey('blue')) setCurrentTheme('blue'); }}
                 className={`w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 ${currentTheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
                 aria-label="Blue theme"
               />
               <button
-                onClick={() => setCurrentTheme('green')}
+                onClick={() => { if (isThemeKey('green')) setCurrentTheme('green'); }}
                 className={`w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 ${currentTheme === 'green' ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}`}
                 aria-label="Green theme"
               />
@@ -386,33 +361,33 @@ return (
           </div>
         </div>
 
-        <div className="mt-0 mb-6">
+        <div className="mt-4 mb-6"> {/* Increased mt from 0 to 4 */}
   <div className="flex justify-between mb-1 text-sm text-gray-600">
     <span>Form Progress</span>
     <span>{progress}% Complete</span>
   </div>
   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
     <div 
-      className={`h-full bg-gradient-to-r ${themes[safeTheme].button} transition-all duration-500 ease-out rounded-full`}
+      className={`h-full bg-gradient-to-r from-primary via-accent to-primary transition-all duration-500 ease-out rounded-full`}
       style={{ width: `${progress}%` }}
     />
   </div>
 </div>
 
-<Card className="bg-white/90 backdrop-blur-sm border-none shadow-2xl transition-all duration-300 hover:shadow-3xl ring-1 ring-black/5">
+<Card> {/* Removed direct styling, relies on Card component's new base style */}
           <CardContent className="p-4 md:p-6">
             {/* New compact unit selector */}
             <div className="mb-6">
-  <div className="inline-flex items-center gap-2 px-3 py-2 bg-violet-50 rounded-lg">
-    <span className="text-xs font-medium text-gray-600">Units:</span>
+  <div className="inline-flex items-center gap-2 px-3 py-2 bg-primary/10 rounded-lg">
+    <span className="text-xs font-medium text-foreground/80">Units:</span>
     <div className="flex items-center gap-1 text-xs">
-      <span className={`${formData.units === 'imperial' ? 'text-violet-700' : 'text-gray-500'}`}>lb/ft</span>
-      <Switch
+      <span className={`${formData.units === 'imperial' ? 'text-primary' : 'text-foreground/60'}`}>lb/ft</span>
+      <Switch // Switch component itself is themed, specific classes here might be redundant or simplified
         checked={formData.units === 'metric'}
         onCheckedChange={handleUnitChange}
-        className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
+        className="scale-75" // Simplified, rely on component styles
       />
-      <span className={`${formData.units === 'metric' ? 'text-violet-700' : 'text-gray-500'}`}>kg/cm</span>
+      <span className={`${formData.units === 'metric' ? 'text-primary' : 'text-foreground/60'}`}>kg/cm</span>
     </div>
   </div>
 </div>
@@ -423,23 +398,23 @@ return (
     {/* Age and Weight Row */}
     <div className="grid grid-cols-2 gap-4">
       <div className="group">
-        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Age</Label>
-        <Input
+        <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">Age</Label>
+        <Input // Removed direct styling, relies on Input component's new base style
   type="number"
   placeholder="Years"
-  className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+  className="mt-1 text-foreground placeholder:text-accent/70"
   value={formData.age}
   onChange={(e) => setFormData({...formData, age: e.target.value})}
 />
       </div>
       <div className="group">
-        <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">
+        <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">
           Weight ({formData.units === 'imperial' ? 'lbs' : 'kg'})
         </Label>
-        <Input
+        <Input // Removed direct styling
   type="number"
   placeholder={formData.units === 'imperial' ? 'lbs' : 'kg'}
-  className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+  className="mt-1 text-foreground placeholder:text-accent/70"
   value={formData.weight}
   onChange={(e) => setFormData({...formData, weight: e.target.value})}
 />
@@ -451,21 +426,21 @@ return (
       {formData.units === 'imperial' ? (
         <>
           <div className="group">
-            <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height (ft)</Label>
-            <Input
+            <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">Height (ft)</Label>
+            <Input // Removed direct styling
               placeholder="Feet"
               type="number"
-              className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              className="mt-1 text-foreground placeholder:text-accent/70"
               value={formData.heightFeet}
               onChange={(e) => setFormData({...formData, heightFeet: e.target.value})}
             />
           </div>
           <div className="group">
-            <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height (in)</Label>
-            <Input
+            <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">Height (in)</Label>
+            <Input // Removed direct styling
               placeholder="Inches"
               type="number"
-              className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+              className="mt-1 text-foreground placeholder:text-accent/70"
               value={formData.heightInches}
               onChange={(e) => setFormData({...formData, heightInches: e.target.value})}
             />
@@ -473,11 +448,11 @@ return (
         </>
       ) : (
         <div className="group col-span-2">
-          <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Height</Label>
-          <Input
+          <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">Height</Label>
+          <Input // Removed direct styling
             placeholder="cm"
             type="number"
-            className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800 placeholder:text-gray-500"
+            className="mt-1 text-foreground placeholder:text-accent/70"
             value={formData.heightCm}
             onChange={(e) => setFormData({...formData, heightCm: e.target.value})}
           />
@@ -489,23 +464,23 @@ return (
   {/* Right Column */}
   <div className="space-y-4">
     <div className="group">
-      <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Goal</Label>
+      <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">Goal</Label>
       {/* Goal Select */}
 <Select value={formData.goal} onValueChange={(value) => setFormData({...formData, goal: value})}>
-  <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
+  <SelectTrigger className="mt-1 text-foreground"> {/* Removed direct styling */}
     <SelectValue placeholder="Select your goal" />
   </SelectTrigger>
-  <SelectContent className="bg-white border-violet-200 text-gray-800">
-    <SelectItem value="fat-loss" className="text-gray-800 hover:bg-violet-50">Fat Loss</SelectItem>
-    <SelectItem value="maintenance" className="text-gray-800 hover:bg-violet-50">Maintenance</SelectItem>
-    <SelectItem value="muscle-gain" className="text-gray-800 hover:bg-violet-50">Muscle Gain</SelectItem>
+  <SelectContent> {/* Removed direct styling, relies on component's base style */}
+    <SelectItem value="fat-loss">Fat Loss</SelectItem>
+    <SelectItem value="maintenance">Maintenance</SelectItem>
+    <SelectItem value="muscle-gain">Muscle Gain</SelectItem>
   </SelectContent>
 </Select>
 
     </div>
 
     <div className="group">
-      <Label className="text-sm text-gray-700 group-hover:text-violet-700 transition-colors">Activity Level</Label>
+      <Label className="text-sm text-foreground/90 group-hover:text-primary transition-colors">Activity Level</Label>
       <Select 
     value={formData.activityLevel} 
     onValueChange={(value) => setFormData({
@@ -513,16 +488,16 @@ return (
         activityLevel: value,
     })}
 >
-        <SelectTrigger className="mt-1 bg-white/70 border-violet-300 focus:border-violet-500 focus:ring-violet-500 transition-all text-gray-800">
-          <SelectValue placeholder="Select activity level" className="text-gray-800" />
+        <SelectTrigger className="mt-1 text-foreground"> {/* Removed direct styling */}
+          <SelectValue placeholder="Select activity level" />
         </SelectTrigger>
-        <SelectContent className="bg-white border-violet-200 text-gray-800">
-        <SelectItem value="sedentary" className="text-gray-800 hover:bg-violet-50">Sedentary (little or no exercise)</SelectItem>
-          <SelectItem value="light" className="text-gray-800 hover:bg-violet-50">Light (1-3 times/week)</SelectItem>
-          <SelectItem value="moderate" className="text-gray-800 hover:bg-violet-50">Moderate (3-5 times/week)</SelectItem>
-          <SelectItem value="active" className="text-gray-800 hover:bg-violet-50">Active (daily exercise)</SelectItem>
-          <SelectItem value="very-active" className="text-gray-800 hover:bg-violet-50">Very Active (6-7 times/week)</SelectItem>
-          <SelectItem value="athlete" className="text-gray-800 hover:bg-violet-50">Professional Athlete</SelectItem>
+        <SelectContent> {/* Removed direct styling */}
+        <SelectItem value="sedentary">Sedentary (little or no exercise)</SelectItem>
+          <SelectItem value="light">Light (1-3 times/week)</SelectItem>
+          <SelectItem value="moderate">Moderate (3-5 times/week)</SelectItem>
+          <SelectItem value="active">Active (daily exercise)</SelectItem>
+          <SelectItem value="very-active">Very Active (6-7 times/week)</SelectItem>
+          <SelectItem value="athlete">Professional Athlete</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -538,9 +513,9 @@ return (
           className="flex gap-4"
         >
           {['male', 'female'].map((sex) => (
-            <div key={sex} className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-lg border border-violet-300 hover:border-violet-500 transition-all">
-              <RadioGroupItem value={sex} id={sex} className="text-violet-600 border-violet-400" />
-              <Label htmlFor={sex} className="text-sm capitalize text-gray-800">{sex}</Label>
+            <div key={sex} className="flex items-center gap-2 bg-card-bg/50 px-4 py-2 rounded-lg border border-card-border hover:border-primary transition-all">
+              <RadioGroupItem value={sex} id={sex} /> {/* RadioGroupItem is now themed, direct class might be redundant */}
+              <Label htmlFor={sex} className="text-sm capitalize text-foreground">{sex}</Label>
             </div>
           ))}
         </RadioGroup>
@@ -549,34 +524,35 @@ return (
       <div className="flex w-full gap-4">
         <Button 
           onClick={resetForm}
-          variant="outline"
-          className="w-1/3 bg-white border-2 border-violet-300 text-violet-600 py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-violet-500"
+          variant="outline" // This will now use the themed outline variant
+          className="w-1/3 py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]" // Removed theme-specific classes
         >
           Reset
         </Button>
         
         <Button 
           onClick={calculateProtein}
-          className={"w-2/3 bg-gradient-to-r " + themes[safeTheme].button + " text-white py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
+          // The className for gradient is kept as per instructions for main call-to-action button
+          className={"w-2/3 bg-gradient-to-r " + themes_gradients[currentTheme] + " text-text-on-primary py-6 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"}
         >
           Calculate Protein Needs
         </Button>
       </div>
     </div>
     {result && (
-  <div className={`mt-6 p-4 pb-6 bg-gradient-to-r ${themes[currentTheme].result} rounded-xl shadow-inner border ${themes[currentTheme].border}`}>
+  <div className={`mt-6 p-4 pb-6 bg-card-bg/80 rounded-xl shadow-inner border border-card-border`}>
     <div className="flex items-center justify-between mb-4">
       <div className="space-y-1">
-        <h3 className="text-base font-semibold text-gray-800">Daily Protein Target</h3>
-        <div className={`text-5xl font-bold bg-gradient-to-r ${themes[currentTheme].resultText} text-transparent bg-clip-text leading-tight pb-1`}>
+        <h3 className="text-base font-semibold text-foreground">Daily Protein Target</h3>
+        <div className={`text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary text-transparent bg-clip-text leading-tight pb-1`}>
           {result}g
         </div>
       </div>
       <div className="space-y-2">
         {[
-          { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-violet-700" },
-          { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-purple-700" },
-          { icon: <BrainIcon className="w-4 h-4" />, text: "Adjust as needed", color: "text-indigo-700" }
+          { icon: <ActivityIcon className="w-4 h-4" />, text: "Track daily", color: "text-primary" }, 
+          { icon: <DumbbellIcon className="w-4 h-4" />, text: "Split between meals", color: "text-accent" }, 
+          { icon: <BrainIcon className="w-4 h-4" />, text: "Improve health", color: "text-primary" } 
         ].map((tip, index) => (
           <div key={index} className={`flex items-center gap-2 text-sm ${tip.color}`}>
             {tip.icon}
@@ -586,33 +562,33 @@ return (
       </div>
     </div>
 
-    <div className="mt-6 mb-4 flex items-center justify-between bg-white/50 p-3 rounded-lg">
-      <span className="text-sm font-medium text-gray-700">Meal Plan Type:</span>
+    <div className="mt-6 mb-4 flex items-center justify-between bg-card-bg/50 p-3 rounded-lg">
+      <span className="text-sm font-medium text-foreground/90">Meal Plan Type:</span>
       <div className="flex items-center gap-2">
-        <span className={`text-sm ${!isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Regular</span>
-        <Switch
+        <span className={`text-sm ${!isVegetarian ? 'text-primary' : 'text-foreground/60'}`}>Regular</span>
+        <Switch // Switch component itself is themed
           checked={isVegetarian}
           onCheckedChange={setIsVegetarian}
-          className="scale-75 data-[state=checked]:bg-violet-600 data-[state=unchecked]:bg-gray-200 [&>span]:bg-white [&>span]:border-gray-200"
+          className="scale-75" // Simplified
         />
-        <span className={`text-sm ${isVegetarian ? 'text-violet-700' : 'text-gray-500'}`}>Vegetarian</span>
+        <span className={`text-sm ${isVegetarian ? 'text-primary' : 'text-foreground/60'}`}>Vegetarian</span>
       </div>
     </div>
 
     <div className="space-y-4">
-      <h4 className="font-semibold text-gray-800">
+      <h4 className="font-semibold text-foreground">
         Sample Daily Meal Plan {isVegetarian ? '(Vegetarian)' : ''}
       </h4>
       <div className="grid gap-3">
         {(isVegetarian ? getMealPlans(result).vegetarian : getMealPlans(result).regular).map((meal, index) => (
-          <div key={index} className="bg-white/50 p-3 rounded-lg">
-            <div className="font-medium text-violet-700">{meal.title}</div>
-            <div className="text-sm text-gray-600">{meal.items}</div>
+          <div key={index} className="bg-card-bg/50 p-3 rounded-lg">
+            <div className="font-medium text-primary">{meal.title}</div>
+            <div className="text-sm text-foreground/80">{meal.items}</div>
           </div>
         ))}
       </div>
           
-      <div className="text-xs text-gray-500 mt-2">
+      <div className="text-xs text-foreground/60 mt-2">
         * Protein content is approximate. Actual values may vary based on portion sizes and specific products.
       </div>
 
@@ -626,10 +602,10 @@ return (
 )}
 
 <div className="mt-8 space-y-6">
-  <Card className="bg-white/90">
+  <Card> {/* Relies on Card's base styling */}
     <CardContent className="p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Understanding Protein Requirements</h2>
-      <div className="prose text-gray-600 space-y-4">
+      <h2 className="text-2xl font-bold text-foreground mb-4">Understanding Protein Requirements</h2>
+      <div className="prose text-foreground/80 space-y-4">
         <p>
           Protein is an essential macronutrient that plays crucial roles in your body, including:
         </p>
@@ -645,32 +621,32 @@ return (
   </Card>
 
   <div className="grid md:grid-cols-2 gap-6">
-    <Card className="bg-white/90">
+    <Card> {/* Relies on Card's base styling */}
       <CardContent className="p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">Factors Affecting Protein Needs</h3>
-        <ul className="space-y-3 text-gray-600">
+        <h3 className="text-xl font-semibold text-foreground mb-3">Factors Affecting Protein Needs</h3>
+        <ul className="space-y-3 text-foreground/80">
           <li className="flex items-start gap-2">
-            <span className="text-violet-600 font-bold">•</span>
+            <span className="text-primary font-bold">•</span>
             <span><strong>Activity Level:</strong> More active individuals require higher protein intake to support muscle recovery and growth.</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-violet-600 font-bold">•</span>
+            <span className="text-primary font-bold">•</span>
             <span><strong>Age:</strong> Protein needs may increase with age to help maintain muscle mass.</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-violet-600 font-bold">•</span>
+            <span className="text-primary font-bold">•</span>
             <span><strong>Goals:</strong> Requirements vary based on whether you are building muscle, losing fat, or maintaining weight.</span>
           </li>
         </ul>
       </CardContent>
     </Card>
 
-    <Card className="bg-white/90">
+    <Card> {/* Relies on Card's base styling */}
       <CardContent className="p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">Quality Protein Sources</h3>
-        <div className="grid grid-cols-2 gap-4 text-gray-600">
+        <h3 className="text-xl font-semibold text-foreground mb-3">Quality Protein Sources</h3>
+        <div className="grid grid-cols-2 gap-4 text-foreground/80">
           <div>
-            <h4 className="font-medium text-violet-600 mb-2">Animal Sources</h4>
+            <h4 className="font-medium text-primary mb-2">Animal Sources</h4>
             <ul className="space-y-1">
               <li>• Chicken Breast (31g/100g)</li>
               <li>• Salmon (25g/100g)</li>
@@ -679,7 +655,7 @@ return (
             </ul>
           </div>
           <div>
-            <h4 className="font-medium text-violet-600 mb-2">Plant Sources</h4>
+            <h4 className="font-medium text-primary mb-2">Plant Sources</h4>
             <ul className="space-y-1">
               <li>• Lentils (9g/100g)</li>
               <li>• Quinoa (4.4g/100g)</li>
@@ -692,41 +668,41 @@ return (
     </Card>
   </div>
 
-  <Card className="bg-white/90">
+  <Card> {/* Relies on Card's base styling */}
     <CardContent className="p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Tips for Meeting Your Protein Goals</h2>
-      <div className="grid md:grid-cols-3 gap-6 text-gray-600">
+      <h2 className="text-2xl font-bold text-foreground mb-4">Tips for Meeting Your Protein Goals</h2>
+      <div className="grid md:grid-cols-3 gap-6 text-foreground/80">
         <div>
-          <h4 className="font-medium text-violet-600 mb-2">Timing Matters</h4>
+          <h4 className="font-medium text-primary mb-2">Timing Matters</h4>
           <p>Distribute protein intake evenly throughout the day, aiming for 20-30g per meal to optimize muscle protein synthesis.</p>
         </div>
         <div>
-          <h4 className="font-medium text-violet-600 mb-2">Quality Over Quantity</h4>
+          <h4 className="font-medium text-primary mb-2">Quality Over Quantity</h4>
           <p>Focus on complete protein sources containing all essential amino acids. Combine different plant proteins if following a vegetarian diet.</p>
         </div>
         <div>
-          <h4 className="font-medium text-violet-600 mb-2">Post-Workout Nutrition</h4>
+          <h4 className="font-medium text-primary mb-2">Post-Workout Nutrition</h4>
           <p>Consume protein within 2 hours after exercise to support muscle recovery and adaptation.</p>
         </div>
       </div>
     </CardContent>
   </Card>
 
-  <Card className="bg-white/90">
+  <Card> {/* Relies on Card's base styling */}
   <CardContent className="p-6">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4">Common Protein Myths</h2>
-    <div className="space-y-4 text-gray-600">
+    <h2 className="text-2xl font-bold text-foreground mb-4">Common Protein Myths</h2>
+    <div className="space-y-4 text-foreground/80">
       <div className="flex items-start gap-3">
-        <span className="text-violet-600 font-bold text-xl">✕</span>
+        <span className="text-primary font-bold text-xl">✕</span>
         <div>
-          <h4 className="font-medium">Myth: More protein is always better</h4>
+          <h4 className="font-medium text-primary">Myth: More protein is always better</h4>
           <p>Truth: Excessive protein intake offers no additional benefits and may stress kidneys in certain individuals.</p>
         </div>
       </div>
       <div className="flex items-start gap-3">
-        <span className="text-violet-600 font-bold text-xl">✕</span>
+        <span className="text-primary font-bold text-xl">✕</span>
         <div>
-          <h4 className="font-medium">Myth: Plant proteins are incomplete</h4>
+          <h4 className="font-medium text-primary">Myth: Plant proteins are incomplete</h4>
           <p>Truth: Many plant proteins are complete, and combining different sources ensures adequate amino acid intake.</p>
         </div>
       </div>
@@ -734,33 +710,33 @@ return (
   </CardContent>
 </Card>
 
-<Card className="bg-white/90">
+<Card> {/* Relies on Card's base styling */}
   <CardContent className="p-6">
-    <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
+    <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
     <div className="space-y-6">
-      <div className="border-b border-gray-200 pb-4">
-        <h3 className="text-lg font-medium text-violet-600 mb-2">Should protein intake be different for men and women?</h3>
-        <p className="text-gray-600">While the basic protein requirements are similar, men typically need more total protein due to higher average body weight and muscle mass. However, the recommended amount per pound of body weight remains consistent regardless of gender.</p>
+      <div className="border-b border-card-border pb-4">
+        <h3 className="text-lg font-medium text-primary mb-2">Should protein intake be different for men and women?</h3>
+        <p className="text-foreground/80">While the basic protein requirements are similar, men typically need more total protein due to higher average body weight and muscle mass. However, the recommended amount per pound of body weight remains consistent regardless of gender.</p>
       </div>
 
-      <div className="border-b border-gray-200 pb-4">
-        <h3 className="text-lg font-medium text-violet-600 mb-2">How does illness or injury affect protein needs?</h3>
-        <p className="text-gray-600">During illness or injury, protein requirements often increase to support healing and prevent muscle loss. Consider increasing intake by 20-30% during recovery periods, and consult with a healthcare provider for personalized advice.</p>
+      <div className="border-b border-card-border pb-4">
+        <h3 className="text-lg font-medium text-primary mb-2">How does illness or injury affect protein needs?</h3>
+        <p className="text-foreground/80">During illness or injury, protein requirements often increase to support healing and prevent muscle loss. Consider increasing intake by 20-30% during recovery periods, and consult with a healthcare provider for personalized advice.</p>
       </div>
 
-      <div className="border-b border-gray-200 pb-4">
-        <h3 className="text-lg font-medium text-violet-600 mb-2">Do protein requirements change as we age?</h3>
-        <p className="text-gray-600">Yes, older adults often need more protein to prevent age-related muscle loss (sarcopenia). Research suggests adults over 65 may benefit from 1.0-1.2g of protein per kg body weight, compared to 0.8g for younger adults.</p>
+      <div className="border-b border-card-border pb-4">
+        <h3 className="text-lg font-medium text-primary mb-2">Do protein requirements change as we age?</h3>
+        <p className="text-foreground/80">Yes, older adults often need more protein to prevent age-related muscle loss (sarcopenia). Research suggests adults over 65 may benefit from 1.0-1.2g of protein per kg body weight, compared to 0.8g for younger adults.</p>
       </div>
 
-      <div className="border-b border-gray-200 pb-4">
-        <h3 className="text-lg font-medium text-violet-600 mb-2">Should I adjust protein intake when cutting calories?</h3>
-        <p className="text-gray-600">Yes, maintaining or slightly increasing protein intake while cutting calories helps preserve muscle mass during weight loss. Aim for the higher end of your recommended protein range when in a caloric deficit.</p>
+      <div className="border-b border-card-border pb-4">
+        <h3 className="text-lg font-medium text-primary mb-2">Should I adjust protein intake when cutting calories?</h3>
+        <p className="text-foreground/80">Yes, maintaining or slightly increasing protein intake while cutting calories helps preserve muscle mass during weight loss. Aim for the higher end of your recommended protein range when in a caloric deficit.</p>
       </div>
 
       <div>
-        <h3 className="text-lg font-medium text-violet-600 mb-2">How do I track protein intake accurately?</h3>
-        <p className="text-gray-600">Use food scales for precise measurements, read nutrition labels carefully, and consider using food tracking apps. For whole foods without labels, refer to reliable nutrition databases. Be consistent with your tracking method for best results.</p>
+        <h3 className="text-lg font-medium text-primary mb-2">How do I track protein intake accurately?</h3>
+        <p className="text-foreground/80">Use food scales for precise measurements, read nutrition labels carefully, and consider using food tracking apps. For whole foods without labels, refer to reliable nutrition databases. Be consistent with your tracking method for best results.</p>
       </div>
     </div>
   </CardContent>
@@ -768,14 +744,14 @@ return (
     <div className="mt-8">
       <AdUnit />
     </div>
-    <div className="mt-4 text-left text-xs text-gray-400 flex gap-4">
-  <Link href="/privacy" className="hover:text-violet-600 transition-colors">
+    <div className="mt-4 text-left text-xs text-foreground/60 flex gap-4">
+  <Link href="/privacy"> {/* General link styles from globals.css will apply hover */}
     Privacy Policy
   </Link>
-  <Link href="/about" className="hover:text-violet-600 transition-colors">
+  <Link href="/about">
     About & Contact
   </Link>
-  <Link href="/terms" className="hover:text-violet-600 transition-colors">
+  <Link href="/terms">
     Terms of Service
   </Link>
 </div>
