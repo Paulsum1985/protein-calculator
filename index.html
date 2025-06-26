@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Calculator | Final Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        :root {
+            --bg-color: #F7F8FC;
+            --card-bg-color: #FFFFFF;
+            --text-color-primary: #1A2B4D;
+            --text-color-secondary: #3D4C6C;
+            --text-color-muted: #9CA3AF;
+            --border-color: #E5E7EB;
+            --accent-color: #129FD7;
+            --accent-color-hover: #0e86b4;
+            --card-shadow: 0 10px 30px rgba(18, 159, 215, 0.1);
+            --toggle-bg: #E5E7EB;
+            --active-toggle-text: #FFFFFF;
+            --inactive-toggle-text: #3D4C6C;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+        }
+
+        [x-cloak] { display: none !important; }
+
+        .form-label { color: var(--text-color-secondary); font-weight: 600; font-size: 14px; transition: all 0.2s ease-out; }
+        .form-group:focus-within .form-label { color: var(--accent-color); font-weight: 700; }
+
+        .form-input, .form-select {
+            background-color: var(--card-bg-color); border: 1px solid var(--border-color);
+            border-radius: 0.75rem; padding: 0.85rem 1.25rem; width: 100%;
+            color: var(--text-color-primary); transition: all 0.2s ease-in-out;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03); font-size: 16px;
+        }
+        .form-input::placeholder { color: #8A94A6; }
+        .form-input:focus, .form-select:focus {
+            outline: none; border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 15%, transparent);
+        }
+        
+        .form-select {
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 1rem center;
+        }
+
+        .main-card { background-color: var(--card-bg-color); border-radius: 0.75rem; box-shadow: var(--card-shadow); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+        
+        .primary-button {
+            border-radius: 0.75rem; background-color: var(--accent-color);
+            box-shadow: 0 4px 14px 0 color-mix(in srgb, var(--accent-color) 25%, transparent);
+            transition: all 0.3s ease; color: var(--active-toggle-text);
+        }
+        .primary-button:hover { background-color: var(--accent-color-hover); box-shadow: 0 6px 20px 0 color-mix(in srgb, var(--accent-color) 30%, transparent); transform: translateY(-2px); }
+        .primary-button:active { transform: translateY(1px); box-shadow: 0 2px 8px 0 color-mix(in srgb, var(--accent-color) 20%, transparent); }
+        
+        .secondary-button {
+             border-radius: 0.75rem; background-color: var(--toggle-bg);
+             transition: all 0.3s ease; color: var(--inactive-toggle-text);
+        }
+        .secondary-button:hover { background-color: #d1d5db; }
+
+
+        .unit-toggle { background-color: var(--toggle-bg); }
+        .unit-toggle button { color: var(--inactive-toggle-text); }
+        .unit-toggle button.active { color: var(--active-toggle-text); background-color: var(--accent-color); box-shadow: 0 4px 14px 0 color-mix(in srgb, var(--accent-color) 25%, transparent); }
+        
+        .gender-toggle label { border-color: var(--border-color); }
+        .gender-toggle label.active { border-color: var(--accent-color); background-color: color-mix(in srgb, var(--accent-color) 8%, transparent); }
+        .gender-toggle label.active svg.gender-icon { color: var(--accent-color); }
+        .gender-toggle label svg.gender-icon { color: var(--text-color-muted); }
+        .gender-toggle label .check-icon { background-color: var(--accent-color); color: white; }
+
+        .intake-range-marker { position: absolute; top: 50%; transform: translateY(-50%); left: -8px; height: 100%; display: flex; align-items: center; transition: all 0.5s ease-out; }
+    
+        .page-content h2 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: var(--text-color-primary);
+            margin-bottom: 1rem;
+        }
+        .page-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .page-content p, .page-content ul {
+            color: var(--text-color-secondary);
+            line-height: 1.6;
+        }
+        .page-content ul {
+            list-style-position: inside;
+            list-style-type: disc;
+            padding-left: 0.5rem;
+        }
+        .page-content li {
+            margin-bottom: 0.5rem;
+        }
+         .page-content a {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+    <div x-data="proteinCalculatorApp()">
+        
+        <!-- Cookie Jar Banner -->
+        <div x-show="cookieManager.showBanner" 
+             x-transition:enter="transition-all ease-out duration-300"
+             x-transition:enter-start="max-h-0 opacity-0"
+             x-transition:enter-end="max-h-40 opacity-100"
+             x-transition:leave="transition-all ease-in duration-300"
+             x-transition:leave-start="max-h-40 opacity-100"
+             x-transition:leave-end="max-h-0 opacity-0"
+             class="bg-white/80 backdrop-blur-sm shadow-sm overflow-hidden" style="z-index: 999;" x-cloak>
+             <div class="max-w-7xl mx-auto p-3 flex items-center justify-between gap-4">
+                 <div class="flex items-center gap-4">
+                    <img src="https://i.postimg.cc/MpN7ycX6/Image-fx-18.png" alt="Cookie Jar Icon" class="w-12 h-12 object-contain flex-shrink-0"/>
+                    <p class="text-sm font-semibold text-[var(--text-color-secondary)]">We use cookies to make this calculator even crunchier. Help yourself!</p>
+                 </div>
+                 <div class="flex gap-3 flex-shrink-0">
+                     <button @click="cookieManager.giveConsent()" class="text-sm font-bold bg-[var(--accent-color)] text-white rounded-full py-2 px-5 hover:bg-[var(--accent-color-hover)] transition-all">Accept</button>
+                     <button @click="cookieManager.declineConsent()" class="text-sm font-bold bg-gray-200 text-gray-600 rounded-full py-2 px-5 hover:bg-gray-300 transition-colors">Decline</button>
+                 </div>
+             </div>
+        </div>
+
+        <div class="flex flex-col min-h-screen">
+            <div class="flex-grow container mx-auto px-4 pb-4">
+                <header class="text-center mt-6 mb-6">
+                    <a href="#" @click.prevent="currentPage = 'home'" class="cursor-pointer">
+                        <img src="https://i.postimg.cc/Fs6sRhkX/pclogo.png" alt="Protein Calculator Logo" class="h-24 md:h-28 mx-auto" />
+                    </a>
+                    <p class="mt-3 text-sm text-[var(--text-color-secondary)] max-w-2xl mx-auto">Your personal guide to optimal protein intake.</p>
+                </header>
+                
+                <!-- Page Content Area -->
+                <div x-show="currentPage === 'home'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+                    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                        <div class="lg:col-span-3 transition-opacity duration-500" :class="{'opacity-50': result, 'opacity-100': !result}">
+                            <div class="main-card p-6 md:p-8">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6">
+                                    <div class="md:col-span-2">
+                                        <div class="flex items-center bg-[var(--toggle-bg)] p-1.5 rounded-full unit-toggle">
+                                            <button type="button" @click="updateUnits('imperial')" :class="{'active': units === 'imperial'}" class="w-1/2 py-2 text-center rounded-full text-sm font-bold transition-all duration-300">Imperial</button>
+                                            <button type="button" @click="updateUnits('metric')" :class="{'active': units === 'metric'}" class="w-1/2 py-2 text-center rounded-full text-sm font-bold transition-all duration-300">Metric</button>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-span-2 form-group"><label class="block form-label mb-2">Gender</label><div class="flex gap-4 gender-toggle"><label class="relative flex items-center p-4 border-2 w-full cursor-pointer transition-all duration-200 rounded-xl" :class="{'active': gender === 'male'}"><input type="radio" x-model="gender" value="male" @change="playHaptic('light'); playSound('tick');" class="hidden"><div x-show="gender === 'male'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="absolute top-2 right-2 w-5 h-5 check-icon rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg></div><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3 gender-icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"></path><path d="M19 5l-5.4 5.4"></path><path d="M19 5h-5"></path><path d="M19 5v5"></path></svg><span class="font-bold text-[var(--text-color-primary)]">Male</span></label><label class="relative flex items-center p-4 border-2 w-full cursor-pointer transition-all duration-200 rounded-xl" :class="{'active': gender === 'female'}"><input type="radio" x-model="gender" value="female" @change="playHaptic('light'); playSound('tick');" class="hidden"><div x-show="gender === 'female'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="absolute top-2 right-2 w-5 h-5 check-icon rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg></div><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3 gender-icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 9m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"></path><path d="M12 14l0 7"></path><path d="M9 18l6 0"></path></svg><span class="font-bold text-[var(--text-color-primary)]">Female</span></label></div></div>
+                                    <div class="form-group"><label for="age" class="block form-label mb-2">Age</label><input type="number" id="age" x-model.number="age" placeholder="e.g., 25" class="form-input"></div>
+                                    <div class="form-group"><label for="weight" class="block form-label mb-2">Weight <span class="font-medium text-gray-400" x-text="units === 'imperial' ? '(lbs)' : '(kg)'"></span></label><input type="number" id="weight" x-model.number="weight" placeholder="e.g., 150" class="form-input"></div>
+                                    <template x-if="units === 'imperial'"><div class="grid grid-cols-2 gap-4 md:col-span-2"><div class="form-group"><label for="heightFt" class="block form-label mb-2">Height <span class="font-medium text-gray-400">(ft)</span></label><input type="number" id="heightFt" x-model.number="heightFt" placeholder="5" class="form-input"></div><div class="form-group"><label for="heightIn" class="block form-label mb-2"><span class="invisible">Inches</span><span class="font-medium text-gray-400">(in)</span></label><input type="number" id="heightIn" x-model.number="heightIn" placeholder="0" class="form-input"></div></div></template>
+                                    <template x-if="units === 'metric'"><div class="md:col-span-2 form-group"><label for="heightCm" class="block form-label mb-2">Height <span class="font-medium text-gray-400">(cm)</span></label><input type="number" id="heightCm" x-model.number="heightCm" placeholder="e.g., 175" class="form-input"></div></template>
+                                    <div class="form-group"><label for="activity" class="block form-label mb-2">Activity Level</label><select id="activity" x-model="activityLevel" @change="setInitialRefineValues()" class="form-select"><option value="sedentary">Sedentary</option><option value="light">Lightly Active</option><option value="moderate">Moderately Active</option><option value="active">Very Active</option><option value="extra_active">Extra Active</option></select></div>
+                                    <div class="form-group"><label for="goal" class="block form-label mb-2">Goal</label><select id="goal" x-model="goal" @change="setInitialRefineValues()" class="form-select"><option value="fat_loss">Fat Loss</option><option value="maintenance">Maintenance</option><option value="muscle_gain">Muscle Gain</option></select></div>
+                                    <div class="md:col-span-2 pt-4 flex gap-4">
+                                        <button type="button" @click="resetForm()" class="secondary-button w-1/3 font-bold py-4 px-4">Reset</button>
+                                        <button type="button" @click="handleCalculation()" class="primary-button w-2/3 font-bold py-4 px-4 overflow-hidden"><span x-show="!isCalculating">Calculate My Needs</span><span x-show="isCalculating">Calculating...</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results Panel -->
+                        <div class="lg:col-span-2 relative min-h-[500px] lg:min-h-full">
+                            <div class="absolute inset-0 main-card p-6 md:p-8">
+                                <div class="relative h-full">
+                                    
+                                    <!-- Initial "Zero" State -->
+                                    <div x-show="!result" 
+                                         x-transition:leave="transition ease-in duration-200"
+                                         x-transition:leave-start="opacity-100"
+                                         x-transition:leave-end="opacity-0"
+                                         class="absolute inset-0 space-y-4 flex flex-col pb-4">
+                                        
+                                        <div class="text-center">
+                                            <h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2>
+                                            <div class="flex items-baseline justify-center space-x-2 mt-1">
+                                                <span class="text-7xl font-black text-gray-300" style="letter-spacing: -0.02em;">0</span>
+                                                <span class="text-2xl font-bold text-gray-300">grams</span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <button type="button" class="flex items-center text-sm font-bold text-gray-400 cursor-default">
+                                                <span>Refine</span>
+                                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                            </button>
+                                        </div>
+
+                                        <div>
+                                            <h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-2">Intake Range</h3>
+                                            <div class="relative h-2.5">
+                                                <div class="overflow-hidden h-full flex rounded-full bg-gray-200">
+                                                     <div class="bg-gray-300" style="width: 33.33%"></div>
+                                                     <div class="bg-gray-300" style="width: 33.33%; border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB;"></div>
+                                                     <div class="bg-gray-300" style="width: 33.33%"></div>
+                                                </div>
+                                                <div class="intake-range-marker" style="left: 50%;">
+                                                    <div class="w-4 h-4 rounded-full bg-white border-2 border-gray-400 shadow"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between text-xs text-gray-400 mt-1 font-medium">
+                                                <span>Fat Loss</span><span>Maintenance</span><span>Muscle Gain</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-grow flex flex-col">
+                                            <h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-3">Sample Distribution</h3>
+                                            <div class="space-y-4 flex-grow flex flex-col justify-around text-left">
+                                                <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Breakfast</p><p class="text-sm text-[var(--text-color-secondary)]">25% of daily intake</p></div></div>
+                                                <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Lunch</p><p class="text-sm text-[var(--text-color-secondary)]">35% of daily intake</p></div></div>
+                                                <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Dinner</p><p class="text-sm text-[var(--text-color-secondary)]">40% of daily intake</p></div></div>
+                                            </div>
+                                        </div>
+
+                                        <p class="text-[var(--text-color-secondary)] text-center text-sm pt-2">Complete the form to get your personalised protein intake.</p>
+                                    </div>
+
+                                    <!-- Real Results -->
+                                    <div x-show="result" x-cloak class="absolute inset-0 space-y-6 flex flex-col">
+                                        <div x-show="showResultTitle" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2><div class="flex items-baseline space-x-2 mt-1"><span class="text-7xl font-black" style="letter-spacing: -0.02em;" x-text="Math.round(animatedResult)"></span><span class="text-2xl font-bold text-gray-400">grams</span></div></div>
+                                        <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><button type="button" @click="showRefine = !showRefine" class="flex items-center text-sm font-bold text-[var(--accent-color)] hover:text-[var(--accent-color-hover)]"><span x-text="showRefine ? 'Hide' : 'Refine'"></span><svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': showRefine}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></button>
+                                        <div x-show="showRefine" x-collapse class="mt-4 space-y-4">
+                                            <div class="form-group">
+                                                <div class="flex items-center gap-2">
+                                                    <label class="block text-sm form-label">Activity Fine-Tuning</label>
+                                                    <div @mouseenter="showActivityTooltip = true" @mouseleave="showActivityTooltip = false" class="relative">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                        <div x-show="showActivityTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10">
+                                                            Slide right if you are at the high end of your chosen activity level (e.g., more intense workouts).
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="range" min="0" max="100" x-model.number="activityRefine" @input="playHaptic('tick'); recalculateWithRefinements();">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="flex items-center gap-2">
+                                                    <label class="block text-sm form-label">Goal Intensity</label>
+                                                     <div @mouseenter="showGoalTooltip = true" @mouseleave="showGoalTooltip = false" class="relative">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                        <div x-show="showGoalTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10">
+                                                            For Fat Loss or Muscle Gain, slide right for a more aggressive approach.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="range" min="0" max="100" x-model.number="goalRefine" @input="playHaptic('tick'); recalculateWithRefinements();">
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-2">Intake Range</h3><div class="relative h-2.5"><div class="overflow-hidden h-full flex rounded-full bg-blue-100"><div class="bg-[#4ADE80]" style="width: 33.33%"></div><div class="bg-[#FBBF24]" style="width: 33.33%"></div><div class="bg-[#F87171]" style="width: 33.33%"></div></div><div class="intake-range-marker" :style="`left: calc(${proteinRangePercent}%)`"><div class="w-4 h-4 rounded-full bg-white border-2 border-[var(--accent-color)] shadow-lg"></div></div></div><div class="flex justify-between text-xs text-gray-400 mt-1 font-medium"><span>Fat Loss</span><span>Maintenance</span><span>Muscle Gain</span></div></div>
+                                        <div x-show="showDistribution" x-transition:enter="transition ease-out duration-300 delay-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="flex-grow flex flex-col"><h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-3">Sample Distribution</h3><div class="space-y-4 flex-grow flex flex-col justify-around"><div class="flex items-center"><div class="bg-blue-100 text-blue-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Breakfast</p><p class="text-sm text-[var(--text-color-secondary)]">25% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.25) + 'g'"></span></div><div class="flex items-center"><div class="bg-green-100 text-green-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Lunch</p><p class="text-sm text-[var(--text-color-secondary)]">35% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.35) + 'g'"></span></div><div class="flex items-center"><div class="bg-purple-100 text-purple-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Dinner</p><p class="text-sm text-[var(--text-color-secondary)]">40% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.40) + 'g'"></span></div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+                
+                <!-- About Page -->
+                <div x-show="currentPage === 'about'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                        <h2>Our Methodology</h2>
+                        <p>We believe in transparency and accuracy. This calculator is designed to provide you with a well-informed estimate of your daily protein needs based on established scientific principles. It is not a substitute for professional medical advice, but it serves as a strong starting point for your nutritional journey.</p>
+                        
+                        <h3>The Core Formula</h3>
+                        <p>Our calculation begins by determining your protein requirements based on your body weight. The most common and widely accepted method for this is a grams-per-kilogram calculation. We use multipliers that adjust this base value according to your personal activity level and fitness goals.</p>
+                        <p class="text-center font-mono bg-gray-100 p-4 rounded-lg my-4 text-lg">Weight (kg) × Activity Multiplier × Goal Multiplier = Daily Protein (g)</p>
+
+                        <h3>Activity Level Multipliers</h3>
+                        <p>Your activity level significantly impacts your protein needs. Muscle tissue is broken down during exercise and requires protein to repair and grow back stronger. We use the following standard multipliers:</p>
+                        <ul>
+                            <li><b>Sedentary:</b> 1.2</li>
+                            <li><b>Lightly Active:</b> 1.375</li>
+                            <li><b>Moderately Active:</b> 1.55</li>
+                            <li><b>Very Active:</b> 1.725</li>
+                            <li><b>Extra Active:</b> 1.9</li>
+                        </ul>
+
+                        <h3>Goal-Based Adjustments</h3>
+                        <p>Your goal is another key factor. Whether you want to lose fat, build muscle, or maintain your current weight changes your protein requirements:</p>
+                        <ul>
+                            <li><b>Fat Loss:</b> Higher protein intake is beneficial during a calorie deficit. It helps preserve lean muscle mass and increases satiety, making it easier to stick to your diet. Our "Fat Loss" setting applies a positive multiplier.</li>
+                            <li><b>Muscle Gain:</b> To build new muscle tissue, your body needs a surplus of amino acids from protein. Our "Muscle Gain" setting applies the highest multiplier to support this growth.</li>
+                            <li><b>Maintenance:</b> This setting provides a balanced protein intake to maintain your current muscle mass and support overall health.</li>
+                        </ul>
+
+                        <h3>Refining Your Results</h3>
+                        <p>The "Refine" sliders for Activity and Goal allow you to make small adjustments to the calculation, acknowledging that broad categories don't fit everyone perfectly.</p>
+                        <ul>
+                            <li><b>Activity Fine-Tuning:</b> Think of this as a "low-end vs. high-end" adjustment. If you feel you're at the higher end of your selected activity level (e.g., you chose "Lightly Active" but do more than just light walking), you can slide this to the right for a slightly higher protein recommendation. If you're at the lower end, slide it left.</li>
+                            <li><b>Goal Intensity:</b> This slider adjusts how aggressively the calculation pursues your chosen goal. For "Fat Loss" or "Muscle Gain", sliding to the right will increase the protein multiplier for a more ambitious approach, while sliding left will make it more moderate. This slider has a smaller effect when your goal is "Maintenance".</li>
+                        </ul>
+                        <p class="mt-4"><b>Disclaimer:</b> This tool provides an estimate for educational purposes. For personalised medical or dietary advice, please consult with a qualified healthcare professional or registered dietitian.</p>
+                    </div>
+                </div>
+                
+                <!-- Privacy Policy Page -->
+                 <div x-show="currentPage === 'privacy'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                        <h2>Privacy Policy</h2>
+                        <p>Your privacy is important to us. It is Protein-Calculator.co.uk's policy to respect your privacy regarding any information we may collect from you across our website.</p>
+                        
+                        <h3>Information We Collect</h3>
+                        <p><b>Data you provide:</b> The data you enter into the calculator (age, gender, weight, height, activity level, and goal) is used solely for the purpose of performing the calculation. This information is processed in your browser and is never stored on our servers or shared with any third party.</p>
+                        <p><b>Cookie Consent:</b> We use local storage in your browser to remember your choice on our cookie consent banner. This is to avoid showing you the banner on every visit after you have made a choice. The value stored is either 'true' (consent given) or 'false' (consent declined) and contains no personal information.</p>
+                        
+                        <h3>How We Use Information</h3>
+                        <p>The information entered into the calculator is used only for the immediate function of calculating your estimated protein needs. It is discarded as soon as you leave or refresh the page.</p>
+                        <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
+
+                        <h3>Your Consent</h3>
+                        <p>By using our site, you consent to our website's privacy policy.</p>
+
+                        <h3>Changes to our Privacy Policy</h3>
+                        <p>If we decide to change our privacy policy, we will post those changes on this page. This policy was last modified on 26th June 2025.</p>
+
+                        <h3>Contacting Us</h3>
+                        <p>If there are any questions regarding this privacy policy, you may <a href="#" @click.prevent="currentPage = 'contact'">contact us</a>.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Page -->
+                 <div x-show="currentPage === 'faq'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                        <h2>Frequently Asked Questions</h2>
+                        
+                        <h3>How often should I recalculate my protein needs?</h3>
+                        <p>It's a good idea to recalculate your protein needs whenever there's a significant change in one of the core factors. We recommend updating your calculation if:</p>
+                        <ul>
+                            <li>Your body weight changes by more than 5-10 lbs (or 2-5 kg).</li>
+                            <li>Your activity level changes (e.g., you start a new, more intensive workout program, or you become more sedentary).</li>
+                            <li>Your primary fitness goal changes (e.g., you switch from a muscle-gain phase to a fat-loss phase).</li>
+                        </ul>
+                        <p>Re-evaluating every 2-3 months is a good general guideline for most people who are actively training.</p>
+
+                        <h3>What are good sources of protein?</h3>
+                        <p>There are many excellent sources of protein, both from animal and plant-based sources. Here are some of the most popular and effective options:</p>
+                         <ul>
+                            <li><b>Animal-Based:</b> Chicken breast, turkey breast, lean beef, fish (like salmon and tuna), eggs, Greek yogurt, cottage cheese, and milk.</li>
+                            <li><b>Plant-Based:</b> Lentils, chickpeas, beans, tofu, edamame, quinoa, nuts, seeds, and seitan.</li>
+                            <li><b>Supplements:</b> Whey, casein, and plant-based (e.g., pea, soy, or rice) protein powders are a convenient way to supplement your intake, especially post-workout.</li>
+                        </ul>
+
+                        <h3>Why is protein so important for my goal?</h3>
+                        <p>Protein is a critical macronutrient that plays a different role depending on your goal:</p>
+                        <ul>
+                            <li><b>For Muscle Gain:</b> Protein provides the amino acids that are the building blocks of new muscle tissue. After a workout, your muscles are in a state of repair, and consuming adequate protein is essential for them to heal and grow larger and stronger.</li>
+                            <li><b>For Fat Loss:</b> A higher protein intake helps you feel fuller for longer, which can reduce overall calorie consumption. It also has a higher thermic effect of food (TEF), meaning your body burns more calories digesting it compared to fats and carbs. Most importantly, it helps preserve your existing lean muscle mass while you are in a calorie deficit, ensuring that the weight you lose is primarily from fat.</li>
+                            <li><b>For Maintenance:</b> Even if you're not trying to change your weight, a steady supply of protein is vital for countless bodily functions, including hormone production, immune system support, and the constant repair and turnover of cells throughout your body.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <!-- Contact Page -->
+                 <div x-show="currentPage === 'contact'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content text-center">
+                        <h2>Get In Touch</h2>
+                        <p class="max-w-2xl mx-auto">We'd love to hear from you! Whether you have a question about the calculator, a suggestion for a new feature, or have found a bug, your feedback is important to us.</p>
+                        <p class="max-w-2xl mx-auto mt-4">Please feel free to reach out to us at the email address below, and we will do our best to get back to you as soon as possible.</p>
+                        <h3 class="mt-8">
+                            <a href="mailto:hello@protein-calculator.co.uk" class="text-xl hover:text-blue-500">hello@protein-calculator.co.uk</a>
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+            <footer class="text-center p-4 text-sm text-[var(--text-color-secondary)] border-t border-[var(--border-color)]">
+                <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <p>&copy; 2025 Protein-Calculator.co.uk. All Rights Reserved.</p>
+                    <div class="flex gap-x-6">
+                        <a href="#" @click.prevent="currentPage = 'about'" class="hover:text-[var(--accent-color)] transition-colors">About / Methodology</a>
+                        <a href="#" @click.prevent="currentPage = 'privacy'" class="hover:text-[var(--accent-color)] transition-colors">Privacy Policy</a>
+                        <a href="#" @click.prevent="currentPage = 'faq'" class="hover:text-[var(--accent-color)] transition-colors">FAQ</a>
+                        <a href="#" @click.prevent="currentPage = 'contact'" class="hover:text-[var(--accent-color)] transition-colors">Contact</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('proteinCalculatorApp', () => ({
+                // Page Router
+                currentPage: 'home',
+
+                // Main Calculator State
+                units: 'imperial', gender: 'male',
+                age: null, weight: null, heightFt: null, heightIn: null, heightCm: null,
+                activityLevel: 'light', goal: 'maintenance',
+                result: null, animatedResult: 0, proteinRangePercent: 0,
+                isCalculating: false, showRefine: false,
+                activityRefine: 50, goalRefine: 50,
+                soundEnabled: false, audioCtx: null,
+                showResultTitle: false, showRange: false, showDistribution: false,
+                showActivityTooltip: false, showGoalTooltip: false,
+
+                // Cookie Consent Manager
+                cookieManager: {
+                    showBanner: false,
+                    consentGiven: null,
+                    init() {
+                        const consent = localStorage.getItem('cookie_consent');
+                        if (consent === null) {
+                            this.showBanner = true;
+                        } else {
+                            this.consentGiven = consent === 'true';
+                            this.showBanner = false;
+                        }
+                    },
+                    giveConsent() {
+                        localStorage.setItem('cookie_consent', 'true');
+                        this.consentGiven = true;
+                        this.showBanner = false;
+                    },
+                    declineConsent() {
+                        localStorage.setItem('cookie_consent', 'false');
+                        this.consentGiven = false;
+                        this.showBanner = false;
+                    }
+                },
+
+                init() {
+                    this.cookieManager.init();
+                    this.$watch('units', (newValue) => {
+                        if (newValue === 'imperial' && this.heightIn === null) {
+                            this.heightIn = 0;
+                        }
+                    });
+                     // Watch for page changes to scroll to top
+                    this.$watch('currentPage', (newValue, oldValue) => {
+                        if(newValue !== oldValue) {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    });
+                },
+                
+                resetForm() {
+                    this.gender = 'male';
+                    this.age = null;
+                    this.weight = null;
+                    this.heightFt = null;
+                    this.heightIn = null;
+                    this.heightCm = null;
+                    this.activityLevel = 'light';
+                    this.goal = 'maintenance';
+                    this.result = null;
+                    this.animatedResult = 0;
+                    this.showRefine = false;
+                    this.playHaptic('light');
+                    this.playSound('tick');
+                },
+
+                playHaptic(type) { if (navigator.vibrate) { if (type === 'light') navigator.vibrate(20); if (type === 'medium') navigator.vibrate(40); if (type === 'tick') navigator.vibrate(5); } },
+                playSound(type) {
+                    if (!this.soundEnabled) return;
+                    if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = this.audioCtx.createOscillator();
+                    const gainNode = this.audioCtx.createGain();
+                    oscillator.connect(gainNode); gainNode.connect(this.audioCtx.destination);
+                    if (type === 'tick') { oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(440, this.audioCtx.currentTime); gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.00001, this.audioCtx.currentTime + 0.1); } 
+                    else if (type === 'chime') { oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(523.25, this.audioCtx.currentTime); gainNode.gain.setValueAtTime(0.1, this.audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.00001, this.audioCtx.currentTime + 0.5); }
+                    oscillator.start(this.audioCtx.currentTime); oscillator.stop(this.audioCtx.currentTime + 0.5);
+                },
+                handleCalculation() {
+                    if (this.isCalculating) return;
+                    if (!this.validateForm()) { this.playHaptic('medium'); return; }
+                    this.isCalculating = true;
+                    this.playHaptic('medium');
+                    this.playSound('chime');
+                    setTimeout(() => { this.calculateProtein(false); this.isCalculating = false; }, 400);
+                },
+                validateForm() {
+                    const fields = ['age', 'weight'];
+                    if (this.units === 'imperial') { fields.push('heightFt'); } else { fields.push('heightCm'); }
+                    for (const field of fields) {
+                        if (this[field] === null || this[field] === '' || parseFloat(this[field]) <= 0) {
+                             const el = this.$root.querySelector(`#${field}`);
+                             if(el) el.focus();
+                             return false;
+                        }
+                    }
+                    if (this.units === 'imperial' && this.heightIn === null) this.heightIn = 0;
+                    return true;
+                },
+                updateUnits(unit) { this.playHaptic('light'); this.playSound('tick'); this.units = unit; },
+                setInitialRefineValues() { this.activityRefine = 50; this.goalRefine = 50; if (this.result !== null) this.recalculateWithRefinements(); },
+                recalculateWithRefinements() { this.calculateProtein(true); },
+                calculateProtein(isRefinement = false) {
+                    if (!isRefinement) { if(!this.validateForm()) return; this.setInitialRefineValues(); }
+                    const weightInKg = this.units === 'imperial' ? parseFloat(this.weight) * 0.453592 : parseFloat(this.weight);
+                    if(isNaN(weightInKg) || weightInKg <= 0) { this.result = null; return; }
+                    
+                    const activityMultipliers = { sedentary: 1.2, light: 1.375, moderate: 1.55, active: 1.725, extra_active: 1.9 };
+                    const goalMultipliers = { fat_loss: 1.15, maintenance: 1.0, muscle_gain: 1.25 };
+                    let activityFineTune = (this.activityRefine - 50) / 250;
+                    let goalFineTune = (this.goalRefine - 50) / 250;
+                    let baseMultiplier = activityMultipliers[this.activityLevel] + activityFineTune;
+                    let goalModifier = goalMultipliers[this.goal] + goalFineTune;
+                    let finalMultiplier = baseMultiplier * goalModifier;
+                    finalMultiplier = Math.max(1.2, Math.min(2.2, finalMultiplier));
+                    const newResult = Math.round(weightInKg * finalMultiplier);
+
+                    if (this.result !== newResult) { this.animateResult(this.result === null ? 0 : this.animatedResult, newResult); this.result = newResult; }
+                    const minMultiplier = 1.2, maxMultiplier = 2.2;
+                    this.proteinRangePercent = ((finalMultiplier - minMultiplier) / (maxMultiplier - minMultiplier)) * 100;
+                    this.proteinRangePercent = Math.max(5, Math.min(95, this.proteinRangePercent));
+                    if (!isRefinement) {
+                        this.showResultTitle = false; this.showRange = false; this.showDistribution = false;
+                        setTimeout(() => this.showResultTitle = true, 50);
+                        setTimeout(() => this.showRange = true, 200);
+                        setTimeout(() => this.showDistribution = true, 350);
+                    }
+                },
+                animateResult(startValue, targetValue) {
+                    let start = startValue; const duration = 800; let startTimestamp = null;
+                    const easeOutCubic = t => (--t) * t * t + 1;
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                        this.animatedResult = Math.floor(easeOutCubic(progress) * (targetValue - start) + start);
+                        if (progress < 1) window.requestAnimationFrame(step);
+                        else this.animatedResult = targetValue;
+                    };
+                    window.requestAnimationFrame(step);
+                },
+            }))
+        })
+    </script>
+</body>
+</html>
