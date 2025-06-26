@@ -177,221 +177,209 @@
                         </div>
                         
                         <!-- Results Panel -->
-                        <div class="lg:col-span-2 relative min-h-[500px] lg:min-h-full">
-                            <div class="absolute inset-0 main-card p-6 md:p-8">
-                                <div class="relative h-full">
-                                    
-                                    <!-- Initial "Zero" State -->
-                                    <div x-show="!result" 
-                                         x-transition:leave="transition ease-in duration-200"
-                                         x-transition:leave-start="opacity-100"
-                                         x-transition:leave-end="opacity-0"
-                                         class="absolute inset-0 space-y-4 flex flex-col pb-4">
-                                        
-                                        <div class="text-center">
-                                            <h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2>
-                                            <div class="flex items-baseline justify-center space-x-2 mt-1">
-                                                <span class="text-7xl font-black text-gray-300" style="letter-spacing: -0.02em;">0</span>
-                                                <span class="text-2xl font-bold text-gray-300">grams</span>
-                                            </div>
+                        <div class="lg:col-span-2">
+                            <div class="main-card p-6 md:p-8 h-full flex flex-col">
+                                <!-- Initial "Zero" State -->
+                                <div x-show="!result" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="flex flex-col h-full space-y-4">
+                                    <div class="text-center">
+                                        <h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2>
+                                        <div class="flex items-baseline justify-center space-x-2 mt-1">
+                                            <span class="text-7xl font-black text-gray-300" style="letter-spacing: -0.02em;">0</span>
+                                            <span class="text-2xl font-bold text-gray-300">grams</span>
                                         </div>
-
-                                        <div>
-                                            <button type="button" class="flex items-center text-sm font-bold text-gray-400 cursor-default">
-                                                <span>Refine</span>
-                                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                                            </button>
-                                        </div>
-
-                                        <div>
-                                            <h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-2">Intake Range</h3>
-                                            <div class="relative h-2.5">
-                                                <div class="overflow-hidden h-full flex rounded-full bg-gray-200">
-                                                     <div class="bg-gray-300" style="width: 33.33%"></div>
-                                                     <div class="bg-gray-300" style="width: 33.33%; border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB;"></div>
-                                                     <div class="bg-gray-300" style="width: 33.33%"></div>
-                                                </div>
-                                                <div class="intake-range-marker" style="left: 50%;">
-                                                    <div class="w-4 h-4 rounded-full bg-white border-2 border-gray-400 shadow"></div>
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-between text-xs text-gray-400 mt-1 font-medium">
-                                                <span>Fat Loss</span><span>Maintenance</span><span>Muscle Gain</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex-grow flex flex-col">
-                                            <h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-3">Sample Distribution</h3>
-                                            <div class="space-y-4 flex-grow flex flex-col justify-around text-left">
-                                                <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Breakfast</p><p class="text-sm text-[var(--text-color-secondary)]">25% of daily intake</p></div></div>
-                                                <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Lunch</p><p class="text-sm text-[var(--text-color-secondary)]">35% of daily intake</p></div></div>
-                                                <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Dinner</p><p class="text-sm text-[var(--text-color-secondary)]">40% of daily intake</p></div></div>
-                                            </div>
-                                        </div>
-
-                                        <p class="text-[var(--text-color-secondary)] text-center text-sm pt-2">Complete the form to get your personalised protein intake.</p>
                                     </div>
+                                    <div>
+                                        <button type="button" class="flex items-center text-sm font-bold text-gray-400 cursor-default">
+                                            <span>Refine</span>
+                                            <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-2">Intake Range</h3>
+                                        <div class="relative h-2.5">
+                                            <div class="overflow-hidden h-full flex rounded-full bg-gray-200">
+                                                <div class="bg-gray-300" style="width: 33.33%"></div>
+                                                <div class="bg-gray-300" style="width: 33.33%; border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB;"></div>
+                                                <div class="bg-gray-300" style="width: 33.33%"></div>
+                                            </div>
+                                            <div class="intake-range-marker" style="left: 50%;">
+                                                <div class="w-4 h-4 rounded-full bg-white border-2 border-gray-400 shadow"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-400 mt-1 font-medium">
+                                            <span>Fat Loss</span><span>Maintenance</span><span>Muscle Gain</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow flex flex-col">
+                                        <h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-3">Sample Distribution</h3>
+                                        <div class="space-y-4 flex-grow flex flex-col justify-around text-left">
+                                            <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Breakfast</p><p class="text-sm text-[var(--text-color-secondary)]">25% of daily intake</p></div></div>
+                                            <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Lunch</p><p class="text-sm text-[var(--text-color-secondary)]">35% of daily intake</p></div></div>
+                                            <div class="flex items-center text-gray-500"><div class="bg-gray-200 text-gray-400 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Dinner</p><p class="text-sm text-[var(--text-color-secondary)]">40% of daily intake</p></div></div>
+                                        </div>
+                                    </div>
+                                    <p class="text-[var(--text-color-secondary)] text-center text-sm mt-auto pt-4">Complete the form to get your personalised protein intake.</p>
+                                </div>
 
-                                    <!-- Real Results -->
-                                    <div x-show="result" x-cloak class="absolute inset-0 space-y-6 flex flex-col">
-                                        <div x-show="showResultTitle" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2><div class="flex items-baseline space-x-2 mt-1"><span class="text-7xl font-black" style="letter-spacing: -0.02em;" x-text="Math.round(animatedResult)"></span><span class="text-2xl font-bold text-gray-400">grams</span></div></div>
-                                        <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><button type="button" @click="showRefine = !showRefine" class="flex items-center text-sm font-bold text-[var(--accent-color)] hover:text-[var(--accent-color-hover)]"><span x-text="showRefine ? 'Hide' : 'Refine'"></span><svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': showRefine}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></button>
-                                        <div x-show="showRefine" x-collapse class="mt-4 space-y-4">
-                                            <div class="form-group">
-                                                <div class="flex items-center gap-2">
-                                                    <label class="block text-sm form-label">Activity Fine-Tuning</label>
-                                                    <div @mouseenter="showActivityTooltip = true" @mouseleave="showActivityTooltip = false" class="relative">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                        <div x-show="showActivityTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10">
-                                                            Slide right if you are at the high end of your chosen activity level (e.g., more intense workouts).
-                                                        </div>
+                                <!-- Real Results -->
+                                <div x-show="result" x-cloak class="space-y-6 flex flex-col h-full">
+                                    <div x-show="showResultTitle" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2><div class="flex items-baseline space-x-2 mt-1"><span class="text-7xl font-black" style="letter-spacing: -0.02em;" x-text="Math.round(animatedResult)"></span><span class="text-2xl font-bold text-gray-400">grams</span></div></div>
+                                    <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><button type="button" @click="showRefine = !showRefine" class="flex items-center text-sm font-bold text-[var(--accent-color)] hover:text-[var(--accent-color-hover)]"><span x-text="showRefine ? 'Hide' : 'Refine'"></span><svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': showRefine}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+                                    <div x-show="showRefine" x-collapse="" class="mt-4 space-y-4" style="display: none;">
+                                        <div class="form-group">
+                                            <div class="flex items-center gap-2">
+                                                <label class="block text-sm form-label">Activity Fine-Tuning</label>
+                                                <div @mouseenter="showActivityTooltip = true" @mouseleave="showActivityTooltip = false" class="relative">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                    <div x-show="showActivityTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10" style="display: none;">
+                                                        Slide right if you are at the high end of your chosen activity level (e.g., more intense workouts).
                                                     </div>
                                                 </div>
-                                                <input type="range" min="0" max="100" x-model.number="activityRefine" @input="playHaptic('tick'); recalculateWithRefinements();">
                                             </div>
-                                            <div class="form-group">
-                                                <div class="flex items-center gap-2">
-                                                    <label class="block text-sm form-label">Goal Intensity</label>
-                                                     <div @mouseenter="showGoalTooltip = true" @mouseleave="showGoalTooltip = false" class="relative">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                        <div x-show="showGoalTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10">
-                                                            For Fat Loss or Muscle Gain, slide right for a more aggressive approach.
-                                                        </div>
+                                            <input type="range" min="0" max="100" x-model.number="activityRefine" @input="playHaptic('tick'); recalculateWithRefinements();">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="flex items-center gap-2">
+                                                <label class="block text-sm form-label">Goal Intensity</label>
+                                                 <div @mouseenter="showGoalTooltip = true" @mouseleave="showGoalTooltip = false" class="relative">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                    <div x-show="showGoalTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10" style="display: none;">
+                                                        For Fat Loss or Muscle Gain, slide right for a more aggressive approach.
                                                     </div>
                                                 </div>
-                                                <input type="range" min="0" max="100" x-model.number="goalRefine" @input="playHaptic('tick'); recalculateWithRefinements();">
                                             </div>
+                                            <input type="range" min="0" max="100" x-model.number="goalRefine" @input="playHaptic('tick'); recalculateWithRefinements();">
                                         </div>
                                     </div>
-                                        <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-2">Intake Range</h3><div class="relative h-2.5"><div class="overflow-hidden h-full flex rounded-full bg-blue-100"><div class="bg-[#4ADE80]" style="width: 33.33%"></div><div class="bg-[#FBBF24]" style="width: 33.33%"></div><div class="bg-[#F87171]" style="width: 33.33%"></div></div><div class="intake-range-marker" :style="`left: calc(${proteinRangePercent}%)`"><div class="w-4 h-4 rounded-full bg-white border-2 border-[var(--accent-color)] shadow-lg"></div></div></div><div class="flex justify-between text-xs text-gray-400 mt-1 font-medium"><span>Fat Loss</span><span>Maintenance</span><span>Muscle Gain</span></div></div>
-                                        <div x-show="showDistribution" x-transition:enter="transition ease-out duration-300 delay-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="flex-grow flex flex-col"><h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-3">Sample Distribution</h3><div class="space-y-4 flex-grow flex flex-col justify-around"><div class="flex items-center"><div class="bg-blue-100 text-blue-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Breakfast</p><p class="text-sm text-[var(--text-color-secondary)]">25% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.25) + 'g'"></span></div><div class="flex items-center"><div class="bg-green-100 text-green-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Lunch</p><p class="text-sm text-[var(--text-color-secondary)]">35% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.35) + 'g'"></span></div><div class="flex items-center"><div class="bg-purple-100 text-purple-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Dinner</p><p class="text-sm text-[var(--text-color-secondary)]">40% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.40) + 'g'"></span></div></div></div>
-                                    </div>
+                                </div>
+                                    <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-2">Intake Range</h3><div class="relative h-2.5"><div class="overflow-hidden h-full flex rounded-full bg-blue-100"><div class="bg-[#4ADE80]" style="width: 33.33%"></div><div class="bg-[#FBBF24]" style="width: 33.33%"></div><div class="bg-[#F87171]" style="width: 33.33%"></div></div><div class="intake-range-marker" :style="`left: calc(${proteinRangePercent}%)`"><div class="w-4 h-4 rounded-full bg-white border-2 border-[var(--accent-color)] shadow-lg"></div></div></div><div class="flex justify-between text-xs text-gray-400 mt-1 font-medium"><span>Fat Loss</span><span>Maintenance</span><span>Muscle Gain</span></div></div>
+                                    <div x-show="showDistribution" x-transition:enter="transition ease-out duration-300 delay-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="flex-grow flex flex-col"><h3 class="text-base font-bold text-[var(--text-color-secondary)] mb-3">Sample Distribution</h3><div class="space-y-4 flex-grow flex flex-col justify-around"><div class="flex items-center"><div class="bg-blue-100 text-blue-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Breakfast</p><p class="text-sm text-[var(--text-color-secondary)]">25% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.25) + 'g'"></span></div><div class="flex items-center"><div class="bg-green-100 text-green-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Lunch</p><p class="text-sm text-[var(--text-color-secondary)]">35% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.35) + 'g'"></span></div><div class="flex items-center"><div class="bg-purple-100 text-purple-600 rounded-lg p-2.5"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg></div><div class="ml-4 flex-grow"><p class="font-bold text-[var(--text-color-primary)]">Dinner</p><p class="text-sm text-[var(--text-color-secondary)]">40% of daily intake</p></div><span class="font-bold text-lg text-[var(--text-color-primary)]" x-text="Math.round(result * 0.40) + 'g'"></span></div></div></div>
                                 </div>
                             </div>
                         </div>
-                    </main>
-                </div>
-                
-                <!-- About Page -->
-                <div x-show="currentPage === 'about'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
-                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
-                        <h2>Our Methodology</h2>
-                        <p>We believe in transparency and accuracy. This calculator is designed to provide you with a well-informed estimate of your daily protein needs based on established scientific principles. It is not a substitute for professional medical advice, but it serves as a strong starting point for your nutritional journey.</p>
-                        
-                        <h3>The Core Formula</h3>
-                        <p>Our calculation begins by determining your protein requirements based on your body weight. The most common and widely accepted method for this is a grams-per-kilogram calculation. We use multipliers that adjust this base value according to your personal activity level and fitness goals.</p>
-                        <p class="text-center font-mono bg-gray-100 p-4 rounded-lg my-4 text-lg">Weight (kg) × Activity Multiplier × Goal Multiplier = Daily Protein (g)</p>
-
-                        <h3>Activity Level Multipliers</h3>
-                        <p>Your activity level significantly impacts your protein needs. Muscle tissue is broken down during exercise and requires protein to repair and grow back stronger. We use the following standard multipliers:</p>
-                        <ul>
-                            <li><b>Sedentary:</b> 1.2</li>
-                            <li><b>Lightly Active:</b> 1.375</li>
-                            <li><b>Moderately Active:</b> 1.55</li>
-                            <li><b>Very Active:</b> 1.725</li>
-                            <li><b>Extra Active:</b> 1.9</li>
-                        </ul>
-
-                        <h3>Goal-Based Adjustments</h3>
-                        <p>Your goal is another key factor. Whether you want to lose fat, build muscle, or maintain your current weight changes your protein requirements:</p>
-                        <ul>
-                            <li><b>Fat Loss:</b> Higher protein intake is beneficial during a calorie deficit. It helps preserve lean muscle mass and increases satiety, making it easier to stick to your diet. Our "Fat Loss" setting applies a positive multiplier.</li>
-                            <li><b>Muscle Gain:</b> To build new muscle tissue, your body needs a surplus of amino acids from protein. Our "Muscle Gain" setting applies the highest multiplier to support this growth.</li>
-                            <li><b>Maintenance:</b> This setting provides a balanced protein intake to maintain your current muscle mass and support overall health.</li>
-                        </ul>
-
-                        <h3>Refining Your Results</h3>
-                        <p>The "Refine" sliders for Activity and Goal allow you to make small adjustments to the calculation, acknowledging that broad categories don't fit everyone perfectly.</p>
-                        <ul>
-                            <li><b>Activity Fine-Tuning:</b> Think of this as a "low-end vs. high-end" adjustment. If you feel you're at the higher end of your selected activity level (e.g., you chose "Lightly Active" but do more than just light walking), you can slide this to the right for a slightly higher protein recommendation. If you're at the lower end, slide it left.</li>
-                            <li><b>Goal Intensity:</b> This slider adjusts how aggressively the calculation pursues your chosen goal. For "Fat Loss" or "Muscle Gain", sliding to the right will increase the protein multiplier for a more ambitious approach, while sliding left will make it more moderate. This slider has a smaller effect when your goal is "Maintenance".</li>
-                        </ul>
-                        <p class="mt-4"><b>Disclaimer:</b> This tool provides an estimate for educational purposes. For personalised medical or dietary advice, please consult with a qualified healthcare professional or registered dietitian.</p>
                     </div>
-                </div>
-                
-                <!-- Privacy Policy Page -->
-                 <div x-show="currentPage === 'privacy'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
-                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
-                        <h2>Privacy Policy</h2>
-                        <p>Your privacy is important to us. It is Protein-Calculator.co.uk's policy to respect your privacy regarding any information we may collect from you across our website.</p>
-                        
-                        <h3>Information We Collect</h3>
-                        <p><b>Data you provide:</b> The data you enter into the calculator (age, gender, weight, height, activity level, and goal) is used solely for the purpose of performing the calculation. This information is processed in your browser and is never stored on our servers or shared with any third party.</p>
-                        <p><b>Cookie Consent:</b> We use local storage in your browser to remember your choice on our cookie consent banner. This is to avoid showing you the banner on every visit after you have made a choice. The value stored is either 'true' (consent given) or 'false' (consent declined) and contains no personal information.</p>
-                        
-                        <h3>How We Use Information</h3>
-                        <p>The information entered into the calculator is used only for the immediate function of calculating your estimated protein needs. It is discarded as soon as you leave or refresh the page.</p>
-                        <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
-
-                        <h3>Your Consent</h3>
-                        <p>By using our site, you consent to our website's privacy policy.</p>
-
-                        <h3>Changes to our Privacy Policy</h3>
-                        <p>If we decide to change our privacy policy, we will post those changes on this page. This policy was last modified on 26th June 2025.</p>
-
-                        <h3>Contacting Us</h3>
-                        <p>If there are any questions regarding this privacy policy, you may <a href="#" @click.prevent="currentPage = 'contact'">contact us</a>.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Page -->
-                 <div x-show="currentPage === 'faq'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
-                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
-                        <h2>Frequently Asked Questions</h2>
-                        
-                        <h3>How often should I recalculate my protein needs?</h3>
-                        <p>It's a good idea to recalculate your protein needs whenever there's a significant change in one of the core factors. We recommend updating your calculation if:</p>
-                        <ul>
-                            <li>Your body weight changes by more than 5-10 lbs (or 2-5 kg).</li>
-                            <li>Your activity level changes (e.g., you start a new, more intensive workout program, or you become more sedentary).</li>
-                            <li>Your primary fitness goal changes (e.g., you switch from a muscle-gain phase to a fat-loss phase).</li>
-                        </ul>
-                        <p>Re-evaluating every 2-3 months is a good general guideline for most people who are actively training.</p>
-
-                        <h3>What are good sources of protein?</h3>
-                        <p>There are many excellent sources of protein, both from animal and plant-based sources. Here are some of the most popular and effective options:</p>
-                         <ul>
-                            <li><b>Animal-Based:</b> Chicken breast, turkey breast, lean beef, fish (like salmon and tuna), eggs, Greek yogurt, cottage cheese, and milk.</li>
-                            <li><b>Plant-Based:</b> Lentils, chickpeas, beans, tofu, edamame, quinoa, nuts, seeds, and seitan.</li>
-                            <li><b>Supplements:</b> Whey, casein, and plant-based (e.g., pea, soy, or rice) protein powders are a convenient way to supplement your intake, especially post-workout.</li>
-                        </ul>
-
-                        <h3>Why is protein so important for my goal?</h3>
-                        <p>Protein is a critical macronutrient that plays a different role depending on your goal:</p>
-                        <ul>
-                            <li><b>For Muscle Gain:</b> Protein provides the amino acids that are the building blocks of new muscle tissue. After a workout, your muscles are in a state of repair, and consuming adequate protein is essential for them to heal and grow larger and stronger.</li>
-                            <li><b>For Fat Loss:</b> A higher protein intake helps you feel fuller for longer, which can reduce overall calorie consumption. It also has a higher thermic effect of food (TEF), meaning your body burns more calories digesting it compared to fats and carbs. Most importantly, it helps preserve your existing lean muscle mass while you are in a calorie deficit, ensuring that the weight you lose is primarily from fat.</li>
-                            <li><b>For Maintenance:</b> Even if you're not trying to change your weight, a steady supply of protein is vital for countless bodily functions, including hormone production, immune system support, and the constant repair and turnover of cells throughout your body.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                 <!-- Contact Page -->
-                 <div x-show="currentPage === 'contact'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
-                    <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content text-center">
-                        <h2>Get In Touch</h2>
-                        <p class="max-w-2xl mx-auto">We'd love to hear from you! Whether you have a question about the calculator, a suggestion for a new feature, or have found a bug, your feedback is important to us.</p>
-                        <p class="max-w-2xl mx-auto mt-4">Please feel free to reach out to us at the email address below, and we will do our best to get back to you as soon as possible.</p>
-                        <h3 class="mt-8">
-                            <a href="mailto:hello@protein-calculator.co.uk" class="text-xl hover:text-blue-500">hello@protein-calculator.co.uk</a>
-                        </h3>
-                    </div>
-                </div>
-
+                </main>
             </div>
-            <footer class="text-center p-4 text-sm text-[var(--text-color-secondary)] border-t border-[var(--border-color)]">
-                <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p>&copy; 2025 Protein-Calculator.co.uk. All Rights Reserved.</p>
-                    <div class="flex gap-x-6">
-                        <a href="#" @click.prevent="currentPage = 'about'" class="hover:text-[var(--accent-color)] transition-colors">About / Methodology</a>
-                        <a href="#" @click.prevent="currentPage = 'privacy'" class="hover:text-[var(--accent-color)] transition-colors">Privacy Policy</a>
-                        <a href="#" @click.prevent="currentPage = 'faq'" class="hover:text-[var(--accent-color)] transition-colors">FAQ</a>
-                        <a href="#" @click.prevent="currentPage = 'contact'" class="hover:text-[var(--accent-color)] transition-colors">Contact</a>
-                    </div>
+            
+            <!-- About Page -->
+            <div x-show="currentPage === 'about'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                    <h2>Our Methodology</h2>
+                    <p>We believe in transparency and accuracy. This calculator is designed to provide you with a well-informed estimate of your daily protein needs based on established scientific principles. It is not a substitute for professional medical advice, but it serves as a strong starting point for your nutritional journey.</p>
+                    
+                    <h3>The Core Formula</h3>
+                    <p>Our calculation begins by determining your protein requirements based on your body weight. The most common and widely accepted method for this is a grams-per-kilogram calculation. We use multipliers that adjust this base value according to your personal activity level and fitness goals.</p>
+                    <p class="text-center font-mono bg-gray-100 p-4 rounded-lg my-4 text-lg">Weight (kg) × Activity Multiplier × Goal Multiplier = Daily Protein (g)</p>
+
+                    <h3>Activity Level Multipliers</h3>
+                    <p>Your activity level significantly impacts your protein needs. Muscle tissue is broken down during exercise and requires protein to repair and grow back stronger. We use the following standard multipliers:</p>
+                    <ul>
+                        <li><b>Sedentary:</b> 1.2</li>
+                        <li><b>Lightly Active:</b> 1.375</li>
+                        <li><b>Moderately Active:</b> 1.55</li>
+                        <li><b>Very Active:</b> 1.725</li>
+                        <li><b>Extra Active:</b> 1.9</li>
+                    </ul>
+
+                    <h3>Goal-Based Adjustments</h3>
+                    <p>Your goal is another key factor. Whether you want to lose fat, build muscle, or maintain your current weight changes your protein requirements:</p>
+                    <ul>
+                        <li><b>Fat Loss:</b> Higher protein intake is beneficial during a calorie deficit. It helps preserve lean muscle mass and increases satiety, making it easier to stick to your diet. Our "Fat Loss" setting applies a positive multiplier.</li>
+                        <li><b>Muscle Gain:</b> To build new muscle tissue, your body needs a surplus of amino acids from protein. Our "Muscle Gain" setting applies the highest multiplier to support this growth.</li>
+                        <li><b>Maintenance:</b> This setting provides a balanced protein intake to maintain your current muscle mass and support overall health.</li>
+                    </ul>
+
+                    <h3>Refining Your Results</h3>
+                    <p>The "Refine" sliders for Activity and Goal allow you to make small adjustments to the calculation, acknowledging that broad categories don't fit everyone perfectly.</p>
+                    <ul>
+                        <li><b>Activity Fine-Tuning:</b> Think of this as a "low-end vs. high-end" adjustment. If you feel you're at the higher end of your selected activity level (e.g., you chose "Lightly Active" but do more than just light walking), you can slide this to the right for a slightly higher protein recommendation. If you're at the lower end, slide it left.</li>
+                        <li><b>Goal Intensity:</b> This slider adjusts how aggressively the calculation pursues your chosen goal. For "Fat Loss" or "Muscle Gain", sliding to the right will increase the protein multiplier for a more ambitious approach, while sliding left will make it more moderate. This slider has a smaller effect when your goal is "Maintenance".</li>
+                    </ul>
+                    <p class="mt-4"><b>Disclaimer:</b> This tool provides an estimate for educational purposes. For personalised medical or dietary advice, please consult with a qualified healthcare professional or registered dietitian.</p>
                 </div>
-            </footer>
+            </div>
+            
+            <!-- Privacy Policy Page -->
+             <div x-show="currentPage === 'privacy'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                    <h2>Privacy Policy</h2>
+                    <p>Your privacy is important to us. It is Protein-Calculator.co.uk's policy to respect your privacy regarding any information we may collect from you across our website.</p>
+                    
+                    <h3>Information We Collect</h3>
+                    <p><b>Data you provide:</b> The data you enter into the calculator (age, gender, weight, height, activity level, and goal) is used solely for the purpose of performing the calculation. This information is processed in your browser and is never stored on our servers or shared with any third party.</p>
+                    <p><b>Cookie Consent:</b> We use local storage in your browser to remember your choice on our cookie consent banner. This is to avoid showing you the banner on every visit after you have made a choice. The value stored is either 'true' (consent given) or 'false' (consent declined) and contains no personal information.</p>
+                    
+                    <h3>How We Use Information</h3>
+                    <p>The information entered into the calculator is used only for the immediate function of calculating your estimated protein needs. It is discarded as soon as you leave or refresh the page.</p>
+                    <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
+
+                    <h3>Your Consent</h3>
+                    <p>By using our site, you consent to our website's privacy policy.</p>
+
+                    <h3>Changes to our Privacy Policy</h3>
+                    <p>If we decide to change our privacy policy, we will post those changes on this page. This policy was last modified on 26th June 2025.</p>
+
+                    <h3>Contacting Us</h3>
+                    <p>If there are any questions regarding this privacy policy, you may <a href="#" @click.prevent="currentPage = 'contact'">contact us</a>.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Page -->
+             <div x-show="currentPage === 'faq'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                    <h2>Frequently Asked Questions</h2>
+                    
+                    <h3>How often should I recalculate my protein needs?</h3>
+                    <p>It's a good idea to recalculate your protein needs whenever there's a significant change in one of the core factors. We recommend updating your calculation if:</p>
+                    <ul>
+                        <li>Your body weight changes by more than 5-10 lbs (or 2-5 kg).</li>
+                        <li>Your activity level changes (e.g., you start a new, more intensive workout program, or you become more sedentary).</li>
+                        <li>Your primary fitness goal changes (e.g., you switch from a muscle-gain phase to a fat-loss phase).</li>
+                    </ul>
+                    <p>Re-evaluating every 2-3 months is a good general guideline for most people who are actively training.</p>
+
+                    <h3>What are good sources of protein?</h3>
+                    <p>There are many excellent sources of protein, both from animal and plant-based sources. Here are some of the most popular and effective options:</p>
+                     <ul>
+                        <li><b>Animal-Based:</b> Chicken breast, turkey breast, lean beef, fish (like salmon and tuna), eggs, Greek yogurt, cottage cheese, and milk.</li>
+                        <li><b>Plant-Based:</b> Lentils, chickpeas, beans, tofu, edamame, quinoa, nuts, seeds, and seitan.</li>
+                        <li><b>Supplements:</b> Whey, casein, and plant-based (e.g., pea, soy, or rice) protein powders are a convenient way to supplement your intake, especially post-workout.</li>
+                    </ul>
+
+                    <h3>Why is protein so important for my goal?</h3>
+                    <p>Protein is a critical macronutrient that plays a different role depending on your goal:</p>
+                    <ul>
+                        <li><b>For Muscle Gain:</b> Protein provides the amino acids that are the building blocks of new muscle tissue. After a workout, your muscles are in a state of repair, and consuming adequate protein is essential for them to heal and grow larger and stronger.</li>
+                        <li><b>For Fat Loss:</b> A higher protein intake helps you feel fuller for longer, which can reduce overall calorie consumption. It also has a higher thermic effect of food (TEF), meaning your body burns more calories digesting it compared to fats and carbs. Most importantly, it helps preserve your existing lean muscle mass while you are in a calorie deficit, ensuring that the weight you lose is primarily from fat.</li>
+                        <li><b>For Maintenance:</b> Even if you're not trying to change your weight, a steady supply of protein is vital for countless bodily functions, including hormone production, immune system support, and the constant repair and turnover of cells throughout your body.</li>
+                    </ul>
+                </div>
+            </div>
+
+             <!-- Contact Page -->
+             <div x-show="currentPage === 'contact'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+                <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content text-center">
+                    <h2>Get In Touch</h2>
+                    <p class="max-w-2xl mx-auto">We'd love to hear from you! Whether you have a question about the calculator, a suggestion for a new feature, or have found a bug, your feedback is important to us.</p>
+                    <p class="max-w-2xl mx-auto mt-4">Please feel free to reach out to us at the email address below, and we will do our best to get back to you as soon as possible.</p>
+                    <h3 class="mt-8">
+                        <a href="mailto:hello@protein-calculator.co.uk" class="text-xl hover:text-blue-500">hello@protein-calculator.co.uk</a>
+                    </h3>
+                </div>
+            </div>
+
         </div>
+        <footer class="text-center p-4 text-sm text-[var(--text-color-secondary)] border-t border-[var(--border-color)]">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p>&copy; 2025 Protein-Calculator.co.uk. All Rights Reserved.</p>
+                <div class="flex gap-x-6">
+                    <a href="#" @click.prevent="currentPage = 'about'" class="hover:text-[var(--accent-color)] transition-colors">About / Methodology</a>
+                    <a href="#" @click.prevent="currentPage = 'privacy'" class="hover:text-[var(--accent-color)] transition-colors">Privacy Policy</a>
+                    <a href="#" @click.prevent="currentPage = 'faq'" class="hover:text-[var(--accent-color)] transition-colors">FAQ</a>
+                    <a href="#" @click.prevent="currentPage = 'contact'" class="hover:text-[var(--accent-color)] transition-colors">Contact</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
