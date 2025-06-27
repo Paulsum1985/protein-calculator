@@ -3,9 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein Calculator | Final Design</title>
+    <title>Protein Calculator UK | Calculate Your Daily Intake</title>
+    <meta name="description" content="Use our free UK protein calculator to determine your optimal daily protein intake for muscle gain, weight loss, or maintenance. Personalised results in seconds.">
 
-    <!-- Favicon Links -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Protein Calculator UK",
+      "url": "https://www.protein-calculator.co.uk",
+      "logo": "https://www.protein-calculator.co.uk/images/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@protein-calculator.co.uk",
+        "contactType": "Customer Support"
+      }
+    }
+    </script>
+
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -103,7 +118,7 @@
 
         .intake-range-marker { position: absolute; top: 50%; transform: translateY(-50%); left: -8px; height: 100%; display: flex; align-items: center; transition: all 0.5s ease-out; }
     
-        .page-content h2 {
+        .page-content h1, .page-content h2 {
             font-size: 1.875rem;
             font-weight: 800;
             color: var(--text-color-primary);
@@ -139,7 +154,6 @@
 <body class="antialiased">
     <div x-data="proteinCalculatorApp()">
         
-        <!-- Cookie Jar Banner -->
         <div x-show="cookieManager.showBanner" 
              x-transition:enter="transition-all ease-out duration-300"
              x-transition:enter-start="max-h-0 opacity-0"
@@ -164,12 +178,12 @@
             <div class="flex-grow container mx-auto px-4 pb-4">
                 <header class="text-center mt-6 mb-6">
                     <a href="#" @click.prevent="currentPage = 'home'" class="cursor-pointer">
-                        <img src="https://i.postimg.cc/Fs6sRhkX/pclogo.png" alt="Protein Calculator Logo" class="h-24 md:h-28 mx-auto" />
+                        <img src="https://i.postimg.cc/Fs6sRhkX/pclogo.png" alt="Protein Calculator UK Logo" class="h-24 md:h-28 mx-auto" />
                     </a>
-                    <p class="mt-3 text-sm text-[var(--text-color-secondary)] max-w-2xl mx-auto">Your personal guide to optimal protein intake.</p>
+                    <h1 class="text-3xl md:text-4xl font-black text-[var(--text-color-primary)] mt-4">Free UK Protein Intake Calculator</h1>
+                    <p class="mt-3 text-lg text-[var(--text-color-secondary)] max-w-2xl mx-auto">Your personal guide to optimal protein intake for your goals.</p>
                 </header>
                 
-                <!-- Page Content Area -->
                 <div x-show="currentPage === 'home'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                     <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
                         <div class="lg:col-span-3 transition-opacity duration-500" :class="{'opacity-50': result, 'opacity-100': !result}">
@@ -196,10 +210,8 @@
                             </div>
                         </div>
                         
-                        <!-- Results Panel -->
                         <div class="lg:col-span-2">
                             <div class="main-card p-6 md:p-8 h-full flex flex-col">
-                                <!-- Initial "Zero" State -->
                                 <div x-show="!result" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="flex flex-col h-full space-y-4">
                                     <div class="text-center">
                                         <h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2>
@@ -241,7 +253,6 @@
                                     <p class="text-[var(--text-color-secondary)] text-center text-sm mt-auto pt-4">Complete the form to get your personalised protein intake.</p>
                                 </div>
 
-                                <!-- Real Results -->
                                 <div x-show="result" x-cloak class="space-y-6 flex flex-col h-full">
                                     <div x-show="showResultTitle" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><h2 class="text-lg font-bold text-[var(--text-color-secondary)]">Your Optimal Daily Protein</h2><div class="flex items-baseline space-x-2 mt-1"><span class="text-7xl font-black" style="letter-spacing: -0.02em;" x-text="Math.round(animatedResult)"></span><span class="text-2xl font-bold text-gray-400">grams</span></div></div>
                                     <div x-show="showRange" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"><button type="button" @click="showRefine = !showRefine" class="flex items-center text-sm font-bold text-[var(--accent-color)] hover:text-[var(--accent-color-hover)]"><span x-text="showRefine ? 'Hide' : 'Refine'"></span><svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': showRefine}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
@@ -281,7 +292,6 @@
                 </main>
             </div>
             
-            <!-- About Page -->
             <div x-show="currentPage === 'about'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
                 <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
                     <h2>Our Methodology</h2>
@@ -319,8 +329,7 @@
                 </div>
             </div>
             
-            <!-- Privacy Policy Page -->
-             <div x-show="currentPage === 'privacy'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+            <div x-show="currentPage === 'privacy'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
                 <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
                     <h2>Privacy Policy</h2>
                     <p>Your privacy is important to us. It is Protein-Calculator.co.uk's policy to respect your privacy regarding any information we may collect from you across our website.</p>
@@ -344,9 +353,36 @@
                 </div>
             </div>
 
-            <!-- FAQ Page -->
-             <div x-show="currentPage === 'faq'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
+            <div x-show="currentPage === 'faq'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
                 <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
+                    <script type="application/ld+json">
+                    {
+                      "@context": "https://schema.org",
+                      "@type": "FAQPage",
+                      "mainEntity": [{
+                        "@type": "Question",
+                        "name": "How often should I recalculate my protein needs?",
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": "It's a good idea to recalculate your protein needs whenever there's a significant change in your body weight (more than 5-10 lbs or 2-5 kg), your activity level, or your primary fitness goal. Re-evaluating every 2-3 months is a good general guideline."
+                        }
+                      },{
+                        "@type": "Question",
+                        "name": "What are good sources of protein?",
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": "Excellent sources of protein include lean animal-based sources like chicken breast, fish, eggs, and Greek yogurt, as well as plant-based sources like lentils, chickpeas, tofu, and quinoa. Protein supplements like whey or plant-based powders are also a convenient option."
+                        }
+                      },{
+                        "@type": "Question",
+                        "name": "Why is protein so important for my goal?",
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": "For muscle gain, protein provides the building blocks for new muscle tissue. For fat loss, it helps preserve muscle mass and increases satiety, helping you feel fuller for longer. For maintenance, it's vital for countless bodily functions, including hormone production and immune support."
+                        }
+                      }]
+                    }
+                    </script>
                     <h2>Frequently Asked Questions</h2>
                     
                     <h3>How often should I recalculate my protein needs?</h3>
@@ -376,7 +412,6 @@
                 </div>
             </div>
 
-             <!-- Contact Page -->
              <div x-show="currentPage === 'contact'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
                 <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content text-center">
                     <h2>Get In Touch</h2>
