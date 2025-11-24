@@ -3,24 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein Calculator UK | Calculate Your Daily Intake</title>
-    <meta name="description" content="Use our free UK protein calculator to determine your optimal daily protein intake for muscle gain, weight loss, or maintenance. Personalised results in seconds.">
+    
+    <!-- PRIMARY SEO -->
+    <title>Protein Calculator: How Much Protein Do I Need?</title>
+    <meta name="description" content="Free Protein Calculator. Calculate exactly how many grams of protein you need per day for muscle gain, weight loss, or maintenance. Based on science.">
+    <meta name="keywords" content="protein calculator, how much protein do I need, protein intake calculator, calculate protein macros, daily protein requirement">
+    
+    <!-- CANONICAL URL (Prevents duplicate content issues) -->
+    <link rel="canonical" href="https://www.protein-calculator.co.uk" />
 
+    <!-- SCHEMA.ORG (Software Application Markup) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Protein Calculator UK",
+      "@type": "WebApplication",
+      "name": "Protein Calculator",
       "url": "https://www.protein-calculator.co.uk",
-      "logo": "https://www.protein-calculator.co.uk/images/logo.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "hello@protein-calculator.co.uk",
-        "contactType": "Customer Support"
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "description": "A free tool to calculate daily protein requirements based on body weight, age, and activity level.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Protein Calculator UK",
+        "logo": "https://www.protein-calculator.co.uk/images/logo.png"
       }
     }
     </script>
+    
+    <!-- FAQ Schema (Helps get Featured Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How much protein do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The recommended dietary allowance (RDA) is 0.8g per kg of body weight. However, for active individuals or those looking to build muscle, studies suggest 1.6g to 2.2g per kg of body weight."
+        }
+      },{
+        "@type": "Question",
+        "name": "Can I eat too much protein?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most healthy individuals, high protein intake is safe. However, extremely high intake (over 3g/kg) generally offers no additional benefit and those with pre-existing kidney conditions should consult a doctor."
+        }
+      }]
+    }
+    </script>
 
+    <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -118,11 +156,12 @@
 
         .intake-range-marker { position: absolute; top: 50%; transform: translateY(-50%); left: -8px; height: 100%; display: flex; align-items: center; transition: all 0.5s ease-out; }
     
-        .page-content h1, .page-content h2 {
+        .page-content h2 {
             font-size: 1.875rem;
             font-weight: 800;
             color: var(--text-color-primary);
             margin-bottom: 1rem;
+            margin-top: 1rem;
         }
         .page-content h3 {
             font-size: 1.25rem;
@@ -134,6 +173,7 @@
         .page-content p, .page-content ul {
             color: var(--text-color-secondary);
             line-height: 1.6;
+            margin-bottom: 1rem;
         }
         .page-content ul {
             list-style-position: inside;
@@ -149,7 +189,6 @@
             text-decoration: underline;
         }
         
-        /* Visually-hidden class for accessibility and SEO */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -161,6 +200,8 @@
             white-space: nowrap;
             border-width: 0;
         }
+        
+        html { scroll-behavior: smooth; }
 
     </style>
 </head>
@@ -190,15 +231,18 @@
         <div class="flex flex-col min-h-screen">
             <div class="flex-grow container mx-auto px-4 pb-4">
                 <header class="text-center mt-6 mb-6">
-                    <h1 class="sr-only">Free UK Protein Intake Calculator</h1>
-                    <a href="#" @click.prevent="currentPage = 'home'" class="cursor-pointer">
-                        <img src="https://i.postimg.cc/Fs6sRhkX/pclogo.png" alt="Protein Calculator UK Logo" class="h-24 md:h-28 mx-auto" />
+                    <a href="#" @click.prevent="currentPage = 'home'; window.scrollTo(0,0);" class="cursor-pointer block mb-2">
+                        <img src="https://i.postimg.cc/Fs6sRhkX/pclogo.png" alt="Protein Calculator Logo" class="h-24 md:h-28 mx-auto" />
                     </a>
-                    <p class="mt-3 text-sm text-[var(--text-color-secondary)] max-w-2xl mx-auto">Your personal guide to optimal protein intake.</p>
+                    <!-- SEO: Visible H1 matching the primary keyword -->
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-[var(--text-color-primary)]">How Much Protein Do I Need?</h1>
+                    <p class="mt-2 text-sm md:text-base text-[var(--text-color-secondary)] max-w-2xl mx-auto">Calculate your optimal daily protein intake for muscle gain or weight loss.</p>
                 </header>
                 
                 <div x-show="currentPage === 'home'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
-                    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    
+                    <!-- CALCULATOR SECTION -->
+                    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 items-start mb-16">
                         <div class="lg:col-span-3 transition-opacity duration-500" :class="{'opacity-50': result, 'opacity-100': !result}">
                             <div class="main-card p-6 md:p-8">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6">
@@ -213,8 +257,8 @@
                                     <div class="form-group"><label for="weight" class="block form-label mb-2">Weight <span class="font-medium text-gray-400" x-text="units === 'imperial' ? '(lbs)' : '(kg)'"></span></label><input type="number" id="weight" x-model.number="weight" placeholder="e.g., 150" class="form-input"></div>
                                     <template x-if="units === 'imperial'"><div class="grid grid-cols-2 gap-4 md:col-span-2"><div class="form-group"><label for="heightFt" class="block form-label mb-2">Height <span class="font-medium text-gray-400">(ft)</span></label><input type="number" id="heightFt" x-model.number="heightFt" placeholder="5" class="form-input"></div><div class="form-group"><label for="heightIn" class="block form-label mb-2"><span class="invisible">Inches</span><span class="font-medium text-gray-400">(in)</span></label><input type="number" id="heightIn" x-model.number="heightIn" placeholder="0" class="form-input"></div></div></template>
                                     <template x-if="units === 'metric'"><div class="md:col-span-2 form-group"><label for="heightCm" class="block form-label mb-2">Height <span class="font-medium text-gray-400">(cm)</span></label><input type="number" id="heightCm" x-model.number="heightCm" placeholder="e.g., 175" class="form-input"></div></template>
-                                    <div class="form-group"><label for="activity" class="block form-label mb-2">Activity Level</label><select id="activity" x-model="activityLevel" @change="setInitialRefineValues()" class="form-select"><option value="sedentary">Sedentary</option><option value="light">Lightly Active</option><option value="moderate">Moderately Active</option><option value="active">Very Active</option><option value="extra_active">Extra Active</option></select></div>
-                                    <div class="form-group"><label for="goal" class="block form-label mb-2">Goal</label><select id="goal" x-model="goal" @change="setInitialRefineValues()" class="form-select"><option value="fat_loss">Fat Loss</option><option value="maintenance">Maintenance</option><option value="muscle_gain">Muscle Gain</option></select></div>
+                                    <div class="form-group"><label for="activity" class="block form-label mb-2">Activity Level</label><select id="activity" x-model="activityLevel" @change="setInitialRefineValues()" class="form-select"><option value="sedentary">Sedentary (Little to no exercise)</option><option value="light">Lightly Active (1-3 days/week)</option><option value="moderate">Moderately Active (3-5 days/week)</option><option value="active">Very Active (6-7 days/week)</option><option value="extra_active">Extra Active (Physical job or 2x training)</option></select></div>
+                                    <div class="form-group"><label for="goal" class="block form-label mb-2">Goal</label><select id="goal" x-model="goal" @change="setInitialRefineValues()" class="form-select"><option value="fat_loss">Fat Loss (Cut)</option><option value="maintenance">Maintenance</option><option value="muscle_gain">Muscle Gain (Bulk)</option></select></div>
                                     <div class="md:col-span-2 pt-4 flex gap-4">
                                         <button type="button" @click="resetForm()" class="secondary-button w-1/3 font-bold py-4 px-4">Reset</button>
                                         <button type="button" @click="handleCalculation()" class="primary-button w-2/3 font-bold py-4 px-4 overflow-hidden"><span x-show="!isCalculating">Calculate My Needs</span><span x-show="isCalculating">Calculating...</span></button>
@@ -276,7 +320,7 @@
                                                 <div @mouseenter="showActivityTooltip = true" @mouseleave="showActivityTooltip = false" class="relative">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                     <div x-show="showActivityTooltip" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 z-10" style="display: none;">
-                                                        Slide right if you are at the high end of your chosen activity level (e.g., more intense workouts).
+                                                        Slide right if you are at the high end of your chosen activity level.
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,43 +346,65 @@
                             </div>
                         </div>
                     </main>
-                </div>
-            </div>
-            
-            <div x-show="currentPage === 'about'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
-                <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
-                    <h2>Our Methodology</h2>
-                    <p>We believe in transparency and accuracy. This calculator is designed to provide you with a well-informed estimate of your daily protein needs based on established scientific principles. It is not a substitute for professional medical advice, but it serves as a strong starting point for your nutritional journey.</p>
-                    
-                    <h3>The Core Formula</h3>
-                    <p>Our calculation begins by determining your protein requirements based on your body weight. The most common and widely accepted method for this is a grams-per-kilogram calculation. We use multipliers that adjust this base value according to your personal activity level and fitness goals.</p>
-                    <p class="text-center font-mono bg-gray-100 p-4 rounded-lg my-4 text-lg">Weight (kg) × Activity Multiplier × Goal Multiplier = Daily Protein (g)</p>
 
-                    <h3>Activity Level Multipliers</h3>
-                    <p>Your activity level significantly impacts your protein needs. Muscle tissue is broken down during exercise and requires protein to repair and grow back stronger. We use the following standard multipliers:</p>
-                    <ul>
-                        <li><b>Sedentary:</b> 1.2</li>
-                        <li><b>Lightly Active:</b> 1.375</li>
-                        <li><b>Moderately Active:</b> 1.55</li>
-                        <li><b>Very Active:</b> 1.725</li>
-                        <li><b>Extra Active:</b> 1.9</li>
-                    </ul>
+                    <!-- CONTENT SECTION (MERGED FOR SEO) -->
+                    <!-- This content is now visible on the landing page so Google indexes it properly -->
+                    <div id="methodology" class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content mb-8">
+                        <h2>Methodology: How We Calculate Protein</h2>
+                        <p>We believe in transparency and accuracy. This protein calculator is designed to provide you with a well-informed estimate of your daily protein needs based on established scientific principles.</p>
+                        
+                        <h3>The Core Formula</h3>
+                        <p>Our calculation begins by determining your protein requirements based on your body weight. The most common and widely accepted method for this is a grams-per-kilogram calculation. We use multipliers that adjust this base value according to your personal activity level and fitness goals.</p>
+                        <p class="text-center font-mono bg-gray-100 p-4 rounded-lg my-4 text-lg">Weight (kg) × Activity Multiplier × Goal Multiplier = Daily Protein (g)</p>
 
-                    <h3>Goal-Based Adjustments</h3>
-                    <p>Your goal is another key factor. Whether you want to lose fat, build muscle, or maintain your current weight changes your protein requirements:</p>
-                    <ul>
-                        <li><b>Fat Loss:</b> Higher protein intake is beneficial during a calorie deficit. It helps preserve lean muscle mass and increases satiety, making it easier to stick to your diet. Our "Fat Loss" setting applies a positive multiplier.</li>
-                        <li><b>Muscle Gain:</b> To build new muscle tissue, your body needs a surplus of amino acids from protein. Our "Muscle Gain" setting applies the highest multiplier to support this growth.</li>
-                        <li><b>Maintenance:</b> This setting provides a balanced protein intake to maintain your current muscle mass and support overall health.</li>
-                    </ul>
+                        <h3>Activity Level Multipliers</h3>
+                        <p>Your activity level significantly impacts your protein needs. Muscle tissue is broken down during exercise and requires protein to repair and grow back stronger. We use the following standard multipliers:</p>
+                        <ul>
+                            <li><b>Sedentary:</b> 1.2 (Standard RDA base)</li>
+                            <li><b>Lightly Active:</b> 1.375</li>
+                            <li><b>Moderately Active:</b> 1.55</li>
+                            <li><b>Very Active:</b> 1.725</li>
+                            <li><b>Extra Active:</b> 1.9</li>
+                        </ul>
 
-                    <h3>Refining Your Results</h3>
-                    <p>The "Refine" sliders for Activity and Goal allow you to make small adjustments to the calculation, acknowledging that broad categories don't fit everyone perfectly.</p>
-                    <ul>
-                        <li><b>Activity Fine-Tuning:</b> Think of this as a "low-end vs. high-end" adjustment. If you feel you're at the higher end of your selected activity level (e.g., you chose "Lightly Active" but do more than just light walking), you can slide this to the right for a slightly higher protein recommendation. If you're at the lower end, slide it left.</li>
-                        <li><b>Goal Intensity:</b> This slider adjusts how aggressively the calculation pursues your chosen goal. For "Fat Loss" or "Muscle Gain", sliding to the right will increase the protein multiplier for a more ambitious approach, while sliding left will make it more moderate. This slider has a smaller effect when your goal is "Maintenance".</li>
-                    </ul>
-                    <p class="mt-4"><b>Disclaimer:</b> This tool provides an estimate for educational purposes. For personalised medical or dietary advice, please consult with a qualified healthcare professional or registered dietitian.</p>
+                        <h3>Goal-Based Adjustments</h3>
+                        <p>Whether you want to lose fat, build muscle, or maintain your current weight changes your protein requirements:</p>
+                        <ul>
+                            <li><b>Fat Loss:</b> Higher protein intake is beneficial during a calorie deficit. It helps preserve lean muscle mass and increases satiety, making it easier to stick to your diet.</li>
+                            <li><b>Muscle Gain:</b> To build new muscle tissue (hypertrophy), your body needs a surplus of amino acids from protein.</li>
+                            <li><b>Maintenance:</b> This setting provides a balanced protein intake to maintain your current muscle mass and support overall health.</li>
+                        </ul>
+                    </div>
+
+                    <div id="faq" class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content mb-8">
+                        <h2>Frequently Asked Questions</h2>
+                        
+                        <h3>How much protein do I need per day?</h3>
+                        <p>The standard Recommended Dietary Allowance (RDA) is 0.8 grams per kilogram of body weight. However, this is the minimum to prevent deficiency. For active individuals, the International Society of Sports Nutrition recommends between 1.4 to 2.0 grams per kilogram for maintaining and building muscle.</p>
+
+                        <h3>How often should I recalculate my protein needs?</h3>
+                        <p>It's a good idea to recalculate your protein needs whenever there's a significant change in one of the core factors. We recommend updating your calculation if:</p>
+                        <ul>
+                            <li>Your body weight changes by more than 5-10 lbs (or 2-5 kg).</li>
+                            <li>Your activity level changes (e.g., you start a new, more intensive workout program).</li>
+                            <li>Your primary fitness goal changes (e.g., you switch from a muscle-gain phase to a fat-loss phase).</li>
+                        </ul>
+
+                        <h3>What are good sources of protein?</h3>
+                        <p>There are many excellent sources of protein, both from animal and plant-based sources. Here are some of the most popular and effective options:</p>
+                         <ul>
+                            <li><b>Animal-Based:</b> Chicken breast, turkey breast, lean beef, fish (like salmon and tuna), eggs, Greek yogurt, cottage cheese, and milk.</li>
+                            <li><b>Plant-Based:</b> Lentils, chickpeas, beans, tofu, edamame, quinoa, nuts, seeds, and seitan.</li>
+                        </ul>
+
+                        <h3>Why is protein so important for my goal?</h3>
+                        <p>Protein is a critical macronutrient that plays a different role depending on your goal:</p>
+                        <ul>
+                            <li><b>For Muscle Gain:</b> Protein provides the amino acids that are the building blocks of new muscle tissue.</li>
+                            <li><b>For Fat Loss:</b> A higher protein intake helps you feel fuller for longer and preserves muscle mass while you are in a calorie deficit.</li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
             
@@ -366,65 +432,6 @@
                 </div>
             </div>
 
-            <div x-show="currentPage === 'faq'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
-                <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content">
-                    <script type="application/ld+json">
-                    {
-                      "@context": "https://schema.org",
-                      "@type": "FAQPage",
-                      "mainEntity": [{
-                        "@type": "Question",
-                        "name": "How often should I recalculate my protein needs?",
-                        "acceptedAnswer": {
-                          "@type": "Answer",
-                          "text": "It's a good idea to recalculate your protein needs whenever there's a significant change in your body weight (more than 5-10 lbs or 2-5 kg), your activity level, or your primary fitness goal. Re-evaluating every 2-3 months is a good general guideline."
-                        }
-                      },{
-                        "@type": "Question",
-                        "name": "What are good sources of protein?",
-                        "acceptedAnswer": {
-                          "@type": "Answer",
-                          "text": "Excellent sources of protein include lean animal-based sources like chicken breast, fish, eggs, and Greek yogurt, as well as plant-based sources like lentils, chickpeas, tofu, and quinoa. Protein supplements like whey or plant-based powders are also a convenient option."
-                        }
-                      },{
-                        "@type": "Question",
-                        "name": "Why is protein so important for my goal?",
-                        "acceptedAnswer": {
-                          "@type": "Answer",
-                          "text": "For muscle gain, protein provides the building blocks for new muscle tissue. For fat loss, it helps preserve muscle mass and increases satiety, helping you feel fuller for longer. For maintenance, it's vital for countless bodily functions, including hormone production and immune support."
-                        }
-                      }]
-                    }
-                    </script>
-                    <h2>Frequently Asked Questions</h2>
-                    
-                    <h3>How often should I recalculate my protein needs?</h3>
-                    <p>It's a good idea to recalculate your protein needs whenever there's a significant change in one of the core factors. We recommend updating your calculation if:</p>
-                    <ul>
-                        <li>Your body weight changes by more than 5-10 lbs (or 2-5 kg).</li>
-                        <li>Your activity level changes (e.g., you start a new, more intensive workout program, or you become more sedentary).</li>
-                        <li>Your primary fitness goal changes (e.g., you switch from a muscle-gain phase to a fat-loss phase).</li>
-                    </ul>
-                    <p>Re-evaluating every 2-3 months is a good general guideline for most people who are actively training.</p>
-
-                    <h3>What are good sources of protein?</h3>
-                    <p>There are many excellent sources of protein, both from animal and plant-based sources. Here are some of the most popular and effective options:</p>
-                     <ul>
-                        <li><b>Animal-Based:</b> Chicken breast, turkey breast, lean beef, fish (like salmon and tuna), eggs, Greek yogurt, cottage cheese, and milk.</li>
-                        <li><b>Plant-Based:</b> Lentils, chickpeas, beans, tofu, edamame, quinoa, nuts, seeds, and seitan.</li>
-                        <li><b>Supplements:</b> Whey, casein, and plant-based (e.g., pea, soy, or rice) protein powders are a convenient way to supplement your intake, especially post-workout.</li>
-                    </ul>
-
-                    <h3>Why is protein so important for my goal?</h3>
-                    <p>Protein is a critical macronutrient that plays a different role depending on your goal:</p>
-                    <ul>
-                        <li><b>For Muscle Gain:</b> Protein provides the amino acids that are the building blocks of new muscle tissue. After a workout, your muscles are in a state of repair, and consuming adequate protein is essential for them to heal and grow larger and stronger.</li>
-                        <li><b>For Fat Loss:</b> A higher protein intake helps you feel fuller for longer, which can reduce overall calorie consumption. It also has a higher thermic effect of food (TEF), meaning your body burns more calories digesting it compared to fats and carbs. Most importantly, it helps preserve your existing lean muscle mass while you are in a calorie deficit, ensuring that the weight you lose is primarily from fat.</li>
-                        <li><b>For Maintenance:</b> Even if you're not trying to change your weight, a steady supply of protein is vital for countless bodily functions, including hormone production, immune system support, and the constant repair and turnover of cells throughout your body.</li>
-                    </ul>
-                </div>
-            </div>
-
              <div x-show="currentPage === 'contact'" x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak>
                 <div class="max-w-4xl mx-auto main-card p-6 md:p-10 page-content text-center">
                     <h2>Get In Touch</h2>
@@ -441,9 +448,9 @@
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>&copy; 2025 Protein-Calculator.co.uk. All Rights Reserved.</p>
                 <div class="flex gap-x-6">
-                    <a href="#" @click.prevent="currentPage = 'about'" class="hover:text-[var(--accent-color)] transition-colors">About / Methodology</a>
+                    <a href="#methodology" @click.prevent="currentPage = 'home'; setTimeout(() => document.getElementById('methodology').scrollIntoView(), 100)" class="hover:text-[var(--accent-color)] transition-colors">Methodology</a>
                     <a href="#" @click.prevent="currentPage = 'privacy'" class="hover:text-[var(--accent-color)] transition-colors">Privacy Policy</a>
-                    <a href="#" @click.prevent="currentPage = 'faq'" class="hover:text-[var(--accent-color)] transition-colors">FAQ</a>
+                    <a href="#faq" @click.prevent="currentPage = 'home'; setTimeout(() => document.getElementById('faq').scrollIntoView(), 100)" class="hover:text-[var(--accent-color)] transition-colors">FAQ</a>
                     <a href="#" @click.prevent="currentPage = 'contact'" class="hover:text-[var(--accent-color)] transition-colors">Contact</a>
                 </div>
             </div>
